@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpManagement", "EmpManagement\EmpManagement.csproj", "{BECA643D-6ED9-4E67-A3AC-55EEBC2B58FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C6320805-9173-4F55-A006-04DDD52521FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BECA643D-6ED9-4E67-A3AC-55EEBC2B58FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECA643D-6ED9-4E67-A3AC-55EEBC2B58FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECA643D-6ED9-4E67-A3AC-55EEBC2B58FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECA643D-6ED9-4E67-A3AC-55EEBC2B58FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FEB41DEF-C6B4-485E-A195-6C370BE1EC92}
+	EndGlobalSection
+EndGlobal
