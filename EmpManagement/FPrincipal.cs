@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 
 namespace EmpManagement
 {
@@ -67,7 +70,12 @@ namespace EmpManagement
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            switch (e.Node.Text)
+            {
+                case "Directorio Empleados":
+                    AbrirFormulario<Directorio>();
+                    break;
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -109,5 +117,53 @@ namespace EmpManagement
             conexion.cerrar();
 
         }
+
+
+        private void pictureBox4_Click_1(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            pictureBox4.Visible = false;
+            pictureBox5.Visible = true;
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            pictureBox5.Visible = false;
+            pictureBox4.Visible = true;
+        }
+
+        private void panelBarraTitulo_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        //METODO PARA ABRIR FORMULARIOS DENTRO DEL PANEL
+        private void AbrirFormulario<MiForm>() where MiForm : Form, new()
+        {
+            Form formulario;
+            formulario =panelFormularios.Controls.OfType<MiForm>().FirstOrDefault();//Busca en la colecion el formulario
+            //si el formulario/instancia no existe
+            if (formulario == null)
+            {
+                formulario = new MiForm();
+                formulario.TopLevel = false;
+                //formulario.FormBorderStyle = FormBorderStyle.None;
+                formulario.Dock = DockStyle.Fill;
+                panelFormularios.Controls.Add(formulario);
+                panelFormularios.Tag = formulario;
+                formulario.Show();
+                formulario.BringToFront();
+                //formulario.FormClosed += new FormClosedEventHandler(CloseForms);
+            }
+            //si el formulario/instancia existe
+            else
+            {
+                formulario.BringToFront();
+            }
+        }
+
+   
+
     }
 }

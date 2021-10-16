@@ -10,7 +10,7 @@ namespace EmpManagement
 {
     class conexionbd
     {
-        string cadena = "Data Source=192.168.0.11,1433;Initial Catalog=att;User ID=conexionrh;Password=3530c9b32D";
+        string cadena = "Data Source=192.168.0.11,1433;Initial Catalog=datosrh;User ID=conexionrh;Password=3530c9b32D";
         public SqlConnection con = new SqlConnection();
         public conexionbd()
         {
