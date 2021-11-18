@@ -30,10 +30,11 @@ namespace EmpManagement
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Directorio Empleados");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Semanal");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Quincenal");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Mensual");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Conexión Reloj");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Semanal");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Quincenal");
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Marcaciones");
             System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Reporte Tiempos", new System.Windows.Forms.TreeNode[] {
             treeNode2,
@@ -46,26 +47,40 @@ namespace EmpManagement
             treeNode7,
             treeNode8});
             System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Contratos");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Recursos Humanos", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Capacitación");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Recursos Humanos", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode6,
             treeNode9,
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Rol de Turnos");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Planta", new System.Windows.Forms.TreeNode[] {
-            treeNode12});
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("No Calidades");
+            treeNode10,
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("No Calidades");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Tiempos");
             System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Calidad", new System.Windows.Forms.TreeNode[] {
-            treeNode14});
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Logistica y Compras");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Compañía Plástica Internacional", new System.Windows.Forms.TreeNode[] {
-            treeNode11,
             treeNode13,
-            treeNode15,
+            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Tiempos");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Logística y Compras", new System.Windows.Forms.TreeNode[] {
             treeNode16});
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Tiempos");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Planta", new System.Windows.Forms.TreeNode[] {
+            treeNode18});
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Rol de Turnos Actual");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Diseño Rol de Turnos");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Tiempos");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Producción", new System.Windows.Forms.TreeNode[] {
+            treeNode20,
+            treeNode21,
+            treeNode22});
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Compañía Plástica Internacional", new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode15,
+            treeNode17,
+            treeNode19,
+            treeNode23});
             this.PanelContenedor = new System.Windows.Forms.Panel();
             this.panelFormularios = new System.Windows.Forms.Panel();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -76,6 +91,8 @@ namespace EmpManagement
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.PanelContenedor.SuspendLayout();
+            this.panelFormularios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelBarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -99,12 +116,25 @@ namespace EmpManagement
             // 
             // panelFormularios
             // 
+            this.panelFormularios.Controls.Add(this.pictureBox6);
             this.panelFormularios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelFormularios.Location = new System.Drawing.Point(240, 59);
             this.panelFormularios.Name = "panelFormularios";
             this.panelFormularios.Size = new System.Drawing.Size(960, 641);
             this.panelFormularios.TabIndex = 2;
-            this.panelFormularios.Paint += new System.Windows.Forms.PaintEventHandler(this.panelFormularios_Paint);
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(104, 64);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(706, 522);
+            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox6.TabIndex = 0;
+            this.pictureBox6.TabStop = false;
             // 
             // panel1
             // 
@@ -129,12 +159,12 @@ namespace EmpManagement
             this.treeView1.Name = "treeView1";
             treeNode1.Name = "Node4";
             treeNode1.Text = "Directorio Empleados";
-            treeNode2.Name = "Node8";
-            treeNode2.Text = "Semanal";
-            treeNode3.Name = "Node9";
-            treeNode3.Text = "Quincenal";
-            treeNode4.Name = "Node11";
-            treeNode4.Text = "Mensual";
+            treeNode2.Name = "Node23";
+            treeNode2.Text = "Conexión Reloj";
+            treeNode3.Name = "Node8";
+            treeNode3.Text = "Semanal";
+            treeNode4.Name = "Node9";
+            treeNode4.Text = "Quincenal";
             treeNode5.Name = "Node12";
             treeNode5.Text = "Marcaciones";
             treeNode6.Name = "Node5";
@@ -147,27 +177,41 @@ namespace EmpManagement
             treeNode9.Text = "Recepción";
             treeNode10.Name = "Node14";
             treeNode10.Text = "Contratos";
-            treeNode11.Name = "Node1";
-            treeNode11.Text = "Recursos Humanos";
-            treeNode12.Name = "Node16";
-            treeNode12.Text = "Rol de Turnos";
-            treeNode13.Name = "Node2";
-            treeNode13.Text = "Planta";
-            treeNode14.Name = "Node15";
-            treeNode14.Text = "No Calidades";
+            treeNode11.Name = "Node24";
+            treeNode11.Text = "Capacitación";
+            treeNode12.Name = "Node1";
+            treeNode12.Text = "Recursos Humanos";
+            treeNode13.Name = "Node15";
+            treeNode13.Text = "No Calidades";
+            treeNode14.Name = "Node18";
+            treeNode14.Text = "Tiempos";
             treeNode15.Name = "Node3";
             treeNode15.Text = "Calidad";
-            treeNode16.Name = "Node10";
-            treeNode16.Text = "Logistica y Compras";
-            treeNode17.Name = "Node0";
-            treeNode17.Text = "Compañía Plástica Internacional";
+            treeNode16.Name = "Node19";
+            treeNode16.Text = "Tiempos";
+            treeNode17.Name = "Node10";
+            treeNode17.Text = "Logística y Compras";
+            treeNode18.Name = "Node20";
+            treeNode18.Text = "Tiempos";
+            treeNode19.Name = "Node17";
+            treeNode19.Text = "Planta";
+            treeNode20.Name = "Node22";
+            treeNode20.Text = "Rol de Turnos Actual";
+            treeNode21.Name = "Node16";
+            treeNode21.Text = "Diseño Rol de Turnos";
+            treeNode22.Name = "Node21";
+            treeNode22.Text = "Tiempos";
+            treeNode23.Name = "Node2";
+            treeNode23.Text = "Producción";
+            treeNode24.Name = "Node0";
+            treeNode24.Text = "Compañía Plástica Internacional";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode17});
+            treeNode24});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.ShowLines = false;
             this.treeView1.Size = new System.Drawing.Size(240, 641);
             this.treeView1.TabIndex = 0;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             // 
             // imageList1
             // 
@@ -178,7 +222,7 @@ namespace EmpManagement
             // 
             // panelBarraTitulo
             // 
-            this.panelBarraTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(224)))), ((int)(((byte)(136)))));
+            this.panelBarraTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(180)))), ((int)(((byte)(145)))));
             this.panelBarraTitulo.Controls.Add(this.pictureBox4);
             this.panelBarraTitulo.Controls.Add(this.pictureBox5);
             this.panelBarraTitulo.Controls.Add(this.pictureBox3);
@@ -189,7 +233,6 @@ namespace EmpManagement
             this.panelBarraTitulo.Name = "panelBarraTitulo";
             this.panelBarraTitulo.Size = new System.Drawing.Size(1200, 59);
             this.panelBarraTitulo.TabIndex = 0;
-            this.panelBarraTitulo.Paint += new System.Windows.Forms.PaintEventHandler(this.panelBarraTitulo_Paint);
             this.panelBarraTitulo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelBarraTitulo_MouseMove);
             // 
             // pictureBox4
@@ -247,9 +290,9 @@ namespace EmpManagement
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(12, 6);
+            this.pictureBox2.Location = new System.Drawing.Point(12, 1);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(150, 47);
+            this.pictureBox2.Size = new System.Drawing.Size(180, 56);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
@@ -262,12 +305,15 @@ namespace EmpManagement
             this.ClientSize = new System.Drawing.Size(1200, 700);
             this.Controls.Add(this.PanelContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(680, 500);
             this.Name = "FPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menú Principal";
             this.Load += new System.EventHandler(this.FPrincipal_Load);
             this.PanelContenedor.ResumeLayout(false);
+            this.panelFormularios.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panelBarraTitulo.ResumeLayout(false);
             this.panelBarraTitulo.PerformLayout();
@@ -293,5 +339,6 @@ namespace EmpManagement
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox6;
     }
 }

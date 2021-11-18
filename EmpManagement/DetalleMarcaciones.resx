@@ -57,33 +57,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripDropDownButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPSSURBVFhHtZc7TxtBEMet5FMk+QahCgqCpIlAKOKNAFFR
-        8GhtHuILUCWFBRUp+AJ2KtIgQEKY2D00+IF52W1iqJJIUIA381t2L3fnO2NbZKS/bm935j+zu7Ozd5FG
-        ZHJy8vnIyMjroaGhZcHm4OBgfnh4+I9AgYGBgd+m7xs68mzDxpi3LpAI4Tsh3BAH5e7u7jvrNAzooCvt
-        DUFXy4HIjF8KQVxQgbgVSCA/5RkfGxt7YWgbE5l1hyAjxlU3YYuA47vwtRv6+iKKHyXyoo+kBqLnQZCO
-        DwVBj3ETLELU0YhzMDU1pebm5jRoB+n4Idx5fBh3XpHBV6KU9hsB/yzHx8dVOp1W19fXGrTpC9P3IY0v
-        4/ZBVlZWnskACVdjAJFkspqennaIcXZ8fKys0KbPjs/MzGgb2kGcgjg+jftIZHR09L101mQ7BBBtbW2p
-        k5MTNT8/r/tjsZgqlUrGvdJt+hhbXFxUZ2dn2iYsCFkBTkeXdm5mz5n1KLmd393daUfn5+dqf39fXV1d
-        qWq1qvsQ2vSlUiknMGzqBSF963oV5KVNIqJw+BX0UhaLRU3YiuTzeWfr/Pz9/f0lebaR+cthFQ5DltS9
-        3MjNzY06OjpSiURCJZNJ3b69vTWjD3J6eqq3Jcg5wKeMRQlgM0gBWGOW1kqlUlHxeFxNTEywlxq0V1dX
-        9ZiVnZ0dD0cIEhw/LpGaQbIaMAtLzMxxLpePh5g2fYyhg2CDreVxc1vgO8JN5u6EjMLC2c5ms3r57+/v
-        Nenh4aGebdCs6GMMHQQbbOGAC06/Hb5JQk8nSlQ393JaYc9Zcr+NBbbb29tG+5/ABWdQ4E0FQMI9eQDN
-        bAHZ/tgWoINQG+wWZDKZwC3o7e391VQSctTI9rAkXFtbc44jd8TCwkLdJBSbXEPHkOpnhWDsMWQc0Ma5
-        e9v29vY8HCFIPFqImMXl5aWhfRBbiNhvEFSIsFlaWgoNwClE8vLfSjGX0uzsbGAQTilu5jK6uLjQFY6l
-        9l9G7Pnu7q4qFAq6r+HLCJGXd7IKXJF+JScIZsO9QB+J6b4fyuWyc1VHo1GVy+XqOu/r6/shH72d2jli
-        VqHuBwnbQRuQ1WEfJNQJbsAw54bzkzN7K3yGy8BBiIGHDGfuTzLOufuo+fXdkABToZ/pYtQeVhf8oLBQ
-        3QDtIJ0AZPFh3AWLKPU0EoSdpUWQjg84/2Dc1BfZjrdiEPiF3AKq4vhAON8Y+sbkqX7NxPnnpn/NrEgm
-        81fcKSTrQtbsz+kXbOEwdK2LCYTf86iQJ02OeH7P5VmQ8a/yjAka/D2PRP4CBaW4zg9nqrAAAAAASUVO
-        RK5CYII=
-</value>
-  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAACEAAAAhAAAAAAAAAAAA

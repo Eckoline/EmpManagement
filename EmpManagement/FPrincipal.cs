@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 
 namespace EmpManagement
@@ -68,21 +69,6 @@ namespace EmpManagement
             ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            switch (e.Node.Text)
-            {
-                case "Directorio Empleados":
-                    AbrirFormulario<Directorio>();
-                    break;
-            }
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void pictureBox1_Click_1(object sender, EventArgs e)
         {
             Application.Exit();
@@ -104,18 +90,9 @@ namespace EmpManagement
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
-        private void panelFormularios_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void FPrincipal_Load(object sender, EventArgs e)
         {
             SetTreeViewTheme(treeView1.Handle);
-            conexionbd conexion = new conexionbd();
-            conexion.abrir();
-            conexion.cerrar();
-
         }
 
 
@@ -133,13 +110,8 @@ namespace EmpManagement
             pictureBox4.Visible = true;
         }
 
-        private void panelBarraTitulo_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         //METODO PARA ABRIR FORMULARIOS DENTRO DEL PANEL
-        private void AbrirFormulario<MiForm>() where MiForm : Form, new()
+        public void AbrirFormulario<MiForm>() where MiForm : Form, new()
         {
             Form formulario;
             formulario =panelFormularios.Controls.OfType<MiForm>().FirstOrDefault();//Busca en la colecion el formulario
@@ -163,7 +135,52 @@ namespace EmpManagement
             }
         }
 
-   
+        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            switch (e.Node.Text)
+            {
+                case "Directorio Empleados":
+                    AbrirFormulario<Directorio>();
+                    break;
+                case "Marcaciones":
+                    AbrirFormulario<Marcaciones>();
+                    break;
+                case "Semanal":
+                    AbrirFormulario<ReporteSemanal>();
+                    break;
+                case "Quincenal":
+                    AbrirFormulario<ReporteQuincenal>();
+                    break;
+                case "Gafete":
+                    AbrirFormulario<Gafete>();
+                    break;
+                case "Cumpleañeros":
+                    AbrirFormulario<Cumple>();
+                    break;
+                case "Diseño Rol de Turnos":
+                    //AbrirFormulario<RolTurnos>();
+                    Form existe = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "RolTurnos").SingleOrDefault<Form>();
+                    if (existe != null)
+                    {
+                        MessageBox.Show("El Formulario ya se encuentra esta abierto");
+                    }
+                    else
+                    {
+                        RolTurnos frmrolturnos = new RolTurnos();
+                        frmrolturnos.Select();
+                        frmrolturnos.Show();
+                        this.WindowState = FormWindowState.Minimized;
+                        this.WindowState = FormWindowState.Normal;
+                        this.SendToBack();
 
+                    }
+                    break;
+                case "Rol de Turnos Actual": 
+                   break;
+                case "Conexión Reloj":
+                    AbrirFormulario<AdminReloj>();
+                    break;
+            }
+        }
     }
 }
