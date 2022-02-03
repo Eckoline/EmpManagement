@@ -48,7 +48,7 @@ namespace EmpManagement
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(939, 582);
+            this.groupBox1.Size = new System.Drawing.Size(484, 438);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos";
@@ -57,14 +57,18 @@ namespace EmpManagement
             // 
             this.dataGridViewDatos.AllowUserToAddRows = false;
             this.dataGridViewDatos.AllowUserToDeleteRows = false;
-            this.dataGridViewDatos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewDatos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDatos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewDatos.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dataGridViewDatos.Location = new System.Drawing.Point(3, 19);
             this.dataGridViewDatos.Name = "dataGridViewDatos";
+            this.dataGridViewDatos.ReadOnly = true;
             this.dataGridViewDatos.RowTemplate.Height = 25;
-            this.dataGridViewDatos.Size = new System.Drawing.Size(933, 560);
-            this.dataGridViewDatos.TabIndex = 0;
+            this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDatos.Size = new System.Drawing.Size(478, 416);
+            this.dataGridViewDatos.TabIndex = 1;
+            this.dataGridViewDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewDatos_CellFormatting);
             // 
             // panel1
             // 
@@ -73,7 +77,7 @@ namespace EmpManagement
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(939, 605);
+            this.panel1.Size = new System.Drawing.Size(484, 461);
             this.panel1.TabIndex = 11;
             // 
             // panel3
@@ -82,7 +86,7 @@ namespace EmpManagement
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 23);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(939, 582);
+            this.panel3.Size = new System.Drawing.Size(484, 438);
             this.panel3.TabIndex = 2;
             // 
             // panel2
@@ -91,7 +95,7 @@ namespace EmpManagement
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(939, 23);
+            this.panel2.Size = new System.Drawing.Size(484, 23);
             this.panel2.TabIndex = 1;
             // 
             // label1
@@ -101,7 +105,7 @@ namespace EmpManagement
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(939, 23);
+            this.label1.Size = new System.Drawing.Size(484, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Cumpleañeros del mes";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -110,7 +114,7 @@ namespace EmpManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 605);
+            this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Cumple";
@@ -128,10 +132,10 @@ namespace EmpManagement
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridViewDatos;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridViewDatos;
     }
 }

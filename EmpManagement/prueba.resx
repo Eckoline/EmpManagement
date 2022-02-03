@@ -57,31 +57,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="toolStripButton2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPQSURBVFhHtZc7TxtBEMet5FMk+QahCgoC0kSisHgjQFQU
-        PFqbh/gCVElhQUUKvoBJRRoESAgTu4cGPzAvu00MVRIJCuPN/Jbdy935ztgWGemv29ud+c/s7uzsXaQZ
-        mZqaejk6Ovp2eHh4RbA9NDSUHxkZ+SNQYHBw8Lfp+4aOPDuwMebtCyRC2CuEm+KgHI1Gq9ZpGNBBV9qb
-        gp62A5EZvxaChKACcTuQQH7KMzE+Pv7K0DYnMusuQUaMa27CNgHHd+HrNPSNRRSjEnnRR1IH0fMgSMeH
-        gqDPuAkWIepqxjmYnp5W8/PzGrSDdPwQ7jw+jDuvyOAbUUr7jYB/lhMTEyqdTqvb21sN2vSF6fuQxpdx
-        +yirq6svZICEqzOASDJZzczMOMQ4Oz09VVZo02fHZ2dntQ3tIE5BAp/GfSQyNjb2QTrrsh0CiHZ2dtTZ
-        2ZlaWFjQ/fF4XJVKJeNe6TZ9jC0tLamLiwttExaErACno0c7N7PnzHqU3M6r1ap2dHl5qQ4PD9XNzY2q
-        1Wq6D6FNXyqVcgLDplEQ0rehV0FeOiQiCodfQS9lsVjUhO1IPp93ts7PPzAwUJJnB5m/ElbhMGRJ3cuN
-        3N3dqZOTE5VMJtXW1pZu39/fm9FHOT8/19sS5BzgU8ZiBLAdpACsMUtrpVKpqEQioSYnJ9lLDdpra2t6
-        zMre3p6HIwRJjh+XSN0gWQ2YhSVm5jiXy8dDTJs+xtBBsMHW8ri5LfAd4SZzd0JGYeFsZ7NZvfwPDw+a
-        9Pj4WM82aFb0MYYOgg22cMAFp98O3yShpxMlqpt7Oa2w5yy538YC293dXaP9T+CCMyjwlgIg4Z49gFa2
-        gGx/agvQQagNdgsymUzgFshJ+NVSEnLUyPawJFxfX3eOI3fE4uJiwyQUm1xTx5DqZ4Vg7DFkHNDGuXvb
-        Dg4OPBwhSD5ZiJjF9fW1oX0UW4jYbxBUiLBZXl4ODcApRPLy30oxl9Lc3FxgEE4pbuUyurq60hWOpfZf
-        Ruz5/v6+KhQKuq/pywiRl15ZBa5Iv5ITBLPhXqCPxHTfD+Vy2bmqY7GYyuVyDZ339/f/kI/ebu0cMavQ
-        8IOE7aANyOqwDxLqBDdgmHPD+cmZvRU+w2XgKMTAQ4Yz9ycZ59x91Pz6bkiAqdDPdDHqDKsLflBYqG6A
-        dpBOALL4MO6CRZT6mgnCztIiSMcHnH80bhqLbMd7MQj8Qm4DNXF8JJzvDH1z8ly/ZuL8c8u/ZlYkk/kr
-        7haSDSFr9ef0C7ZwGLr2xQTC73lMyLdMjnh+z+VZkPGv8owLmvw9j0T+Avf0uUwvdxIZAAAAAElFTkSu
-        QmCC
-</value>
-  </data>
 </root>

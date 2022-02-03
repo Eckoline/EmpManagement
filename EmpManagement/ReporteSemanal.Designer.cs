@@ -42,6 +42,8 @@ namespace EmpManagement
             this.dataGridViewDetalleDias = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.buttonJustificar = new System.Windows.Forms.Button();
             this.groupBoxOpciones = new System.Windows.Forms.GroupBox();
             this.buttonMarcaciones = new System.Windows.Forms.Button();
             this.buttonAcept = new System.Windows.Forms.Button();
@@ -56,13 +58,17 @@ namespace EmpManagement
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.limpiarFechasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripTextBoxID = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripTextBoxNombre = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -76,6 +82,7 @@ namespace EmpManagement
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBoxOpciones.SuspendLayout();
             this.groupBoxFechas.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -145,10 +152,11 @@ namespace EmpManagement
             this.dataGridViewDatos.Name = "dataGridViewDatos";
             this.dataGridViewDatos.ReadOnly = true;
             this.dataGridViewDatos.RowTemplate.Height = 25;
-            this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewDatos.Size = new System.Drawing.Size(933, 233);
             this.dataGridViewDatos.TabIndex = 0;
             this.dataGridViewDatos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDatos_CellClick);
+            this.dataGridViewDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewDatos_CellFormatting);
             // 
             // panel9
             // 
@@ -179,11 +187,13 @@ namespace EmpManagement
             this.dataGridViewDetalleDias.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDetalleDias.Location = new System.Drawing.Point(3, 19);
             this.dataGridViewDetalleDias.Name = "dataGridViewDetalleDias";
+            this.dataGridViewDetalleDias.ReadOnly = true;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dataGridViewDetalleDias.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDetalleDias.RowTemplate.Height = 25;
             this.dataGridViewDetalleDias.Size = new System.Drawing.Size(933, 203);
             this.dataGridViewDetalleDias.TabIndex = 1;
+            this.dataGridViewDetalleDias.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewDetalleDias_CellFormatting);
             // 
             // panel2
             // 
@@ -197,6 +207,7 @@ namespace EmpManagement
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.groupBox3);
             this.panel7.Controls.Add(this.groupBoxOpciones);
             this.panel7.Controls.Add(this.groupBoxFechas);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -205,20 +216,40 @@ namespace EmpManagement
             this.panel7.Size = new System.Drawing.Size(939, 70);
             this.panel7.TabIndex = 4;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.buttonJustificar);
+            this.groupBox3.Location = new System.Drawing.Point(475, 1);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(195, 62);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Edición Inconsistencias";
+            // 
+            // buttonJustificar
+            // 
+            this.buttonJustificar.Location = new System.Drawing.Point(54, 22);
+            this.buttonJustificar.Name = "buttonJustificar";
+            this.buttonJustificar.Size = new System.Drawing.Size(75, 23);
+            this.buttonJustificar.TabIndex = 3;
+            this.buttonJustificar.Text = "Editar";
+            this.buttonJustificar.UseVisualStyleBackColor = true;
+            this.buttonJustificar.Click += new System.EventHandler(this.buttonJustificar_Click);
+            // 
             // groupBoxOpciones
             // 
             this.groupBoxOpciones.Controls.Add(this.buttonMarcaciones);
             this.groupBoxOpciones.Controls.Add(this.buttonAcept);
             this.groupBoxOpciones.Location = new System.Drawing.Point(291, 1);
             this.groupBoxOpciones.Name = "groupBoxOpciones";
-            this.groupBoxOpciones.Size = new System.Drawing.Size(173, 62);
+            this.groupBoxOpciones.Size = new System.Drawing.Size(181, 62);
             this.groupBoxOpciones.TabIndex = 10;
             this.groupBoxOpciones.TabStop = false;
             this.groupBoxOpciones.Text = "Control";
             // 
             // buttonMarcaciones
             // 
-            this.buttonMarcaciones.Location = new System.Drawing.Point(76, 23);
+            this.buttonMarcaciones.Location = new System.Drawing.Point(81, 22);
             this.buttonMarcaciones.Name = "buttonMarcaciones";
             this.buttonMarcaciones.Size = new System.Drawing.Size(87, 23);
             this.buttonMarcaciones.TabIndex = 2;
@@ -228,7 +259,7 @@ namespace EmpManagement
             // 
             // buttonAcept
             // 
-            this.buttonAcept.Location = new System.Drawing.Point(6, 23);
+            this.buttonAcept.Location = new System.Drawing.Point(11, 22);
             this.buttonAcept.Name = "buttonAcept";
             this.buttonAcept.Size = new System.Drawing.Size(64, 23);
             this.buttonAcept.TabIndex = 0;
@@ -313,10 +344,13 @@ namespace EmpManagement
             this.toolStripProgressBar1,
             this.toolStripSeparator1,
             this.toolStripLabel1,
-            this.toolStripTextBox1,
+            this.toolStripTextBoxID,
+            this.toolStripSeparator2,
             this.toolStripLabel2,
-            this.toolStripTextBox2,
-            this.toolStripSeparator2});
+            this.toolStripTextBoxNombre,
+            this.toolStripSeparator3,
+            this.toolStripLabel3,
+            this.toolStripComboBox1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(939, 32);
@@ -326,7 +360,8 @@ namespace EmpManagement
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportarToolStripMenuItem});
+            this.exportarToolStripMenuItem,
+            this.limpiarFechasToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -339,7 +374,7 @@ namespace EmpManagement
             this.exportarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.excelToolStripMenuItem});
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.exportarToolStripMenuItem.Text = "Exportar";
             // 
             // excelToolStripMenuItem
@@ -348,6 +383,12 @@ namespace EmpManagement
             this.excelToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.excelToolStripMenuItem.Text = "Excel";
             this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
+            // 
+            // limpiarFechasToolStripMenuItem
+            // 
+            this.limpiarFechasToolStripMenuItem.Name = "limpiarFechasToolStripMenuItem";
+            this.limpiarFechasToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.limpiarFechasToolStripMenuItem.Text = "Limpiar Fechas";
             // 
             // toolStripProgressBar1
             // 
@@ -367,11 +408,16 @@ namespace EmpManagement
             this.toolStripLabel1.Size = new System.Drawing.Size(21, 29);
             this.toolStripLabel1.Text = "ID:";
             // 
-            // toolStripTextBox1
+            // toolStripTextBoxID
             // 
-            this.toolStripTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 32);
+            this.toolStripTextBoxID.Name = "toolStripTextBoxID";
+            this.toolStripTextBoxID.Size = new System.Drawing.Size(100, 32);
+            this.toolStripTextBoxID.TextChanged += new System.EventHandler(this.toolStripTextBoxID_TextChanged);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 32);
             // 
             // toolStripLabel2
             // 
@@ -379,16 +425,27 @@ namespace EmpManagement
             this.toolStripLabel2.Size = new System.Drawing.Size(54, 29);
             this.toolStripLabel2.Text = "Nombre:";
             // 
-            // toolStripTextBox2
+            // toolStripTextBoxNombre
             // 
-            this.toolStripTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.toolStripTextBox2.Name = "toolStripTextBox2";
-            this.toolStripTextBox2.Size = new System.Drawing.Size(100, 32);
+            this.toolStripTextBoxNombre.Name = "toolStripTextBoxNombre";
+            this.toolStripTextBoxNombre.Size = new System.Drawing.Size(100, 32);
+            this.toolStripTextBoxNombre.TextChanged += new System.EventHandler(this.toolStripTextBox1_TextChanged);
             // 
-            // toolStripSeparator2
+            // toolStripSeparator3
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 32);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 32);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(37, 29);
+            this.toolStripLabel3.Text = "Filtro:";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 32);
             // 
             // panel5
             // 
@@ -433,6 +490,7 @@ namespace EmpManagement
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBoxOpciones.ResumeLayout(false);
             this.groupBoxFechas.ResumeLayout(false);
             this.groupBoxFechas.PerformLayout();
@@ -474,13 +532,19 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripMenuItem excelToolStripMenuItem;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button buttonJustificar;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxID;
+        private System.Windows.Forms.ToolStripMenuItem limpiarFechasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBoxNombre;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }

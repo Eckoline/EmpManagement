@@ -60,6 +60,8 @@ namespace EmpManagement
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.buttonJustificar = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -77,6 +79,7 @@ namespace EmpManagement
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -91,6 +94,7 @@ namespace EmpManagement
             this.dataGridViewDetalleDias.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDetalleDias.Location = new System.Drawing.Point(3, 19);
             this.dataGridViewDetalleDias.Name = "dataGridViewDetalleDias";
+            this.dataGridViewDetalleDias.ReadOnly = true;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dataGridViewDetalleDias.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDetalleDias.RowTemplate.Height = 25;
@@ -112,7 +116,8 @@ namespace EmpManagement
             this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewDatos.Size = new System.Drawing.Size(933, 233);
             this.dataGridViewDatos.TabIndex = 0;
-            this.dataGridViewDatos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDatos_CellClick);
+            this.dataGridViewDatos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDatos_CellClick_1);
+            this.dataGridViewDatos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewDatos_CellFormatting);
             // 
             // groupBoxOpciones
             // 
@@ -350,6 +355,7 @@ namespace EmpManagement
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.groupBox3);
             this.panel7.Controls.Add(this.groupBoxOpciones);
             this.panel7.Controls.Add(this.groupBoxFechas);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -357,6 +363,26 @@ namespace EmpManagement
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(939, 70);
             this.panel7.TabIndex = 4;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.buttonJustificar);
+            this.groupBox3.Location = new System.Drawing.Point(470, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(195, 60);
+            this.groupBox3.TabIndex = 12;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Edición Inconsistencias";
+            // 
+            // buttonJustificar
+            // 
+            this.buttonJustificar.Location = new System.Drawing.Point(54, 22);
+            this.buttonJustificar.Name = "buttonJustificar";
+            this.buttonJustificar.Size = new System.Drawing.Size(75, 23);
+            this.buttonJustificar.TabIndex = 3;
+            this.buttonJustificar.Text = "Editar";
+            this.buttonJustificar.UseVisualStyleBackColor = true;
+            this.buttonJustificar.Click += new System.EventHandler(this.buttonJustificar_Click);
             // 
             // panel3
             // 
@@ -424,6 +450,7 @@ namespace EmpManagement
             this.groupBox2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -466,5 +493,7 @@ namespace EmpManagement
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button buttonJustificar;
     }
 }

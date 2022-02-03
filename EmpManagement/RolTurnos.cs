@@ -72,6 +72,7 @@ namespace EmpManagement
             cargacombo();
             creacolumna();
 
+         
             //creacolumnasdatatables();
             banderaop = 0;
             banderaauxsup = 0;
@@ -81,26 +82,27 @@ namespace EmpManagement
             banderaaux = 0;
             banderamold = 0;
             toolStripComboBox1.SelectedIndex = 0;
+            this.WindowState = FormWindowState.Maximized;
         }
        
         public void creacolumna()
         {
             DataGridViewCheckBoxColumn check1 = new DataGridViewCheckBoxColumn
             {
-                Name = "Selección"
+                Name = "Sel"
             };
             DataGridViewCheckBoxColumn check2 = new DataGridViewCheckBoxColumn
             {
-                Name = "Selección"
+                Name = "Sel"
             };
             DataGridViewCheckBoxColumn check3 = new DataGridViewCheckBoxColumn
             {
-                Name = "Selección"
+                Name = "Sel"
             };
 
             DataGridViewCheckBoxColumn check11 = new DataGridViewCheckBoxColumn
             {
-                Name = "Selección"
+                Name = "Sel"
             };
 
             DataGridViewTextBoxColumn id11 = new DataGridViewTextBoxColumn
@@ -116,7 +118,7 @@ namespace EmpManagement
 
             DataGridViewCheckBoxColumn check22 = new DataGridViewCheckBoxColumn
             {
-                Name = "Selección"
+                Name = "Sel"
             };
             DataGridViewTextBoxColumn id22 = new DataGridViewTextBoxColumn
             {
@@ -129,7 +131,7 @@ namespace EmpManagement
 
             DataGridViewCheckBoxColumn check33 = new DataGridViewCheckBoxColumn
             {
-                Name = "Selección"
+                Name = "Sel"
             };
             DataGridViewTextBoxColumn id33 = new DataGridViewTextBoxColumn
             {
@@ -144,15 +146,15 @@ namespace EmpManagement
             dataGridViewt2.Columns.Insert(0, check2);
             dataGridViewt3.Columns.Insert(0, check3);
             /*
-            dt11.Columns.Add("Selección", typeof(Boolean));
+            dt11.Columns.Add("Sel", typeof(Boolean));
             dt11.Columns.Add("ID", typeof(Int32));
             dt11.Columns.Add("Nombre", typeof(String));
 
-            dt22.Columns.Add("Selección", typeof(Boolean));
+            dt22.Columns.Add("Sel", typeof(Boolean));
             dt22.Columns.Add("ID", typeof(Int32));
             dt22.Columns.Add("Nombre", typeof(String));
 
-            dt33.Columns.Add("Selección", typeof(Boolean));
+            dt33.Columns.Add("Sel", typeof(Boolean));
             dt33.Columns.Add("ID", typeof(Int32));
             dt33.Columns.Add("Nombre", typeof(String));
            */
@@ -194,7 +196,43 @@ namespace EmpManagement
                     dataGridViewt1.DataSource = dtT1Op;
                     dataGridViewt2.DataSource = dtT2Op;
                     dataGridViewt3.DataSource = dtT3Op;
-                 
+
+                    DataTable dtclonet1=new DataTable();
+                    DataTable dtclonet2 = new DataTable();
+                    DataTable dtclonet3 = new DataTable();
+
+                    Loadquery(dtclonet1, 1, 38);
+                    Loadquery(dtclonet2, 2, 38);
+                    Loadquery(dtclonet3, 3, 38);
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+                    dataGridViewt3viejo.DataSource = dtclonet3;
+
+
+       
+
+                    dataGridViewt1.Columns[1].ReadOnly =true;
+                    dataGridViewt2.Columns[1].ReadOnly = true;
+                    dataGridViewt3.Columns[1].ReadOnly = true;
+
+                    dataGridViewt11.Columns[1].ReadOnly = true;
+                    dataGridViewt22.Columns[1].ReadOnly = true;
+                    dataGridViewt33.Columns[1].ReadOnly = true;
+
+                    dataGridViewt1.Columns[2].ReadOnly = true;
+                    dataGridViewt2.Columns[2].ReadOnly = true;
+                    dataGridViewt3.Columns[2].ReadOnly = true;
+
+                    dataGridViewt11.Columns[2].ReadOnly = true;
+                    dataGridViewt22.Columns[2].ReadOnly = true;
+                    dataGridViewt33.Columns[2].ReadOnly = true;
+
+                    dataGridViewt1.Columns[3].ReadOnly = true;
+                    dataGridViewt2.Columns[3].ReadOnly = true;
+                    dataGridViewt3.Columns[3].ReadOnly = true;
+
+                    
+
                     banderaop = 1;
                     break;
 
@@ -206,7 +244,17 @@ namespace EmpManagement
                     dataGridViewt1.DataSource = dtT1Sup;
                     dataGridViewt2.DataSource = dtT2Sup;
                     dataGridViewt3.DataSource = dtT3Sup;
-                   
+
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    dtclonet3 = new DataTable();
+                    Loadquery(dtclonet1, 4, 8);
+                    Loadquery(dtclonet2, 5, 8);
+                    Loadquery(dtclonet3, 6, 8);
+
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+                    dataGridViewt3viejo.DataSource = dtclonet3;
                     banderaauxsup = 1;
                     break;
 
@@ -218,7 +266,16 @@ namespace EmpManagement
                     dataGridViewt1.DataSource = dtT1Mol;
                     dataGridViewt2.DataSource = dtT2Mol;
                     dataGridViewt3.DataSource = dtT3Mol;
-                 
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    dtclonet3 = new DataTable();
+                    Loadquery(dtclonet1, 4, 8);
+                    Loadquery(dtclonet2, 5, 8);
+                    Loadquery(dtclonet3, 6, 8);
+
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+                    dataGridViewt3viejo.DataSource = dtclonet3;
                     banderamold = 1;
                     break;
 
@@ -230,7 +287,18 @@ namespace EmpManagement
                     dataGridViewt1.DataSource = dtT1AC;
                     dataGridViewt2.DataSource = dtT2AC;
                     dataGridViewt3.DataSource = dtT3AC;
-                  
+
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    dtclonet3 = new DataTable();
+
+                    Loadquery(dtclonet1, 4, 13);
+                    Loadquery(dtclonet2, 5, 13);
+                    Loadquery(dtclonet3, 6, 13);
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+                    dataGridViewt3viejo.DataSource = dtclonet3;
+
                     banderaac = 1;
                     break;
 
@@ -241,8 +309,17 @@ namespace EmpManagement
                     //Loadquery(dtT3Alm, 3, 9);
                     dataGridViewt1.DataSource = dtT1Alm;
                     dataGridViewt2.DataSource = dtT2Alm;
+
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    Loadquery(dtclonet1, 7, 9);
+                    Loadquery(dtclonet2, 8, 9);
+
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
                     // dataGridViewt3.DataSource = dtT3Alm;
-                  
+
+
                     banderaal = 1;
                     break;
 
@@ -253,8 +330,16 @@ namespace EmpManagement
                     //Loadquery(dtT3Aux, 3, 30);
                     dataGridViewt1.DataSource = dtT1Aux;
                     dataGridViewt2.DataSource = dtT2Aux;
+
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    Loadquery(dtclonet1, 7, 30);
+                    Loadquery(dtclonet2, 8, 30);
+
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+       
                     //dataGridViewt3.DataSource = dtT3Aux;
-                
                     banderaaux = 1;
                     break;
 
@@ -265,8 +350,14 @@ namespace EmpManagement
                     //Loadquery(dtT3Mold, 3, 10);
                     dataGridViewt1.DataSource = dtT1Mold;
                     dataGridViewt2.DataSource = dtT2Mold;
-                    //dataGridViewt3.DataSource = dtT3Mold;
-                
+
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    Loadquery(dtclonet1, 7, 10);
+                    Loadquery(dtclonet2, 8, 10);
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+
                     banderamold = 1;
                     break;
             }
@@ -285,8 +376,9 @@ namespace EmpManagement
         //envios t1
         private void buttont1t1_Click(object sender, EventArgs e)
         {
-    
             envio(dataGridViewt1, dataGridViewt11);
+            labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
+            selecdeselec();
           
         }
 
@@ -294,45 +386,61 @@ namespace EmpManagement
         {
 
             envio(dataGridViewt1, dataGridViewt22);
+            labelCantidad2.Text = dataGridViewt22.Rows.Count.ToString();
+            selecdeselec();
         }
 
         private void buttont3t1_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt1, dataGridViewt33);
+            labelCantidad3.Text = dataGridViewt33.Rows.Count.ToString();
+            selecdeselec();
         }
 
         //envios t2
         private void buttont1t2_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt2, dataGridViewt11);
+            labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
+            selecdeselec();
         }
 
 
         private void buttont2t2_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt2, dataGridViewt22);
+            labelCantidad2.Text = dataGridViewt22.Rows.Count.ToString();
+            selecdeselec();
         }
 
         private void buttont3t2_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt2, dataGridViewt33);
+            labelCantidad3.Text = dataGridViewt33.Rows.Count.ToString();
+            selecdeselec();
         }
 
         //envios t3
         private void buttont1t3_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt3, dataGridViewt11);
+            labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
+            selecdeselec();
         }
 
         private void buttont2t3_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt3, dataGridViewt22);
+            labelCantidad2.Text = dataGridViewt22.Rows.Count.ToString();
+            selecdeselec();
 
         }
 
         private void buttont3t3_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt3, dataGridViewt33);
+            labelCantidad3.Text = dataGridViewt33.Rows.Count.ToString();
+            selecdeselec();
         }
 
 
@@ -353,7 +461,7 @@ namespace EmpManagement
                 // Se recupera el campo que representa el checkbox, y se valida la seleccion
                 // agregandola a la lista temporal
                 //
-                DataGridViewCheckBoxCell cellSelecion = row.Cells["Selección"] as DataGridViewCheckBoxCell;
+                DataGridViewCheckBoxCell cellSelecion = row.Cells["Sel"] as DataGridViewCheckBoxCell;
 
                 if (Convert.ToBoolean(cellSelecion.Value))
                 {
@@ -377,25 +485,36 @@ namespace EmpManagement
         private void buttont2t11_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt11, dataGridViewt22);
+            labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
+            labelCantidad2.Text = dataGridViewt22.Rows.Count.ToString();
+            selecdeselec();
 
         }
 
         private void buttont3t11_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt11, dataGridViewt33);
-
+            labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
+            labelCantidad3.Text = dataGridViewt33.Rows.Count.ToString();
+            selecdeselec();
         }
 
         //envios t22
         private void buttont1t22_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt22, dataGridViewt11);
+            labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
+            labelCantidad2.Text = dataGridViewt22.Rows.Count.ToString();
+            selecdeselec();
 
         }
 
         private void buttont3t22_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt22, dataGridViewt33);
+            labelCantidad2.Text = dataGridViewt22.Rows.Count.ToString();
+            labelCantidad3.Text = dataGridViewt33.Rows.Count.ToString();
+            selecdeselec();
 
         }
 
@@ -403,12 +522,17 @@ namespace EmpManagement
         private void buttont1t33_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt33, dataGridViewt11);
-
+            labelCantidad3.Text = dataGridViewt33.Rows.Count.ToString();
+            labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
+            selecdeselec();
         }
 
         private void buttont2t33_Click(object sender, EventArgs e)
         {
             envio(dataGridViewt33, dataGridViewt22);
+            labelCantidad3.Text = dataGridViewt33.Rows.Count.ToString();
+            labelCantidad2.Text = dataGridViewt22.Rows.Count.ToString();
+            selecdeselec();
         }
 
 
@@ -418,34 +542,34 @@ namespace EmpManagement
         //Seleccionar todos
         private void checkBoxSel1_CheckedChanged(object sender, EventArgs e)
         {
-            sel(dataGridViewt1, checkBoxSel1.Checked, "Selección");
+            sel(dataGridViewt1, checkBoxSel1.Checked, "Sel");
         }
 
         private void checkBoxSel2_CheckedChanged(object sender, EventArgs e)
         {
 
-            sel(dataGridViewt2, checkBoxSel2.Checked, "Selección");
+            sel(dataGridViewt2, checkBoxSel2.Checked, "Sel");
         }
 
         private void checkBoxSel3_CheckedChanged(object sender, EventArgs e)
         {
-            sel(dataGridViewt3, checkBoxSel3.Checked, "Selección");
+            sel(dataGridViewt3, checkBoxSel3.Checked, "Sel");
         }
 
         private void checkBoxSel11_CheckedChanged(object sender, EventArgs e)
         {
-            sel(dataGridViewt11, checkBoxSel11.Checked, "Selección");
+            sel(dataGridViewt11, checkBoxSel11.Checked, "Sel");
 
         }
 
         private void checkBoxSel22_CheckedChanged(object sender, EventArgs e)
         {
-            sel(dataGridViewt22, checkBoxSel22.Checked, "Selección");
+            sel(dataGridViewt22, checkBoxSel22.Checked, "Sel");
         }
 
         private void checkBoxSel33_CheckedChanged(object sender, EventArgs e)
         {
-            sel(dataGridViewt33, checkBoxSel33.Checked, "Selección");
+            sel(dataGridViewt33, checkBoxSel33.Checked, "Sel");
         }
 
         public void sel(DataGridView dg1, Boolean check, String colu)
@@ -478,6 +602,18 @@ namespace EmpManagement
             //dataGridViewt11.Rows.Clear();
             //dataGridViewt22.Rows.Clear();
             //dataGridViewt33.Rows.Clear();
+            selecdeselec();
+            cantidadcero();
+        }
+
+        public void selecdeselec()
+        {
+            checkBoxSel1.Checked = false;
+            checkBoxSel2.Checked = false;
+            checkBoxSel3.Checked = false;
+            checkBoxSel11.Checked = false;
+            checkBoxSel22.Checked = false;
+            checkBoxSel33.Checked = false;
         }
 
         private void terminarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -565,8 +701,7 @@ namespace EmpManagement
             if (contador > 6)
             {
                 MessageBox.Show("El diseño de Rol ha terminado. El reporte en excel se abrirá en unos momentos.");
-                this.Close();
-                FPrincipal.ActiveForm.BringToFront();
+                this.Close();   
             }
             else
             {
@@ -595,13 +730,26 @@ namespace EmpManagement
             dataGridViewt2.DataSource = null;
             dataGridViewt3.DataSource = null;
             dataGridViewt11.DataSource = null;
+            dataGridViewt11.Rows.Clear();
+            dataGridViewt11.Columns.Clear();
             dataGridViewt22.DataSource = null;
+            dataGridViewt22.Rows.Clear();
+            dataGridViewt22.Columns.Clear();
             dataGridViewt33.DataSource = null;
+            dataGridViewt33.Columns.Clear();
+            dataGridViewt33.Rows.Clear();
+            selecdeselec();
+            cantidadcero();
             pagina = toolStripComboBox1.Text;
             load(pagina);
             MessageBox.Show("Se reestableció correctamente el rol de: " + pagina +". No se realizaron cambios en la Base de Datos.");
         }
-
+        public void cantidadcero()
+        {
+            labelCantidad1.Text = "";
+            labelCantidad2.Text = "";
+            labelCantidad3.Text = "";
+        }
         private void excelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Excel.Application oXL;
@@ -616,7 +764,7 @@ namespace EmpManagement
                 oXL.Visible = true;
 
                 //Get a new workbook.
-                oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C: \Users\userf\source\repos\EmpManagement\EmpManagement\Excel\ROL.xlsx"));
+                oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C:\Users\userf\source\repos\EmpManagement\EmpManagement\Excel\ROL.xlsx"));
                 oSheet = (Excel._Worksheet)oWB.ActiveSheet;
     
                 //Add table headers going cell by cell.
@@ -768,5 +916,61 @@ namespace EmpManagement
             oWS.Shapes.Item("Chart 1").Left = (float)(double)oResizeRange.Left;
         }
 
+        private void toolStripTextBoxID_TextChanged(object sender, EventArgs e)
+        {
+            toolStripTextBoxNombre.Text = "";
+            if (toolStripTextBoxNombre.Text == "")
+            {
+                BuscarEnDatagrid(dataGridViewt1, "ID", toolStripTextBoxID.TextBox);
+                BuscarEnDatagrid(dataGridViewt2, "ID", toolStripTextBoxID.TextBox);
+                BuscarEnDatagrid(dataGridViewt3, "ID", toolStripTextBoxID.TextBox);
+                BuscarEnDatagrid(dataGridViewt11, "ID", toolStripTextBoxID.TextBox);
+                BuscarEnDatagrid(dataGridViewt22, "ID", toolStripTextBoxID.TextBox);
+                BuscarEnDatagrid(dataGridViewt33, "ID", toolStripTextBoxID.TextBox);
+            }
+
+        }
+
+        private void toolStripTextBoxNombre_TextChanged(object sender, EventArgs e)
+        {
+            toolStripTextBoxID.Text = "";
+            if (toolStripTextBoxID.Text == ""){
+                BuscarEnDatagrid(dataGridViewt1, "Nombre", toolStripTextBoxNombre.TextBox);
+                BuscarEnDatagrid(dataGridViewt2, "Nombre", toolStripTextBoxNombre.TextBox);
+                BuscarEnDatagrid(dataGridViewt3, "Nombre", toolStripTextBoxNombre.TextBox);
+                BuscarEnDatagrid(dataGridViewt11, "Nombre", toolStripTextBoxNombre.TextBox);
+                BuscarEnDatagrid(dataGridViewt22, "Nombre", toolStripTextBoxNombre.TextBox);
+                BuscarEnDatagrid(dataGridViewt33, "Nombre", toolStripTextBoxNombre.TextBox);
+            }
+       
+        }
+
+        public void BuscarEnDatagrid(DataGridView datagrid, string nombre_columna, TextBox textbox)
+        {
+            foreach (DataGridViewRow row in datagrid.Rows)
+            {
+                int fila = row.Index;
+                string valor = Convert.ToString(row.Cells[nombre_columna].Value);
+
+                if (valor.IndexOf(textbox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    
+                    datagrid.Rows[fila].DefaultCellStyle.BackColor = Color.SeaGreen;
+                    //datagrid.Rows[fila].DefaultCellStyle.BackColor = Color.SeaGreen;
+                }
+                    
+                else
+                    datagrid.Rows[fila].DefaultCellStyle.BackColor = Color.White;
+
+                //Si esta vacio el campo de busqueda quitar el sombreado
+                if (textbox.Text == string.Empty)
+                    datagrid.Rows[fila].DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+
+        private void panel109_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
-}
+}//valor.Contains(textbox.Text)

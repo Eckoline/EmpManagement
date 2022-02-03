@@ -8,16 +8,18 @@ namespace EmpManagement
 {
     static class Program
     {
+        public static string usuario;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FPrincipal());
+            Application.Run(new Login());
         }
     }
 }

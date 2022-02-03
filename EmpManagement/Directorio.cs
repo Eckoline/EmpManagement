@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using System.Diagnostics;
 
 namespace EmpManagement
 {
@@ -32,8 +33,10 @@ namespace EmpManagement
         }
         private void imprimirToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
             NuevoEmpleado frmEmpleados = new NuevoEmpleado();
             frmEmpleados.opcion = 2;
+            frmEmpleados.textBoxID.Enabled = true;
             frmEmpleados.Show();
         }
 
@@ -42,6 +45,7 @@ namespace EmpManagement
             NuevoEmpleado frmactualizar = new NuevoEmpleado();
             frmactualizar.opcion = 1;
             frmactualizar.textBoxID.Text = dataGridViewDatos.CurrentRow.Cells[0].Value.ToString();
+            frmactualizar.textBoxID.Enabled = false;
             frmactualizar.textBoxNombre.Text = dataGridViewDatos.CurrentRow.Cells[1].Value.ToString();
             frmactualizar.textBoxNss.Text = dataGridViewDatos.CurrentRow.Cells[2].Value.ToString();
             frmactualizar.textBoxCurp.Text = dataGridViewDatos.CurrentRow.Cells[3].Value.ToString();
@@ -56,15 +60,12 @@ namespace EmpManagement
             frmactualizar.comboBoxGenero.Text = dataGridViewDatos.CurrentRow.Cells[12].Value.ToString();
             frmactualizar.comboBoxEstCivil.Text = dataGridViewDatos.CurrentRow.Cells[13].Value.ToString();
             frmactualizar.comboBoxNivelE.Text = dataGridViewDatos.CurrentRow.Cells[14].Value.ToString();
+            frmactualizar.labelpuesto.Text= dataGridViewDatos.CurrentRow.Cells[15].Value.ToString();
             frmactualizar.dateTimePickerFechaIngreso.Text = dataGridViewDatos.CurrentRow.Cells[17].Value.ToString();
             frmactualizar.textBoxVehiculo.Text = dataGridViewDatos.CurrentRow.Cells[18].Value.ToString();
             frmactualizar.Show();
-            //frmactualizar.comboBoxPuesto.Text = 
-            //frmactualizar.labelPuesto.Text= dataGridViewDatos.CurrentRow.Cells[15].Value.ToString();
             frmactualizar.comboBoxDep.Text = dataGridViewDatos.CurrentRow.Cells[16].Value.ToString();
-            //string orderId = dataGridViewDatos.SelectedRows[0].Cells[0].Value.ToString();
-            //MessageBox.Show(dataGridViewDatos.CurrentRow.Cells[0].Value.ToString());
-            //MessageBox.Show(orderId);
+            frmactualizar.comboBoxHor.Text= dataGridViewDatos.CurrentRow.Cells[19].Value.ToString();
         }
 
         private void bajaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -82,6 +83,7 @@ namespace EmpManagement
                         comando.ExecuteNonQuery();
                         conexion.cerrar();
                         MessageBox.Show("Empleado dado de baja correctamente.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+ 
                     }
                     catch (Exception ex)
                     {
@@ -104,7 +106,8 @@ namespace EmpManagement
             {
 
                 conexion.abrir();
-                string query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE USERINFOCUS.DEFAULTDEPTID<>32 ORDER BY BADGENUMBER";
+                string query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCUS.DEFAULTDEPTID<>32 AND HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) ORDER BY USERINFOCUS.Badgenumber;";
+                Debug.WriteLine(query);
                 SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                 adaptador.Fill(dtEmployees);
                 dataGridViewDatos.DataSource = dtEmployees;
@@ -113,7 +116,10 @@ namespace EmpManagement
             else
             {
                 conexion.abrir();
-                string query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND USERINFOCUS.ACTIVO=1";
+                string query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE DEPARTMENTS.DEPTNAME='"+ toolStripComboBox1.ComboBox.Text + "' AND HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) ORDER BY USERINFOCUS.Badgenumber;";
+                Debug.WriteLine(query);
+                Debug.WriteLine(query);
+                //string query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "'";
                 SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                 adaptador.Fill(dtEmployees);
                 dataGridViewDatos.DataSource = dtEmployees;
@@ -131,7 +137,9 @@ namespace EmpManagement
                 if (toolStripComboBox1.ComboBox.Text == "COMPAÑIA PLASTICA INTERNACIONAL")
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE USERINFOCUS.DEFAULTDEPTID<>32";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCUS.DEFAULTDEPTID<>32 AND HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) ORDER BY USERINFOCUS.Badgenumber;";
+                    //query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE USERINFOCUS.DEFAULTDEPTID<>32";
+                    Debug.WriteLine(query);
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
@@ -140,7 +148,9 @@ namespace EmpManagement
                 else
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND USERINFOCUS.ACTIVO=1";
+                    //query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "'";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) ORDER BY USERINFOCUS.Badgenumber;";
+                    Debug.WriteLine(query);
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
@@ -153,7 +163,9 @@ namespace EmpManagement
                 if (toolStripComboBox1.ComboBox.Text == "COMPAÑIA PLASTICA INTERNACIONAL")
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE Badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' AND USERINFOCUS.DEFAULTDEPTID<>32";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCUS.DEFAULTDEPTID<>32 AND  USERINFOCUS.Badgenumber LIKE '%" + toolStripTextBoxID.Text + "%'  AND HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) ORDER BY USERINFOCUS.Badgenumber;";
+                    Debug.WriteLine(query);
+                    //query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE Badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' AND USERINFOCUS.DEFAULTDEPTID<>32";
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
@@ -162,7 +174,9 @@ namespace EmpManagement
                 else
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE Badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' AND DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND USERINFOCUS.ACTIVO=1";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) AND USERINFOCUS.Badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' AND DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' ORDER BY USERINFOCUS.Badgenumber;";
+                    Debug.WriteLine(query);
+                    // query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE Badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' AND DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "'";
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
@@ -185,7 +199,9 @@ namespace EmpManagement
                 if (toolStripComboBox1.ComboBox.Text == "COMPAÑIA PLASTICA INTERNACIONAL")
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE USERINFOCUS.DEFAULTDEPTID<>32";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCUS.DEFAULTDEPTID<>32 AND HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24)  ORDER BY USERINFOCUS.Badgenumber;";
+                    Debug.WriteLine(query);
+                    //query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE USERINFOCUS.DEFAULTDEPTID<>32";
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
@@ -194,7 +210,9 @@ namespace EmpManagement
                 else
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND USERINFOCUS.ACTIVO=1";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) AND DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' ORDER BY USERINFOCUS.Badgenumber;";
+                    Debug.WriteLine(query);
+                    //query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "'";
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
@@ -207,7 +225,9 @@ namespace EmpManagement
                 if (toolStripComboBox1.ComboBox.Text == "COMPAÑIA PLASTICA INTERNACIONAL")
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE USERINFOCUS.DEFAULTDEPTID<>32 AND USERINFOCus.Name LIKE '%" + toolStripTextBoxNombre.Text + "%' COLLATE Modern_Spanish_CI_AI; ";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCUS.DEFAULTDEPTID<>32 AND HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) AND USERINFOCus.Name LIKE '%" + toolStripTextBoxNombre.Text + "%' COLLATE Modern_Spanish_CI_AI ORDER BY USERINFOCUS.Badgenumber;";
+                    Debug.WriteLine(query);
+                    //query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE USERINFOCUS.DEFAULTDEPTID<>32 AND USERINFOCus.Name LIKE '%" + toolStripTextBoxNombre.Text + "%' COLLATE Modern_Spanish_CI_AI; ";
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
@@ -216,13 +236,44 @@ namespace EmpManagement
                 else
                 {
                     conexion.abrir();
-                    query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND USERINFOCUS.ACTIVO=1 AND USERINFOCus.Name LIKE '%" + toolStripTextBoxNombre.Text + "%' COLLATE Modern_Spanish_CI_AI; ";
+                    query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO, HORARIOS.Descripcion as 'HORARIO'  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID) INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER) INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.ID_HOR NOT IN(10,12,14,16,18,20,22,24) AND DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND USERINFOCus.Name LIKE '%" + toolStripTextBoxNombre.Text + "%' COLLATE Modern_Spanish_CI_AI  ORDER BY USERINFOCUS.Badgenumber;";
+                    Debug.WriteLine(query);
+                    // query = "SELECT Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO FROM USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTNAME='" + toolStripComboBox1.ComboBox.Text + "' AND USERINFOCus.Name LIKE '%" + toolStripTextBoxNombre.Text + "%' COLLATE Modern_Spanish_CI_AI; ";
                     SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                     adaptador.Fill(dtEmployees);
                     dataGridViewDatos.DataSource = dtEmployees;
                     conexion.cerrar();
                 }
             }
+        }
+
+        private void verToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NuevoEmpleado frmactualizar = new NuevoEmpleado();
+            frmactualizar.Enabled = false;
+            frmactualizar.opcion = 1;
+            frmactualizar.textBoxID.Text = dataGridViewDatos.CurrentRow.Cells[0].Value.ToString();
+            frmactualizar.textBoxID.Enabled = false;
+            frmactualizar.textBoxNombre.Text = dataGridViewDatos.CurrentRow.Cells[1].Value.ToString();
+            frmactualizar.textBoxNss.Text = dataGridViewDatos.CurrentRow.Cells[2].Value.ToString();
+            frmactualizar.textBoxCurp.Text = dataGridViewDatos.CurrentRow.Cells[3].Value.ToString();
+            frmactualizar.textBoxRFC.Text = dataGridViewDatos.CurrentRow.Cells[4].Value.ToString();
+            frmactualizar.dateTimePickerFecNac.Text = dataGridViewDatos.CurrentRow.Cells[5].Value.ToString();
+            frmactualizar.textBoxDireccion.Text = dataGridViewDatos.CurrentRow.Cells[6].Value.ToString();
+            frmactualizar.textBoxCiudad.Text = dataGridViewDatos.CurrentRow.Cells[7].Value.ToString();
+            frmactualizar.textBoxEstado.Text = dataGridViewDatos.CurrentRow.Cells[8].Value.ToString();
+            frmactualizar.textBoxCP.Text = dataGridViewDatos.CurrentRow.Cells[9].Value.ToString();
+            frmactualizar.textBoxTel.Text = dataGridViewDatos.CurrentRow.Cells[10].Value.ToString();
+            frmactualizar.textBoxTelEme.Text = dataGridViewDatos.CurrentRow.Cells[11].Value.ToString();
+            frmactualizar.comboBoxGenero.Text = dataGridViewDatos.CurrentRow.Cells[12].Value.ToString();
+            frmactualizar.comboBoxEstCivil.Text = dataGridViewDatos.CurrentRow.Cells[13].Value.ToString();
+            frmactualizar.comboBoxNivelE.Text = dataGridViewDatos.CurrentRow.Cells[14].Value.ToString();
+            frmactualizar.labelpuesto.Text = dataGridViewDatos.CurrentRow.Cells[15].Value.ToString();
+            frmactualizar.dateTimePickerFechaIngreso.Text = dataGridViewDatos.CurrentRow.Cells[17].Value.ToString();
+            frmactualizar.textBoxVehiculo.Text = dataGridViewDatos.CurrentRow.Cells[18].Value.ToString();
+            frmactualizar.Show();
+            frmactualizar.comboBoxDep.Text = dataGridViewDatos.CurrentRow.Cells[16].Value.ToString();
+            frmactualizar.comboBoxHor.Text = dataGridViewDatos.CurrentRow.Cells[19].Value.ToString();
         }
     }
 }

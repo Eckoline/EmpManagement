@@ -69,6 +69,8 @@ namespace EmpManagement
             this.comboBoxNivelE = new System.Windows.Forms.ComboBox();
             this.dateTimePickerFechaIngreso = new System.Windows.Forms.DateTimePicker();
             this.groupBoxDatosIngreso = new System.Windows.Forms.GroupBox();
+            this.comboBoxHor = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.comboBoxPuesto = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.comboBoxDep = new System.Windows.Forms.ComboBox();
@@ -77,14 +79,15 @@ namespace EmpManagement
             this.label19 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.pictureBoxFoto = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.labelpuesto = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.GuardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.limpiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.asignarHorarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBoxDatosP.SuspendLayout();
@@ -93,6 +96,7 @@ namespace EmpManagement
             this.groupBoxDatosIngreso.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFoto)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -117,9 +121,9 @@ namespace EmpManagement
             this.groupBoxDatosP.Controls.Add(this.label2);
             this.groupBoxDatosP.Controls.Add(this.textBoxID);
             this.groupBoxDatosP.Controls.Add(this.label1);
-            this.groupBoxDatosP.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxDatosP.Location = new System.Drawing.Point(9, 248);
             this.groupBoxDatosP.Name = "groupBoxDatosP";
-            this.groupBoxDatosP.Size = new System.Drawing.Size(203, 265);
+            this.groupBoxDatosP.Size = new System.Drawing.Size(236, 265);
             this.groupBoxDatosP.TabIndex = 0;
             this.groupBoxDatosP.TabStop = false;
             this.groupBoxDatosP.Text = "Datos Principales";
@@ -133,8 +137,8 @@ namespace EmpManagement
             "Soltero/a"});
             this.comboBoxEstCivil.Location = new System.Drawing.Point(60, 230);
             this.comboBoxEstCivil.Name = "comboBoxEstCivil";
-            this.comboBoxEstCivil.Size = new System.Drawing.Size(137, 23);
-            this.comboBoxEstCivil.TabIndex = 16;
+            this.comboBoxEstCivil.Size = new System.Drawing.Size(170, 23);
+            this.comboBoxEstCivil.TabIndex = 8;
             // 
             // label20
             // 
@@ -150,8 +154,8 @@ namespace EmpManagement
             this.dateTimePickerFecNac.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePickerFecNac.Location = new System.Drawing.Point(60, 172);
             this.dateTimePickerFecNac.Name = "dateTimePickerFecNac";
-            this.dateTimePickerFecNac.Size = new System.Drawing.Size(137, 23);
-            this.dateTimePickerFecNac.TabIndex = 14;
+            this.dateTimePickerFecNac.Size = new System.Drawing.Size(170, 23);
+            this.dateTimePickerFecNac.TabIndex = 6;
             // 
             // label7
             // 
@@ -170,8 +174,8 @@ namespace EmpManagement
             "F"});
             this.comboBoxGenero.Location = new System.Drawing.Point(60, 201);
             this.comboBoxGenero.Name = "comboBoxGenero";
-            this.comboBoxGenero.Size = new System.Drawing.Size(137, 23);
-            this.comboBoxGenero.TabIndex = 12;
+            this.comboBoxGenero.Size = new System.Drawing.Size(170, 23);
+            this.comboBoxGenero.TabIndex = 7;
             // 
             // label6
             // 
@@ -186,8 +190,8 @@ namespace EmpManagement
             // 
             this.textBoxCurp.Location = new System.Drawing.Point(60, 85);
             this.textBoxCurp.Name = "textBoxCurp";
-            this.textBoxCurp.Size = new System.Drawing.Size(137, 23);
-            this.textBoxCurp.TabIndex = 10;
+            this.textBoxCurp.Size = new System.Drawing.Size(170, 23);
+            this.textBoxCurp.TabIndex = 3;
             // 
             // label5
             // 
@@ -202,8 +206,8 @@ namespace EmpManagement
             // 
             this.textBoxRFC.Location = new System.Drawing.Point(60, 143);
             this.textBoxRFC.Name = "textBoxRFC";
-            this.textBoxRFC.Size = new System.Drawing.Size(137, 23);
-            this.textBoxRFC.TabIndex = 8;
+            this.textBoxRFC.Size = new System.Drawing.Size(170, 23);
+            this.textBoxRFC.TabIndex = 5;
             // 
             // label4
             // 
@@ -218,8 +222,8 @@ namespace EmpManagement
             // 
             this.textBoxNss.Location = new System.Drawing.Point(60, 114);
             this.textBoxNss.Name = "textBoxNss";
-            this.textBoxNss.Size = new System.Drawing.Size(137, 23);
-            this.textBoxNss.TabIndex = 6;
+            this.textBoxNss.Size = new System.Drawing.Size(170, 23);
+            this.textBoxNss.TabIndex = 4;
             // 
             // label3
             // 
@@ -234,8 +238,8 @@ namespace EmpManagement
             // 
             this.textBoxNombre.Location = new System.Drawing.Point(60, 56);
             this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(137, 23);
-            this.textBoxNombre.TabIndex = 4;
+            this.textBoxNombre.Size = new System.Drawing.Size(170, 23);
+            this.textBoxNombre.TabIndex = 2;
             // 
             // label2
             // 
@@ -250,8 +254,9 @@ namespace EmpManagement
             // 
             this.textBoxID.Location = new System.Drawing.Point(60, 27);
             this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(137, 23);
+            this.textBoxID.Size = new System.Drawing.Size(170, 23);
             this.textBoxID.TabIndex = 1;
+            this.textBoxID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxID_KeyPress);
             // 
             // label1
             // 
@@ -276,9 +281,9 @@ namespace EmpManagement
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.textBoxCiudad);
             this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Location = new System.Drawing.Point(212, 3);
+            this.groupBox1.Location = new System.Drawing.Point(251, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(294, 234);
+            this.groupBox1.Size = new System.Drawing.Size(255, 234);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Ubicación";
@@ -288,7 +293,7 @@ namespace EmpManagement
             this.textBoxCP.Location = new System.Drawing.Point(73, 140);
             this.textBoxCP.Name = "textBoxCP";
             this.textBoxCP.Size = new System.Drawing.Size(100, 23);
-            this.textBoxCP.TabIndex = 12;
+            this.textBoxCP.TabIndex = 14;
             this.textBoxCP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCP_KeyPress);
             // 
             // label17
@@ -305,8 +310,8 @@ namespace EmpManagement
             this.textBoxDireccion.Location = new System.Drawing.Point(73, 82);
             this.textBoxDireccion.Multiline = true;
             this.textBoxDireccion.Name = "textBoxDireccion";
-            this.textBoxDireccion.Size = new System.Drawing.Size(216, 52);
-            this.textBoxDireccion.TabIndex = 10;
+            this.textBoxDireccion.Size = new System.Drawing.Size(174, 52);
+            this.textBoxDireccion.TabIndex = 13;
             // 
             // label10
             // 
@@ -322,7 +327,7 @@ namespace EmpManagement
             this.textBoxTelEme.Location = new System.Drawing.Point(73, 198);
             this.textBoxTelEme.Name = "textBoxTelEme";
             this.textBoxTelEme.Size = new System.Drawing.Size(174, 23);
-            this.textBoxTelEme.TabIndex = 8;
+            this.textBoxTelEme.TabIndex = 16;
             // 
             // label11
             // 
@@ -338,7 +343,7 @@ namespace EmpManagement
             this.textBoxTel.Location = new System.Drawing.Point(73, 169);
             this.textBoxTel.Name = "textBoxTel";
             this.textBoxTel.Size = new System.Drawing.Size(174, 23);
-            this.textBoxTel.TabIndex = 6;
+            this.textBoxTel.TabIndex = 15;
             this.textBoxTel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTel_KeyPress);
             // 
             // label12
@@ -355,7 +360,7 @@ namespace EmpManagement
             this.textBoxEstado.Location = new System.Drawing.Point(73, 53);
             this.textBoxEstado.Name = "textBoxEstado";
             this.textBoxEstado.Size = new System.Drawing.Size(174, 23);
-            this.textBoxEstado.TabIndex = 4;
+            this.textBoxEstado.TabIndex = 12;
             this.textBoxEstado.Text = "Guanajuato";
             // 
             // label13
@@ -372,7 +377,7 @@ namespace EmpManagement
             this.textBoxCiudad.Location = new System.Drawing.Point(73, 24);
             this.textBoxCiudad.Name = "textBoxCiudad";
             this.textBoxCiudad.Size = new System.Drawing.Size(174, 23);
-            this.textBoxCiudad.TabIndex = 1;
+            this.textBoxCiudad.TabIndex = 11;
             this.textBoxCiudad.Text = "Celaya";
             // 
             // label14
@@ -387,7 +392,7 @@ namespace EmpManagement
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 113);
+            this.label8.Location = new System.Drawing.Point(6, 143);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 15);
             this.label8.TabIndex = 12;
@@ -395,10 +400,10 @@ namespace EmpManagement
             // 
             // textBoxVehiculo
             // 
-            this.textBoxVehiculo.Location = new System.Drawing.Point(73, 113);
+            this.textBoxVehiculo.Location = new System.Drawing.Point(73, 140);
             this.textBoxVehiculo.Name = "textBoxVehiculo";
             this.textBoxVehiculo.Size = new System.Drawing.Size(174, 23);
-            this.textBoxVehiculo.TabIndex = 11;
+            this.textBoxVehiculo.TabIndex = 21;
             // 
             // groupBox3
             // 
@@ -406,19 +411,19 @@ namespace EmpManagement
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.comboBoxNivelE);
-            this.groupBox3.Location = new System.Drawing.Point(3, 269);
+            this.groupBox3.Location = new System.Drawing.Point(251, 418);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(203, 116);
+            this.groupBox3.Size = new System.Drawing.Size(255, 95);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Estudios";
             // 
             // textBoxCedula
             // 
-            this.textBoxCedula.Location = new System.Drawing.Point(60, 54);
+            this.textBoxCedula.Location = new System.Drawing.Point(73, 54);
             this.textBoxCedula.Name = "textBoxCedula";
             this.textBoxCedula.Size = new System.Drawing.Size(137, 23);
-            this.textBoxCedula.TabIndex = 3;
+            this.textBoxCedula.TabIndex = 10;
             // 
             // label15
             // 
@@ -449,21 +454,23 @@ namespace EmpManagement
             "Licenciatura",
             "Maestria",
             "Doctorado"});
-            this.comboBoxNivelE.Location = new System.Drawing.Point(60, 21);
+            this.comboBoxNivelE.Location = new System.Drawing.Point(73, 21);
             this.comboBoxNivelE.Name = "comboBoxNivelE";
             this.comboBoxNivelE.Size = new System.Drawing.Size(137, 23);
-            this.comboBoxNivelE.TabIndex = 0;
+            this.comboBoxNivelE.TabIndex = 9;
             // 
             // dateTimePickerFechaIngreso
             // 
             this.dateTimePickerFechaIngreso.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePickerFechaIngreso.Location = new System.Drawing.Point(73, 23);
             this.dateTimePickerFechaIngreso.Name = "dateTimePickerFechaIngreso";
-            this.dateTimePickerFechaIngreso.Size = new System.Drawing.Size(171, 23);
-            this.dateTimePickerFechaIngreso.TabIndex = 4;
+            this.dateTimePickerFechaIngreso.Size = new System.Drawing.Size(174, 23);
+            this.dateTimePickerFechaIngreso.TabIndex = 17;
             // 
             // groupBoxDatosIngreso
             // 
+            this.groupBoxDatosIngreso.Controls.Add(this.comboBoxHor);
+            this.groupBoxDatosIngreso.Controls.Add(this.label22);
             this.groupBoxDatosIngreso.Controls.Add(this.comboBoxPuesto);
             this.groupBoxDatosIngreso.Controls.Add(this.label21);
             this.groupBoxDatosIngreso.Controls.Add(this.comboBoxDep);
@@ -472,38 +479,54 @@ namespace EmpManagement
             this.groupBoxDatosIngreso.Controls.Add(this.label8);
             this.groupBoxDatosIngreso.Controls.Add(this.label16);
             this.groupBoxDatosIngreso.Controls.Add(this.dateTimePickerFechaIngreso);
-            this.groupBoxDatosIngreso.Location = new System.Drawing.Point(212, 236);
+            this.groupBoxDatosIngreso.Location = new System.Drawing.Point(251, 236);
             this.groupBoxDatosIngreso.Name = "groupBoxDatosIngreso";
-            this.groupBoxDatosIngreso.Size = new System.Drawing.Size(294, 149);
+            this.groupBoxDatosIngreso.Size = new System.Drawing.Size(255, 176);
             this.groupBoxDatosIngreso.TabIndex = 5;
             this.groupBoxDatosIngreso.TabStop = false;
             this.groupBoxDatosIngreso.Text = "Datos Ingreso";
+            // 
+            // comboBoxHor
+            // 
+            this.comboBoxHor.FormattingEnabled = true;
+            this.comboBoxHor.Location = new System.Drawing.Point(73, 110);
+            this.comboBoxHor.Name = "comboBoxHor";
+            this.comboBoxHor.Size = new System.Drawing.Size(174, 23);
+            this.comboBoxHor.TabIndex = 20;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 113);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(50, 15);
+            this.label22.TabIndex = 19;
+            this.label22.Text = "Horario:";
             // 
             // comboBoxPuesto
             // 
             this.comboBoxPuesto.FormattingEnabled = true;
             this.comboBoxPuesto.Location = new System.Drawing.Point(73, 81);
             this.comboBoxPuesto.Name = "comboBoxPuesto";
-            this.comboBoxPuesto.Size = new System.Drawing.Size(216, 23);
-            this.comboBoxPuesto.TabIndex = 18;
-            
+            this.comboBoxPuesto.Size = new System.Drawing.Size(174, 23);
+            this.comboBoxPuesto.TabIndex = 19;
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(6, 84);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(43, 15);
+            this.label21.Size = new System.Drawing.Size(46, 15);
             this.label21.TabIndex = 17;
-            this.label21.Text = "Puesto";
+            this.label21.Text = "Puesto:";
             // 
             // comboBoxDep
             // 
             this.comboBoxDep.FormattingEnabled = true;
             this.comboBoxDep.Location = new System.Drawing.Point(73, 52);
             this.comboBoxDep.Name = "comboBoxDep";
-            this.comboBoxDep.Size = new System.Drawing.Size(216, 23);
-            this.comboBoxDep.TabIndex = 15;
+            this.comboBoxDep.Size = new System.Drawing.Size(174, 23);
+            this.comboBoxDep.TabIndex = 18;
             this.comboBoxDep.SelectedIndexChanged += new System.EventHandler(this.comboBoxDep_SelectedIndexChanged);
             // 
             // label18
@@ -543,11 +566,12 @@ namespace EmpManagement
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 518);
+            this.panel1.Size = new System.Drawing.Size(518, 585);
             this.panel1.TabIndex = 7;
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.pictureBoxFoto);
             this.panel6.Controls.Add(this.groupBoxDatosIngreso);
             this.panel6.Controls.Add(this.groupBox1);
             this.panel6.Controls.Add(this.groupBox3);
@@ -555,8 +579,18 @@ namespace EmpManagement
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 48);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(518, 470);
+            this.panel6.Size = new System.Drawing.Size(518, 537);
             this.panel6.TabIndex = 9;
+            // 
+            // pictureBoxFoto
+            // 
+            this.pictureBoxFoto.Location = new System.Drawing.Point(9, 6);
+            this.pictureBoxFoto.Name = "pictureBoxFoto";
+            this.pictureBoxFoto.Size = new System.Drawing.Size(236, 236);
+            this.pictureBoxFoto.TabIndex = 6;
+            this.pictureBoxFoto.TabStop = false;
+            this.pictureBoxFoto.Click += new System.EventHandler(this.pictureBoxFoto_Click);
+            this.pictureBoxFoto.DoubleClick += new System.EventHandler(this.pictureBoxFoto_DoubleClick);
             // 
             // panel2
             // 
@@ -570,12 +604,23 @@ namespace EmpManagement
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.labelpuesto);
             this.panel5.Controls.Add(this.toolStrip1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 23);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(518, 25);
             this.panel5.TabIndex = 1;
+            // 
+            // labelpuesto
+            // 
+            this.labelpuesto.AutoSize = true;
+            this.labelpuesto.Location = new System.Drawing.Point(340, 4);
+            this.labelpuesto.Name = "labelpuesto";
+            this.labelpuesto.Size = new System.Drawing.Size(36, 15);
+            this.labelpuesto.TabIndex = 12;
+            this.labelpuesto.Text = "#N\\A";
+            this.labelpuesto.Visible = false;
             // 
             // toolStrip1
             // 
@@ -595,41 +640,34 @@ namespace EmpManagement
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.GuardarToolStripMenuItem,
             this.limpiarToolStripMenuItem,
-            this.cancelarToolStripMenuItem,
-            this.asignarHorarioToolStripMenuItem});
+            this.cancelarToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(86, 22);
             this.toolStripDropDownButton1.Text = "Opciones";
-            
+            this.toolStripDropDownButton1.Click += new System.EventHandler(this.toolStripDropDownButton1_Click);
             // 
             // GuardarToolStripMenuItem
             // 
             this.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem";
-            this.GuardarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.GuardarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.GuardarToolStripMenuItem.Text = "Guardar";
             this.GuardarToolStripMenuItem.Click += new System.EventHandler(this.imprimirToolStripMenuItem_Click);
             // 
             // limpiarToolStripMenuItem
             // 
             this.limpiarToolStripMenuItem.Name = "limpiarToolStripMenuItem";
-            this.limpiarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.limpiarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.limpiarToolStripMenuItem.Text = "Limpiar";
             this.limpiarToolStripMenuItem.Click += new System.EventHandler(this.limpiarToolStripMenuItem_Click);
             // 
             // cancelarToolStripMenuItem
             // 
             this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
-            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.cancelarToolStripMenuItem.Text = "Cancelar";
             this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
-            // 
-            // asignarHorarioToolStripMenuItem
-            // 
-            this.asignarHorarioToolStripMenuItem.Name = "asignarHorarioToolStripMenuItem";
-            this.asignarHorarioToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.asignarHorarioToolStripMenuItem.Text = "Asignar Horario";
             // 
             // toolStripSeparator1
             // 
@@ -649,7 +687,7 @@ namespace EmpManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 443);
+            this.ClientSize = new System.Drawing.Size(518, 585);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "NuevoEmpleado";
@@ -666,6 +704,7 @@ namespace EmpManagement
             this.groupBoxDatosIngreso.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFoto)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
@@ -734,6 +773,9 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripMenuItem limpiarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelarToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem asignarHorarioToolStripMenuItem;
+        public System.Windows.Forms.Label labelpuesto;
+        public System.Windows.Forms.ComboBox comboBoxHor;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.PictureBox pictureBoxFoto;
     }
 }

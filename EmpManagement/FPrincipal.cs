@@ -9,7 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
-
+using System.Diagnostics;
+using Microsoft.Data.SqlClient;
 
 namespace EmpManagement
 {
@@ -22,11 +23,14 @@ namespace EmpManagement
             SetWindowTheme(treeHandle, "explorer", null);
         }
 
+      
+
         public FPrincipal()
         {
             InitializeComponent();
             this.SetStyle(ControlStyles.ResizeRedraw, true);
             this.DoubleBuffered = true;
+            this.BringToFront();
         }
 
 
@@ -71,7 +75,20 @@ namespace EmpManagement
 
         private void pictureBox1_Click_1(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult resultado = MessageBox.Show("¿Seguro que desea salir?", "Salir", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (resultado == DialogResult.OK)
+            {
+                foreach (Form frm in Application.OpenForms)
+                {
+                    if (frm.GetType() == typeof(DetalleMarcaciones))
+                    {
+                        frm.Close();
+                        break;
+                    }
+                }
+                this.Close();
+
+            }
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
@@ -92,7 +109,80 @@ namespace EmpManagement
 
         private void FPrincipal_Load(object sender, EventArgs e)
         {
+           
+            switch (Int32.Parse(labelClase.Text))
+            {
+                case 1:
+                 
+                    break;
+                case 2:
+
+                    // treeView1.Nodes.Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    break;
+                case 3:
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    break;
+                case 4:
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    break;
+                case 5:
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    break;
+                case 6:
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    break;
+                case 7:
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                   
+                    break;
+
+            }
             SetTreeViewTheme(treeView1.Handle);
+            try
+            {
+                conexionbd conexion = new conexionbd();
+                conexion.abrir();
+                string query = @"BACKUP DATABASE [datosrh] TO  DISK = N'c:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\Backup\datosrh.bak' WITH NOFORMAT, INIT,  NAME = N'datosrh-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
+                SqlCommand comando = new SqlCommand(query, conexion.con);
+                comando.ExecuteNonQuery();
+                conexion.cerrar();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en la conexión " + ex.Message);
+            }
+         
         }
 
 
@@ -137,6 +227,8 @@ namespace EmpManagement
 
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            //MessageBox.Show(e.Node.Tag.ToString());
+            //MessageBox.Show(e.Node.Index.ToString());
             switch (e.Node.Text)
             {
                 case "Directorio Empleados":
@@ -158,27 +250,38 @@ namespace EmpManagement
                     AbrirFormulario<Cumple>();
                     break;
                 case "Diseño Rol de Turnos":
-                    //AbrirFormulario<RolTurnos>();
-                    Form existe = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "RolTurnos").SingleOrDefault<Form>();
-                    if (existe != null)
-                    {
-                        MessageBox.Show("El Formulario ya se encuentra esta abierto");
-                    }
-                    else
-                    {
-                        RolTurnos frmrolturnos = new RolTurnos();
-                        frmrolturnos.Select();
-                        frmrolturnos.Show();
-                        this.WindowState = FormWindowState.Minimized;
-                        this.WindowState = FormWindowState.Normal;
-                        this.SendToBack();
-
-                    }
+                    AbrirFormulario<RolTurnos>();
                     break;
-                case "Rol de Turnos Actual": 
-                   break;
+                case "Rol de Turnos Actual":
+                    AbrirFormulario<prueba>();
+                    break;
                 case "Conexión Reloj":
                     AbrirFormulario<AdminReloj>();
+                    break;
+                case "Solicitar Capacitación":
+                    AbrirFormulario<Capacitacion>();
+                        break ;
+                case "Estatus":
+                    AbrirFormulario<SolicitudesCap>();
+
+                    break;
+                case "Días Festivos":
+                    AbrirFormulario<DiaFestivo>();
+                    break;
+                case "Horarios":
+                    AbrirFormulario<Horarios>();
+                    break;
+
+                case "Asignación de Eventos":
+                    AbrirFormulario<VacOIncapacidad>();
+                    break;
+
+                case "Estatus Eventos":
+                    AbrirFormulario<EstatusEventos>();
+                    break;
+
+                case "Edición Eventos":
+                    AbrirFormulario<EdicionEven>();
                     break;
             }
         }

@@ -23,12 +23,12 @@ namespace EmpManagement
                 con.Open();
                 Console.WriteLine("Conexion Exitosa");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("Error en la conexión "+ex.Message);
+                Console.WriteLine("Error en la conexión " + ex.Message);
             }
         }
-
+        
         public void cerrar()
         {
                 con.Close();

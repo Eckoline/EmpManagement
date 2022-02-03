@@ -48,7 +48,6 @@ namespace EmpManagement
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.groupBoxOp = new System.Windows.Forms.GroupBox();
-            this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonRead = new System.Windows.Forms.Button();
             this.groupBoxFechas = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -255,24 +254,13 @@ namespace EmpManagement
             // 
             // groupBoxOp
             // 
-            this.groupBoxOp.Controls.Add(this.buttonDelete);
             this.groupBoxOp.Controls.Add(this.buttonRead);
             this.groupBoxOp.Location = new System.Drawing.Point(425, 1);
             this.groupBoxOp.Name = "groupBoxOp";
-            this.groupBoxOp.Size = new System.Drawing.Size(200, 45);
+            this.groupBoxOp.Size = new System.Drawing.Size(111, 45);
             this.groupBoxOp.TabIndex = 8;
             this.groupBoxOp.TabStop = false;
             this.groupBoxOp.Text = "Opciones";
-            // 
-            // buttonDelete
-            // 
-            this.buttonDelete.Enabled = false;
-            this.buttonDelete.Location = new System.Drawing.Point(108, 15);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 7;
-            this.buttonDelete.Text = "Eliminar";
-            this.buttonDelete.UseVisualStyleBackColor = true;
             // 
             // buttonRead
             // 
@@ -396,7 +384,6 @@ namespace EmpManagement
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonRead;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel6;
