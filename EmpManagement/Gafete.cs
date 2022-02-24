@@ -79,7 +79,7 @@ namespace EmpManagement
                 oXL.Visible = true;
 
                 //Get a new workbook.
-                oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C:\Users\userf\source\repos\EmpManagement\EmpManagement\Excel\gafete.xlsx"));
+                oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C:\Excel\gafete.xlsx"));
                 oSheet = (Excel._Worksheet)oWB.ActiveSheet;
 
                 //Add table headers going cell by cell.

@@ -66,6 +66,7 @@ namespace EmpManagement
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.limpiarFechasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDatos)).BeginInit();
             this.groupBoxOpciones.SuspendLayout();
@@ -219,7 +220,8 @@ namespace EmpManagement
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportarToolStripMenuItem});
+            this.exportarToolStripMenuItem,
+            this.limpiarFechasToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -232,13 +234,13 @@ namespace EmpManagement
             this.exportarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.excelToolStripMenuItem});
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportarToolStripMenuItem.Text = "Exportar";
             // 
             // excelToolStripMenuItem
             // 
             this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.excelToolStripMenuItem.Text = "Excel";
             this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
             // 
@@ -265,6 +267,7 @@ namespace EmpManagement
             this.toolStripTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 32);
+            this.toolStripTextBox1.TextChanged += new System.EventHandler(this.toolStripTextBox1_TextChanged);
             // 
             // toolStripLabel2
             // 
@@ -277,6 +280,7 @@ namespace EmpManagement
             this.toolStripTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.Size = new System.Drawing.Size(100, 32);
+            this.toolStripTextBox2.TextChanged += new System.EventHandler(this.toolStripTextBox2_TextChanged);
             // 
             // toolStripSeparator2
             // 
@@ -425,6 +429,12 @@ namespace EmpManagement
             this.label3.Text = "Reporte de Tiempos Quincenal";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // limpiarFechasToolStripMenuItem
+            // 
+            this.limpiarFechasToolStripMenuItem.Name = "limpiarFechasToolStripMenuItem";
+            this.limpiarFechasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.limpiarFechasToolStripMenuItem.Text = "Limpiar Fechas";
+            // 
             // ReporteQuincenal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -495,5 +505,6 @@ namespace EmpManagement
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonJustificar;
+        private System.Windows.Forms.ToolStripMenuItem limpiarFechasToolStripMenuItem;
     }
 }

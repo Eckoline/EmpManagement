@@ -98,7 +98,7 @@ namespace EmpManagement
                     case 1:
                         string descripcion, dia, mes;
                         int newrow;
-                        newrow = dataGridViewDatos.Rows.Count - 1;
+                        newrow = 0;
 
                         descripcion = dataGridViewDatos.Rows[newrow].Cells[1].Value.ToString();
                         mes = dataGridViewDatos.Rows[newrow].Cells[2].Value.ToString();

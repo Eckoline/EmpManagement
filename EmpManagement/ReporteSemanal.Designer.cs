@@ -42,6 +42,8 @@ namespace EmpManagement
             this.dataGridViewDetalleDias = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.buttonEditarH = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.buttonJustificar = new System.Windows.Forms.Button();
             this.groupBoxOpciones = new System.Windows.Forms.GroupBox();
@@ -82,6 +84,7 @@ namespace EmpManagement
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBoxOpciones.SuspendLayout();
             this.groupBoxFechas.SuspendLayout();
@@ -193,6 +196,7 @@ namespace EmpManagement
             this.dataGridViewDetalleDias.RowTemplate.Height = 25;
             this.dataGridViewDetalleDias.Size = new System.Drawing.Size(933, 203);
             this.dataGridViewDetalleDias.TabIndex = 1;
+            this.dataGridViewDetalleDias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDetalleDias_CellContentClick);
             this.dataGridViewDetalleDias.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewDetalleDias_CellFormatting);
             // 
             // panel2
@@ -207,6 +211,7 @@ namespace EmpManagement
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.groupBox4);
             this.panel7.Controls.Add(this.groupBox3);
             this.panel7.Controls.Add(this.groupBoxOpciones);
             this.panel7.Controls.Add(this.groupBoxFechas);
@@ -215,6 +220,26 @@ namespace EmpManagement
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(939, 70);
             this.panel7.TabIndex = 4;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.buttonEditarH);
+            this.groupBox4.Location = new System.Drawing.Point(676, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(195, 62);
+            this.groupBox4.TabIndex = 12;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Edición Horas Extra";
+            // 
+            // buttonEditarH
+            // 
+            this.buttonEditarH.Location = new System.Drawing.Point(54, 22);
+            this.buttonEditarH.Name = "buttonEditarH";
+            this.buttonEditarH.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditarH.TabIndex = 3;
+            this.buttonEditarH.Text = "Editar";
+            this.buttonEditarH.UseVisualStyleBackColor = true;
+            this.buttonEditarH.Click += new System.EventHandler(this.buttonEditarH_Click);
             // 
             // groupBox3
             // 
@@ -389,6 +414,7 @@ namespace EmpManagement
             this.limpiarFechasToolStripMenuItem.Name = "limpiarFechasToolStripMenuItem";
             this.limpiarFechasToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.limpiarFechasToolStripMenuItem.Text = "Limpiar Fechas";
+            this.limpiarFechasToolStripMenuItem.Click += new System.EventHandler(this.limpiarFechasToolStripMenuItem_Click);
             // 
             // toolStripProgressBar1
             // 
@@ -490,6 +516,7 @@ namespace EmpManagement
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBoxOpciones.ResumeLayout(false);
             this.groupBoxFechas.ResumeLayout(false);
@@ -546,5 +573,7 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button buttonEditarH;
     }
 }

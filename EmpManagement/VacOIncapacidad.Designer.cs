@@ -63,6 +63,8 @@ namespace EmpManagement
             this.toolStripTextBoxNombre = new System.Windows.Forms.ToolStripTextBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBoxObs = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBoxControl.SuspendLayout();
@@ -103,6 +105,8 @@ namespace EmpManagement
             // 
             // groupBoxControl
             // 
+            this.groupBoxControl.Controls.Add(this.label6);
+            this.groupBoxControl.Controls.Add(this.textBoxObs);
             this.groupBoxControl.Controls.Add(this.dateTimePickerFecFin);
             this.groupBoxControl.Controls.Add(this.dateTimePickerFecIn);
             this.groupBoxControl.Controls.Add(this.groupBox3);
@@ -125,7 +129,7 @@ namespace EmpManagement
             // 
             this.dateTimePickerFecFin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerFecFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerFecFin.Location = new System.Drawing.Point(61, 233);
+            this.dateTimePickerFecFin.Location = new System.Drawing.Point(60, 199);
             this.dateTimePickerFecFin.Name = "dateTimePickerFecFin";
             this.dateTimePickerFecFin.Size = new System.Drawing.Size(109, 23);
             this.dateTimePickerFecFin.TabIndex = 17;
@@ -134,7 +138,7 @@ namespace EmpManagement
             // 
             this.dateTimePickerFecIn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerFecIn.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerFecIn.Location = new System.Drawing.Point(61, 174);
+            this.dateTimePickerFecIn.Location = new System.Drawing.Point(60, 140);
             this.dateTimePickerFecIn.Name = "dateTimePickerFecIn";
             this.dateTimePickerFecIn.Size = new System.Drawing.Size(109, 23);
             this.dateTimePickerFecIn.TabIndex = 16;
@@ -185,7 +189,7 @@ namespace EmpManagement
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(82, 274);
+            this.label5.Location = new System.Drawing.Point(81, 240);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 15);
             this.label5.TabIndex = 13;
@@ -195,7 +199,7 @@ namespace EmpManagement
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(107, 215);
+            this.label4.Location = new System.Drawing.Point(106, 181);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(18, 15);
             this.label4.TabIndex = 12;
@@ -205,7 +209,7 @@ namespace EmpManagement
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(107, 156);
+            this.label3.Location = new System.Drawing.Point(106, 122);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(24, 15);
             this.label3.TabIndex = 11;
@@ -215,7 +219,7 @@ namespace EmpManagement
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(70, 130);
+            this.label2.Location = new System.Drawing.Point(69, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 15);
             this.label2.TabIndex = 10;
@@ -225,7 +229,7 @@ namespace EmpManagement
             // 
             this.comboBoxTipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxTipo.FormattingEnabled = true;
-            this.comboBoxTipo.Location = new System.Drawing.Point(57, 292);
+            this.comboBoxTipo.Location = new System.Drawing.Point(56, 258);
             this.comboBoxTipo.Name = "comboBoxTipo";
             this.comboBoxTipo.Size = new System.Drawing.Size(121, 23);
             this.comboBoxTipo.TabIndex = 4;
@@ -415,6 +419,23 @@ namespace EmpManagement
             this.label1.Text = "Control de eventos por empleado";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // textBoxObs
+            // 
+            this.textBoxObs.Location = new System.Drawing.Point(6, 343);
+            this.textBoxObs.Multiline = true;
+            this.textBoxObs.Name = "textBoxObs";
+            this.textBoxObs.Size = new System.Drawing.Size(222, 77);
+            this.textBoxObs.TabIndex = 18;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 325);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 15);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Observaciones";
+            // 
             // VacOIncapacidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -481,5 +502,7 @@ namespace EmpManagement
         private System.Windows.Forms.Button buttonEliminar;
         private System.Windows.Forms.DateTimePicker dateTimePickerFecFin;
         private System.Windows.Forms.DateTimePicker dateTimePickerFecIn;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxObs;
     }
 }

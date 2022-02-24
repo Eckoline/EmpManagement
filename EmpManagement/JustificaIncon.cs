@@ -207,7 +207,7 @@ namespace EmpManagement
                 Debug.WriteLine(query);
 
                 conexion.abrir();
-                query = "INSERT INTO EVENEMP VALUES(" + comboBoxTipo.SelectedValue.ToString() + "," + labelIDEmp.Text + ",'" + labelFec.Text + "','" + labelFec.Text + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "')";
+                query = "INSERT INTO EVENEMP VALUES(" + comboBoxTipo.SelectedValue.ToString() + "," + labelIDEmp.Text + ",'" + labelFec.Text + "','" + labelFec.Text + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "','"+textBoxComentInc.Text+"')";
                 comando = new SqlCommand(query, conexion.con);
                 comando.ExecuteNonQuery();
                 conexion.cerrar();

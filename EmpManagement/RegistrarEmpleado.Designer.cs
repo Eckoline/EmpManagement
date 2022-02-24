@@ -1,7 +1,7 @@
 ﻿
 namespace EmpManagement
 {
-    partial class Directorio
+    partial class RegistrarEmpleado
     {
         /// <summary>
         /// Required designer variable.
@@ -29,22 +29,16 @@ namespace EmpManagement
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Directorio));
-            this.dataGridViewDatos = new System.Windows.Forms.DataGridView();
-            this.groupBoxDatos = new System.Windows.Forms.GroupBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarEmpleado));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.labelCant = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -55,43 +49,16 @@ namespace EmpManagement
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDatos)).BeginInit();
-            this.groupBoxDatos.SuspendLayout();
+            this.groupBoxDatos = new System.Windows.Forms.GroupBox();
+            this.dataGridViewDatos = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBoxDatos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDatos)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridViewDatos
-            // 
-            this.dataGridViewDatos.AllowUserToAddRows = false;
-            this.dataGridViewDatos.AllowUserToDeleteRows = false;
-            this.dataGridViewDatos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dataGridViewDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDatos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewDatos.Location = new System.Drawing.Point(4, 17);
-            this.dataGridViewDatos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.dataGridViewDatos.Name = "dataGridViewDatos";
-            this.dataGridViewDatos.ReadOnly = true;
-            this.dataGridViewDatos.RowTemplate.Height = 25;
-            this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewDatos.Size = new System.Drawing.Size(936, 495);
-            this.dataGridViewDatos.TabIndex = 3;
-            // 
-            // groupBoxDatos
-            // 
-            this.groupBoxDatos.Controls.Add(this.dataGridViewDatos);
-            this.groupBoxDatos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxDatos.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxDatos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBoxDatos.Name = "groupBoxDatos";
-            this.groupBoxDatos.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBoxDatos.Size = new System.Drawing.Size(944, 515);
-            this.groupBoxDatos.TabIndex = 4;
-            this.groupBoxDatos.TabStop = false;
-            this.groupBoxDatos.Text = "Datos";
             // 
             // panel1
             // 
@@ -101,36 +68,16 @@ namespace EmpManagement
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(944, 55);
-            this.panel1.TabIndex = 10;
+            this.panel1.TabIndex = 11;
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.labelCant);
-            this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.toolStrip1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 23);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(944, 32);
             this.panel4.TabIndex = 3;
-            // 
-            // labelCant
-            // 
-            this.labelCant.AutoSize = true;
-            this.labelCant.Location = new System.Drawing.Point(772, 7);
-            this.labelCant.Name = "labelCant";
-            this.labelCant.Size = new System.Drawing.Size(14, 15);
-            this.labelCant.TabIndex = 13;
-            this.labelCant.Text = "0";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(706, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 15);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Cantidad:";
             // 
             // toolStrip1
             // 
@@ -139,7 +86,6 @@ namespace EmpManagement
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
             this.toolStripSeparator1,
-            this.toolStripButton1,
             this.toolStripLabel1,
             this.toolStripComboBox1,
             this.toolStripSeparator2,
@@ -156,20 +102,12 @@ namespace EmpManagement
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.verToolStripMenuItem,
             this.accionesToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(86, 29);
             this.toolStripDropDownButton1.Text = "Opciones";
-            // 
-            // verToolStripMenuItem
-            // 
-            this.verToolStripMenuItem.Name = "verToolStripMenuItem";
-            this.verToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
-            this.verToolStripMenuItem.Text = "Ver";
-            this.verToolStripMenuItem.Click += new System.EventHandler(this.verToolStripMenuItem_Click);
             // 
             // accionesToolStripMenuItem
             // 
@@ -178,27 +116,27 @@ namespace EmpManagement
             this.actualizarToolStripMenuItem,
             this.bajaToolStripMenuItem});
             this.accionesToolStripMenuItem.Name = "accionesToolStripMenuItem";
-            this.accionesToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.accionesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.accionesToolStripMenuItem.Text = "Acciones";
             // 
             // nuevoToolStripMenuItem
             // 
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
-            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.imprimirToolStripMenuItem_Click);
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // actualizarToolStripMenuItem
             // 
             this.actualizarToolStripMenuItem.Name = "actualizarToolStripMenuItem";
-            this.actualizarToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.actualizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.actualizarToolStripMenuItem.Text = "Actualizar";
             this.actualizarToolStripMenuItem.Click += new System.EventHandler(this.actualizarToolStripMenuItem_Click);
             // 
             // bajaToolStripMenuItem
             // 
             this.bajaToolStripMenuItem.Name = "bajaToolStripMenuItem";
-            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.bajaToolStripMenuItem.Text = "Baja";
             this.bajaToolStripMenuItem.Click += new System.EventHandler(this.bajaToolStripMenuItem_Click);
             // 
@@ -206,17 +144,6 @@ namespace EmpManagement
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 29);
-            this.toolStripButton1.Text = "Actualizar";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripLabel1
             // 
@@ -245,7 +172,7 @@ namespace EmpManagement
             // 
             this.toolStripTextBoxID.Name = "toolStripTextBoxID";
             this.toolStripTextBoxID.Size = new System.Drawing.Size(100, 32);
-            this.toolStripTextBoxID.TextChanged += new System.EventHandler(this.toolStripTextBox1_TextChanged);
+            this.toolStripTextBoxID.TextChanged += new System.EventHandler(this.toolStripTextBoxID_TextChanged);
             // 
             // toolStripLabel3
             // 
@@ -257,7 +184,7 @@ namespace EmpManagement
             // 
             this.toolStripTextBoxNombre.Name = "toolStripTextBoxNombre";
             this.toolStripTextBoxNombre.Size = new System.Drawing.Size(100, 32);
-            this.toolStripTextBoxNombre.TextChanged += new System.EventHandler(this.toolStripTextBox2_TextChanged);
+            this.toolStripTextBoxNombre.TextChanged += new System.EventHandler(this.toolStripTextBoxNombre_TextChanged);
             // 
             // panel3
             // 
@@ -278,7 +205,7 @@ namespace EmpManagement
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(944, 23);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Directorio de Empleados";
+            this.label1.Text = "Control de Empleados";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
@@ -288,24 +215,46 @@ namespace EmpManagement
             this.panel2.Location = new System.Drawing.Point(0, 55);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(944, 515);
-            this.panel2.TabIndex = 11;
+            this.panel2.TabIndex = 12;
             // 
-            // Directorio
+            // groupBoxDatos
+            // 
+            this.groupBoxDatos.Controls.Add(this.dataGridViewDatos);
+            this.groupBoxDatos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxDatos.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxDatos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxDatos.Name = "groupBoxDatos";
+            this.groupBoxDatos.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBoxDatos.Size = new System.Drawing.Size(944, 515);
+            this.groupBoxDatos.TabIndex = 4;
+            this.groupBoxDatos.TabStop = false;
+            this.groupBoxDatos.Text = "Datos";
+            // 
+            // dataGridViewDatos
+            // 
+            this.dataGridViewDatos.AllowUserToAddRows = false;
+            this.dataGridViewDatos.AllowUserToDeleteRows = false;
+            this.dataGridViewDatos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewDatos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewDatos.Location = new System.Drawing.Point(4, 19);
+            this.dataGridViewDatos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.dataGridViewDatos.Name = "dataGridViewDatos";
+            this.dataGridViewDatos.ReadOnly = true;
+            this.dataGridViewDatos.RowTemplate.Height = 25;
+            this.dataGridViewDatos.Size = new System.Drawing.Size(936, 493);
+            this.dataGridViewDatos.TabIndex = 3;
+            // 
+            // RegistrarEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(944, 570);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "Directorio";
-            this.Text = "Directorio";
-            this.Load += new System.EventHandler(this.Directorio_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDatos)).EndInit();
-            this.groupBoxDatos.ResumeLayout(false);
+            this.Name = "RegistrarEmpleado";
+            this.Text = "Empleados";
+            this.Load += new System.EventHandler(this.RegistrarEmpleado_Load);
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -313,19 +262,22 @@ namespace EmpManagement
             this.toolStrip1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.groupBoxDatos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDatos)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dataGridViewDatos;
-        private System.Windows.Forms.GroupBox groupBoxDatos;
+
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem accionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem actualizarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bajaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
@@ -334,14 +286,10 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxID;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxNombre;
+        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripMenuItem verToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem accionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem actualizarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bajaToolStripMenuItem;
-        private System.Windows.Forms.Label labelCant;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox groupBoxDatos;
+        private System.Windows.Forms.DataGridView dataGridViewDatos;
     }
 }

@@ -31,87 +31,133 @@ namespace EmpManagement
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPrincipal));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Directorio Empleados");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Semanal");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Quincenal");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Marcaciones");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Reporte Tiempos", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Empleados");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Directorio Empleados");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Semanal");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Quincenal");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Marcaciones");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Reporte Tiempos", new System.Windows.Forms.TreeNode[] {
             treeNode3,
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Gafete");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Cumpleañeros");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Recepción", new System.Windows.Forms.TreeNode[] {
-            treeNode6,
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Estatus");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Capacitación", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Días Festivos");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Horarios");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Edición Eventos");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Asignación de Eventos");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Estatus Eventos");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Eventos", new System.Windows.Forms.TreeNode[] {
             treeNode9,
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Días Festivos");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Horarios");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Edición Eventos");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Asignación de Eventos");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Estatus Eventos");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Eventos", new System.Windows.Forms.TreeNode[] {
-            treeNode14,
+            treeNode10,
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Diseño Rol de Turnos");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Admin Reloj");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Capacitaciones", new System.Windows.Forms.TreeNode[] {
             treeNode15,
             treeNode16});
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Recursos Humanos", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("RR.HH. Laboral", new System.Windows.Forms.TreeNode[] {
             treeNode1,
-            treeNode5,
+            treeNode2,
+            treeNode6,
+            treeNode7,
             treeNode8,
-            treeNode11,
             treeNode12,
             treeNode13,
+            treeNode14,
             treeNode17});
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("No Calidades");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Directorio Empleados");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Estatus");
             System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Calidad", new System.Windows.Forms.TreeNode[] {
-            treeNode19,
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Capacitación", new System.Windows.Forms.TreeNode[] {
             treeNode20,
-            treeNode21});
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("No calidades");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Logística y Compras", new System.Windows.Forms.TreeNode[] {
-            treeNode23,
+            treeNode21,
+            treeNode22});
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Gafete");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Cumpleañeros");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Recepción", new System.Windows.Forms.TreeNode[] {
             treeNode24,
             treeNode25});
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("No calidades");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Planta", new System.Windows.Forms.TreeNode[] {
-            treeNode27,
-            treeNode28,
-            treeNode29});
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Diseño Rol de Turnos");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("No calidades");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Producción", new System.Windows.Forms.TreeNode[] {
-            treeNode31,
-            treeNode32,
-            treeNode33,
-            treeNode34});
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
-            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
-            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("No calidades");
-            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("Ingeniería", new System.Windows.Forms.TreeNode[] {
-            treeNode36,
-            treeNode37,
-            treeNode38});
-            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Contabilidad");
-            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("COPLAINSA®", new System.Windows.Forms.TreeNode[] {
-            treeNode18,
-            treeNode22,
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Carga Imagen");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("RR.HH. Reclutamiento", new System.Windows.Forms.TreeNode[] {
+            treeNode19,
+            treeNode23,
             treeNode26,
+            treeNode27});
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("No Calidades");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Capacitaciones", new System.Windows.Forms.TreeNode[] {
+            treeNode31,
+            treeNode32});
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Calidad", new System.Windows.Forms.TreeNode[] {
+            treeNode29,
             treeNode30,
+            treeNode33});
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("Capacitaciones", new System.Windows.Forms.TreeNode[] {
+            treeNode36,
+            treeNode37});
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("No calidades");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("Logística y Compras", new System.Windows.Forms.TreeNode[] {
             treeNode35,
-            treeNode39,
-            treeNode40});
+            treeNode38,
+            treeNode39});
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("No calidades");
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("Capacitaciones", new System.Windows.Forms.TreeNode[] {
+            treeNode43,
+            treeNode44});
+            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("Planta", new System.Windows.Forms.TreeNode[] {
+            treeNode41,
+            treeNode42,
+            treeNode45});
+            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("Diseño Rol de Turnos");
+            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
+            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
+            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("Capacitaciones", new System.Windows.Forms.TreeNode[] {
+            treeNode49,
+            treeNode50});
+            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("No calidades");
+            System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("Producción", new System.Windows.Forms.TreeNode[] {
+            treeNode47,
+            treeNode48,
+            treeNode51,
+            treeNode52});
+            System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("Reporte Tiempos");
+            System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("No calidades");
+            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
+            System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode("Capacitaciones", new System.Windows.Forms.TreeNode[] {
+            treeNode56,
+            treeNode57});
+            System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("Ingeniería", new System.Windows.Forms.TreeNode[] {
+            treeNode54,
+            treeNode55,
+            treeNode58});
+            System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("Solicitar Capacitación");
+            System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("Mis Capacitaciones");
+            System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("Capacitaciones", new System.Windows.Forms.TreeNode[] {
+            treeNode60,
+            treeNode61});
+            System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("Contabilidad", new System.Windows.Forms.TreeNode[] {
+            treeNode62});
+            System.Windows.Forms.TreeNode treeNode64 = new System.Windows.Forms.TreeNode("COPLAINSA®", new System.Windows.Forms.TreeNode[] {
+            treeNode18,
+            treeNode28,
+            treeNode34,
+            treeNode40,
+            treeNode46,
+            treeNode53,
+            treeNode59,
+            treeNode63});
             this.PanelContenedor = new System.Windows.Forms.Panel();
             this.panelFormularios = new System.Windows.Forms.Panel();
             this.labelClase = new System.Windows.Forms.Label();
@@ -227,90 +273,136 @@ namespace EmpManagement
             this.treeView1.LineColor = System.Drawing.Color.White;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node4";
-            treeNode1.Text = "Directorio Empleados";
-            treeNode2.Name = "Node8";
-            treeNode2.Text = "Semanal";
-            treeNode3.Name = "Node9";
-            treeNode3.Text = "Quincenal";
-            treeNode4.Name = "Node12";
-            treeNode4.Text = "Marcaciones";
-            treeNode5.Name = "Node5";
-            treeNode5.Text = "Reporte Tiempos";
-            treeNode6.Name = "Node6";
-            treeNode6.Text = "Gafete";
-            treeNode7.Name = "Node13";
-            treeNode7.Text = "Cumpleañeros";
-            treeNode8.Name = "Node7";
-            treeNode8.Text = "Recepción";
-            treeNode9.Name = "Node35";
-            treeNode9.Text = "Estatus";
-            treeNode10.Name = "Node38";
-            treeNode10.Text = "Solicitar Capacitación";
-            treeNode11.Name = "Node24";
-            treeNode11.Text = "Capacitación";
-            treeNode12.Name = "Node37";
-            treeNode12.Text = "Días Festivos";
-            treeNode13.Name = "Node39";
-            treeNode13.Text = "Horarios";
-            treeNode14.Name = "Node23";
-            treeNode14.Text = "Edición Eventos";
-            treeNode15.Name = "Node41";
-            treeNode15.Text = "Asignación de Eventos";
-            treeNode16.Name = "Node42";
-            treeNode16.Text = "Estatus Eventos";
-            treeNode17.Name = "Node40";
-            treeNode17.Text = "Eventos";
+            treeNode1.Name = "Node45";
+            treeNode1.Text = "Empleados";
+            treeNode2.Name = "Node4";
+            treeNode2.Text = "Directorio Empleados";
+            treeNode3.Name = "Node8";
+            treeNode3.Text = "Semanal";
+            treeNode4.Name = "Node9";
+            treeNode4.Text = "Quincenal";
+            treeNode5.Name = "Node12";
+            treeNode5.Text = "Marcaciones";
+            treeNode6.Name = "Node5";
+            treeNode6.Text = "Reporte Tiempos";
+            treeNode7.Name = "Node37";
+            treeNode7.Text = "Días Festivos";
+            treeNode8.Name = "Node39";
+            treeNode8.Text = "Horarios";
+            treeNode9.Name = "Node23";
+            treeNode9.Text = "Edición Eventos";
+            treeNode10.Name = "Node41";
+            treeNode10.Text = "Asignación de Eventos";
+            treeNode11.Name = "Node42";
+            treeNode11.Text = "Estatus Eventos";
+            treeNode12.Name = "Node40";
+            treeNode12.Text = "Eventos";
+            treeNode13.Name = "Node44";
+            treeNode13.Text = "Diseño Rol de Turnos";
+            treeNode14.Name = "Node47";
+            treeNode14.Text = "Admin Reloj";
+            treeNode15.Name = "Node43";
+            treeNode15.Text = "Solicitar Capacitación";
+            treeNode16.Name = "Node49";
+            treeNode16.Text = "Mis Capacitaciones";
+            treeNode17.Name = "Node48";
+            treeNode17.Text = "Capacitaciones";
             treeNode18.Name = "Node1";
-            treeNode18.Text = "Recursos Humanos";
-            treeNode19.Name = "Node15";
-            treeNode19.Text = "No Calidades";
-            treeNode20.Name = "Node18";
-            treeNode20.Text = "Reporte Tiempos";
-            treeNode21.Name = "Node25";
+            treeNode18.Text = "RR.HH. Laboral";
+            treeNode19.Name = "Node22";
+            treeNode19.Text = "Directorio Empleados";
+            treeNode20.Name = "Node35";
+            treeNode20.Text = "Estatus";
+            treeNode21.Name = "Node38";
             treeNode21.Text = "Solicitar Capacitación";
-            treeNode22.Name = "Node3";
-            treeNode22.Text = "Calidad";
-            treeNode23.Name = "Node19";
-            treeNode23.Text = "Reporte Tiempos";
-            treeNode24.Name = "Node27";
-            treeNode24.Text = "Solicitar Capacitación";
-            treeNode25.Name = "Node31";
-            treeNode25.Text = "No calidades";
-            treeNode26.Name = "Node10";
-            treeNode26.Text = "Logística y Compras";
-            treeNode27.Name = "Node20";
-            treeNode27.Text = "Reporte Tiempos";
-            treeNode28.Name = "Node28";
-            treeNode28.Text = "Solicitar Capacitación";
-            treeNode29.Name = "Node32";
-            treeNode29.Text = "No calidades";
-            treeNode30.Name = "Node17";
-            treeNode30.Text = "Planta";
-            treeNode31.Name = "Node16";
-            treeNode31.Text = "Diseño Rol de Turnos";
-            treeNode32.Name = "Node21";
-            treeNode32.Text = "Reporte Tiempos";
-            treeNode33.Name = "Node29";
-            treeNode33.Text = "Solicitar Capacitación";
-            treeNode34.Name = "Node33";
-            treeNode34.Text = "No calidades";
-            treeNode35.Name = "Node2";
-            treeNode35.Text = "Producción";
-            treeNode36.Name = "Node26";
-            treeNode36.Text = "Reporte Tiempos";
-            treeNode37.Name = "Node30";
-            treeNode37.Text = "Solicitar Capacitación";
-            treeNode38.Name = "Node34";
-            treeNode38.Text = "No calidades";
-            treeNode39.Name = "Node11";
-            treeNode39.Text = "Ingeniería";
-            treeNode40.Name = "Node36";
-            treeNode40.Text = "Contabilidad";
-            treeNode41.Name = "Node0";
-            treeNode41.Text = "COPLAINSA®";
+            treeNode22.Name = "Node50";
+            treeNode22.Text = "Mis Capacitaciones";
+            treeNode23.Name = "Node24";
+            treeNode23.Text = "Capacitación";
+            treeNode24.Name = "Node6";
+            treeNode24.Text = "Gafete";
+            treeNode25.Name = "Node13";
+            treeNode25.Text = "Cumpleañeros";
+            treeNode26.Name = "Node7";
+            treeNode26.Text = "Recepción";
+            treeNode27.Name = "Node46";
+            treeNode27.Text = "Carga Imagen";
+            treeNode28.Name = "Node14";
+            treeNode28.Text = "RR.HH. Reclutamiento";
+            treeNode29.Name = "Node15";
+            treeNode29.Text = "No Calidades";
+            treeNode30.Name = "Node18";
+            treeNode30.Text = "Reporte Tiempos";
+            treeNode31.Name = "Node51";
+            treeNode31.Text = "Solicitar Capacitación";
+            treeNode32.Name = "Node52";
+            treeNode32.Text = "Mis Capacitaciones";
+            treeNode33.Name = "Node25";
+            treeNode33.Text = "Capacitaciones";
+            treeNode34.Name = "Node3";
+            treeNode34.Text = "Calidad";
+            treeNode35.Name = "Node19";
+            treeNode35.Text = "Reporte Tiempos";
+            treeNode36.Name = "Node53";
+            treeNode36.Text = "Solicitar Capacitación";
+            treeNode37.Name = "Node54";
+            treeNode37.Text = "Mis Capacitaciones";
+            treeNode38.Name = "Node27";
+            treeNode38.Text = "Capacitaciones";
+            treeNode39.Name = "Node31";
+            treeNode39.Text = "No calidades";
+            treeNode40.Name = "Node10";
+            treeNode40.Text = "Logística y Compras";
+            treeNode41.Name = "Node20";
+            treeNode41.Text = "Reporte Tiempos";
+            treeNode42.Name = "Node32";
+            treeNode42.Text = "No calidades";
+            treeNode43.Name = "Node56";
+            treeNode43.Text = "Mis Capacitaciones";
+            treeNode44.Name = "Node28";
+            treeNode44.Text = "Solicitar Capacitación";
+            treeNode45.Name = "Node55";
+            treeNode45.Text = "Capacitaciones";
+            treeNode46.Name = "Node17";
+            treeNode46.Text = "Planta";
+            treeNode47.Name = "Node16";
+            treeNode47.Text = "Diseño Rol de Turnos";
+            treeNode48.Name = "Node21";
+            treeNode48.Text = "Reporte Tiempos";
+            treeNode49.Name = "Node57";
+            treeNode49.Text = "Solicitar Capacitación";
+            treeNode50.Name = "Node58";
+            treeNode50.Text = "Mis Capacitaciones";
+            treeNode51.Name = "Node29";
+            treeNode51.Text = "Capacitaciones";
+            treeNode52.Name = "Node33";
+            treeNode52.Text = "No calidades";
+            treeNode53.Name = "Node2";
+            treeNode53.Text = "Producción";
+            treeNode54.Name = "Node26";
+            treeNode54.Text = "Reporte Tiempos";
+            treeNode55.Name = "Node34";
+            treeNode55.Text = "No calidades";
+            treeNode56.Name = "Node30";
+            treeNode56.Text = "Solicitar Capacitación";
+            treeNode57.Name = "Node60";
+            treeNode57.Text = "Mis Capacitaciones";
+            treeNode58.Name = "Node59";
+            treeNode58.Text = "Capacitaciones";
+            treeNode59.Name = "Node11";
+            treeNode59.Text = "Ingeniería";
+            treeNode60.Name = "Node62";
+            treeNode60.Text = "Solicitar Capacitación";
+            treeNode61.Name = "Node63";
+            treeNode61.Text = "Mis Capacitaciones";
+            treeNode62.Name = "Node61";
+            treeNode62.Text = "Capacitaciones";
+            treeNode63.Name = "Node36";
+            treeNode63.Text = "Contabilidad";
+            treeNode64.Name = "Node0";
+            treeNode64.Text = "COPLAINSA®";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode41});
+            treeNode64});
             this.treeView1.SelectedImageIndex = 0;
             this.treeView1.ShowLines = false;
             this.treeView1.Size = new System.Drawing.Size(240, 641);

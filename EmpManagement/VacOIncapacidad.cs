@@ -30,34 +30,57 @@ namespace EmpManagement
 
         private void buttonAsig_Click(object sender, EventArgs e)
         {
-          
-                string id, nombre, tipoeve;
-                string fecin, fecfin;
-                int cuenta;
-                id = dataGridViewDatos.CurrentRow.Cells[0].Value.ToString();
-                nombre = dataGridViewDatos.CurrentRow.Cells[1].Value.ToString();
-                fecin = dateTimePickerFecIn.Value.ToString("MM-dd-yyyy");
-                fecfin = dateTimePickerFecFin.Value.ToString("MM-dd-yyyy");
-                tipoeve = comboBoxTipo.SelectedValue.ToString();
 
-                DataTable dtEmpValid = new DataTable();
-                string query = "SELECT * FROM EVENEMP where id_even=" + tipoeve + " and badgenumber='" + id + "' and fecin='" + fecin + "' and fecfin='" + fecfin + "' and fecreg='"+DateTime.Now.ToString("MM-dd-yyyy")+"'";
-                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                adaptador.Fill(dtEmpValid);
-                cuenta = dtEmpValid.Rows.Count;
-                if (cuenta > 0)
+            string id, nombre, tipoeve, observaciones;
+            string fecin, fecfin;
+            int cuenta;
+            id = dataGridViewDatos.CurrentRow.Cells[0].Value.ToString();
+            nombre = dataGridViewDatos.CurrentRow.Cells[1].Value.ToString();
+            fecin = dateTimePickerFecIn.Value.ToString("MM-dd-yyyy");
+            fecfin = dateTimePickerFecFin.Value.ToString("MM-dd-yyyy");
+            tipoeve = comboBoxTipo.SelectedValue.ToString();
+
+            if (dateTimePickerFecIn.Value < dateTimePickerFecFin.Value)
+            {
+                if (comboBoxTipo.SelectedIndex > 0)
                 {
-                    MessageBox.Show("Registro repetido.");
+                    if (textBoxObs.Text != "")
+                    {
+                        DataTable dtEmpValid = new DataTable();
+                        string query = "SELECT * FROM EVENEMP where id_even=" + tipoeve + " and badgenumber='" + id + "' and fecin='" + fecin + "' and fecfin='" + fecfin + "' and fecreg='" + DateTime.Now.ToString("MM-dd-yyyy") + "'";
+                        SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                        adaptador.Fill(dtEmpValid);
+                        cuenta = dtEmpValid.Rows.Count;
+                        if (cuenta > 0)
+                        {
+                            MessageBox.Show("Registro repetido.");
+                        }
+                        else
+                        {
+                            conexion.abrir();
+                            query = "INSERT INTO EVENEMP(ID_EVEN,BADGENUMBER,FECIN,FECFIN,FECREG) VALUES(" + tipoeve + "," + id + ",'" + fecin + "','" + fecfin + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "')";
+                            SqlCommand comando = new SqlCommand(query, conexion.con);
+                            comando.ExecuteNonQuery();
+                            conexion.cerrar();
+                            actualizalista();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Falta escribir observaciones del evento.");
+                    }
                 }
                 else
                 {
-                    conexion.abrir();
-                    query = "INSERT INTO EVENEMP(ID_EVEN,BADGENUMBER,FECIN,FECFIN,FECREG) VALUES(" + tipoeve + "," +id + ",'" + fecin + "','" + fecfin + "','"+DateTime.Now.ToString("MM-dd-yyyy")+"')";
-                    SqlCommand comando = new SqlCommand(query, conexion.con);
-                    comando.ExecuteNonQuery();
-                    conexion.cerrar();
-                    actualizalista();
+                    MessageBox.Show("Seleccione un tipo de evento");
                 }
+            }
+            else
+            {
+                MessageBox.Show("La fecha de termino no puede ser menor que la de inicio.");
+            }
+
+          
             /*
             catch (Exception ex)
             {
@@ -167,7 +190,7 @@ namespace EmpManagement
             {
                 Console.WriteLine("Error:" + ex.Message);
             }
-       
+
         }
         private void toolStripTextBoxNombre_TextChanged(object sender, EventArgs e)
         {

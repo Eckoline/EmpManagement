@@ -43,15 +43,17 @@ namespace EmpManagement
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hojaDeAsistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hojaDeEvaluaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verAsistentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.rechazarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.terminadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -176,7 +178,8 @@ namespace EmpManagement
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportarToolStripMenuItem,
-            this.reportesToolStripMenuItem});
+            this.reportesToolStripMenuItem,
+            this.verAsistentesToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -188,7 +191,8 @@ namespace EmpManagement
             // 
             this.exportarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.excelToolStripMenuItem,
-            this.eliminarToolStripMenuItem});
+            this.rechazarToolStripMenuItem,
+            this.terminadaToolStripMenuItem});
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
             this.exportarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportarToolStripMenuItem.Text = "Acciones";
@@ -196,16 +200,9 @@ namespace EmpManagement
             // excelToolStripMenuItem
             // 
             this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.excelToolStripMenuItem.Text = "Aprobar";
             this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
-            // 
-            // eliminarToolStripMenuItem
-            // 
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.eliminarToolStripMenuItem.Text = "Terminada";
-            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // reportesToolStripMenuItem
             // 
@@ -229,6 +226,13 @@ namespace EmpManagement
             this.hojaDeEvaluaciónToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hojaDeEvaluaciónToolStripMenuItem.Text = "Hojas de Evaluación";
             this.hojaDeEvaluaciónToolStripMenuItem.Click += new System.EventHandler(this.hojaDeEvaluaciónToolStripMenuItem_Click);
+            // 
+            // verAsistentesToolStripMenuItem
+            // 
+            this.verAsistentesToolStripMenuItem.Name = "verAsistentesToolStripMenuItem";
+            this.verAsistentesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verAsistentesToolStripMenuItem.Text = "Ver Asistentes";
+            this.verAsistentesToolStripMenuItem.Click += new System.EventHandler(this.verAsistentesToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -268,6 +272,20 @@ namespace EmpManagement
             this.label3.TabIndex = 2;
             this.label3.Text = "Capacitaciones";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // rechazarToolStripMenuItem
+            // 
+            this.rechazarToolStripMenuItem.Name = "rechazarToolStripMenuItem";
+            this.rechazarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rechazarToolStripMenuItem.Text = "Rechazar";
+            this.rechazarToolStripMenuItem.Click += new System.EventHandler(this.rechazarToolStripMenuItem_Click);
+            // 
+            // terminadaToolStripMenuItem
+            // 
+            this.terminadaToolStripMenuItem.Name = "terminadaToolStripMenuItem";
+            this.terminadaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.terminadaToolStripMenuItem.Text = "Terminada";
+            this.terminadaToolStripMenuItem.Click += new System.EventHandler(this.terminadaToolStripMenuItem_Click);
             // 
             // SolicitudesCap
             // 
@@ -315,9 +333,11 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hojaDeAsistenciaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hojaDeEvaluaciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verAsistentesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rechazarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem terminadaToolStripMenuItem;
     }
 }

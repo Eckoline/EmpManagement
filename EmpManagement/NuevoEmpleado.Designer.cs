@@ -48,6 +48,8 @@ namespace EmpManagement
             this.textBoxID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxDescCon = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.textBoxCP = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.textBoxDireccion = new System.Windows.Forms.TextBox();
@@ -69,8 +71,8 @@ namespace EmpManagement
             this.comboBoxNivelE = new System.Windows.Forms.ComboBox();
             this.dateTimePickerFechaIngreso = new System.Windows.Forms.DateTimePicker();
             this.groupBoxDatosIngreso = new System.Windows.Forms.GroupBox();
-            this.comboBoxHor = new System.Windows.Forms.ComboBox();
-            this.label22 = new System.Windows.Forms.Label();
+            this.textBoxCorreo = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.comboBoxPuesto = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
             this.comboBoxDep = new System.Windows.Forms.ComboBox();
@@ -79,6 +81,23 @@ namespace EmpManagement
             this.label19 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.pictureBoxFoto = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -90,12 +109,17 @@ namespace EmpManagement
             this.cancelarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.textBoxEdad = new System.Windows.Forms.TextBox();
+            this.textBoxAntigu = new System.Windows.Forms.TextBox();
             this.groupBoxDatosP.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBoxDatosIngreso.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFoto)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -105,6 +129,10 @@ namespace EmpManagement
             // 
             // groupBoxDatosP
             // 
+            this.groupBoxDatosP.Controls.Add(this.textBoxAntigu);
+            this.groupBoxDatosP.Controls.Add(this.textBoxEdad);
+            this.groupBoxDatosP.Controls.Add(this.label30);
+            this.groupBoxDatosP.Controls.Add(this.label29);
             this.groupBoxDatosP.Controls.Add(this.comboBoxEstCivil);
             this.groupBoxDatosP.Controls.Add(this.label20);
             this.groupBoxDatosP.Controls.Add(this.dateTimePickerFecNac);
@@ -121,9 +149,9 @@ namespace EmpManagement
             this.groupBoxDatosP.Controls.Add(this.label2);
             this.groupBoxDatosP.Controls.Add(this.textBoxID);
             this.groupBoxDatosP.Controls.Add(this.label1);
-            this.groupBoxDatosP.Location = new System.Drawing.Point(9, 248);
+            this.groupBoxDatosP.Location = new System.Drawing.Point(9, 269);
             this.groupBoxDatosP.Name = "groupBoxDatosP";
-            this.groupBoxDatosP.Size = new System.Drawing.Size(236, 265);
+            this.groupBoxDatosP.Size = new System.Drawing.Size(236, 286);
             this.groupBoxDatosP.TabIndex = 0;
             this.groupBoxDatosP.TabStop = false;
             this.groupBoxDatosP.Text = "Datos Principales";
@@ -133,8 +161,8 @@ namespace EmpManagement
             this.comboBoxEstCivil.FormattingEnabled = true;
             this.comboBoxEstCivil.Items.AddRange(new object[] {
             "N/A",
-            "Casado/a",
-            "Soltero/a"});
+            "CASADO/A",
+            "SOLTERO/A"});
             this.comboBoxEstCivil.Location = new System.Drawing.Point(60, 230);
             this.comboBoxEstCivil.Name = "comboBoxEstCivil";
             this.comboBoxEstCivil.Size = new System.Drawing.Size(170, 23);
@@ -269,6 +297,8 @@ namespace EmpManagement
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxDescCon);
+            this.groupBox1.Controls.Add(this.label22);
             this.groupBox1.Controls.Add(this.textBoxCP);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.textBoxDireccion);
@@ -283,40 +313,62 @@ namespace EmpManagement
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Location = new System.Drawing.Point(251, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(255, 234);
+            this.groupBox1.Size = new System.Drawing.Size(255, 260);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Ubicación";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // textBoxDescCon
+            // 
+            this.textBoxDescCon.Location = new System.Drawing.Point(75, 230);
+            this.textBoxDescCon.Multiline = true;
+            this.textBoxDescCon.Name = "textBoxDescCon";
+            this.textBoxDescCon.Size = new System.Drawing.Size(174, 23);
+            this.textBoxDescCon.TabIndex = 18;
+            this.textBoxDescCon.TextChanged += new System.EventHandler(this.textBoxDescCon_TextChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(5, 233);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(72, 15);
+            this.label22.TabIndex = 17;
+            this.label22.Text = "Descripción:";
+            this.label22.Click += new System.EventHandler(this.label22_Click);
             // 
             // textBoxCP
             // 
-            this.textBoxCP.Location = new System.Drawing.Point(73, 140);
+            this.textBoxCP.Location = new System.Drawing.Point(75, 143);
             this.textBoxCP.Name = "textBoxCP";
             this.textBoxCP.Size = new System.Drawing.Size(100, 23);
             this.textBoxCP.TabIndex = 14;
+            this.textBoxCP.TextChanged += new System.EventHandler(this.textBoxCP_TextChanged);
             this.textBoxCP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCP_KeyPress);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(10, 143);
+            this.label17.Location = new System.Drawing.Point(12, 146);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(22, 15);
             this.label17.TabIndex = 11;
             this.label17.Text = "CP";
+            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // textBoxDireccion
             // 
             this.textBoxDireccion.Location = new System.Drawing.Point(73, 82);
             this.textBoxDireccion.Multiline = true;
             this.textBoxDireccion.Name = "textBoxDireccion";
-            this.textBoxDireccion.Size = new System.Drawing.Size(174, 52);
+            this.textBoxDireccion.Size = new System.Drawing.Size(174, 53);
             this.textBoxDireccion.TabIndex = 13;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 85);
+            this.label10.Location = new System.Drawing.Point(5, 85);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(60, 15);
             this.label10.TabIndex = 9;
@@ -324,36 +376,40 @@ namespace EmpManagement
             // 
             // textBoxTelEme
             // 
-            this.textBoxTelEme.Location = new System.Drawing.Point(73, 198);
+            this.textBoxTelEme.Location = new System.Drawing.Point(75, 201);
             this.textBoxTelEme.Name = "textBoxTelEme";
             this.textBoxTelEme.Size = new System.Drawing.Size(174, 23);
             this.textBoxTelEme.TabIndex = 16;
+            this.textBoxTelEme.TextChanged += new System.EventHandler(this.textBoxTelEme_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 201);
+            this.label11.Location = new System.Drawing.Point(9, 204);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(57, 15);
             this.label11.TabIndex = 7;
             this.label11.Text = "Tel. Emer:";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // textBoxTel
             // 
-            this.textBoxTel.Location = new System.Drawing.Point(73, 169);
+            this.textBoxTel.Location = new System.Drawing.Point(75, 172);
             this.textBoxTel.Name = "textBoxTel";
             this.textBoxTel.Size = new System.Drawing.Size(174, 23);
             this.textBoxTel.TabIndex = 15;
+            this.textBoxTel.TextChanged += new System.EventHandler(this.textBoxTel_TextChanged);
             this.textBoxTel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTel_KeyPress);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 172);
+            this.label12.Location = new System.Drawing.Point(10, 175);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(55, 15);
             this.label12.TabIndex = 5;
             this.label12.Text = "Teléfono:";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // textBoxEstado
             // 
@@ -361,7 +417,7 @@ namespace EmpManagement
             this.textBoxEstado.Name = "textBoxEstado";
             this.textBoxEstado.Size = new System.Drawing.Size(174, 23);
             this.textBoxEstado.TabIndex = 12;
-            this.textBoxEstado.Text = "Guanajuato";
+            this.textBoxEstado.Text = "GUANAJUATO";
             // 
             // label13
             // 
@@ -378,7 +434,7 @@ namespace EmpManagement
             this.textBoxCiudad.Name = "textBoxCiudad";
             this.textBoxCiudad.Size = new System.Drawing.Size(174, 23);
             this.textBoxCiudad.TabIndex = 11;
-            this.textBoxCiudad.Text = "Celaya";
+            this.textBoxCiudad.Text = "CELAYA";
             // 
             // label14
             // 
@@ -392,7 +448,7 @@ namespace EmpManagement
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 143);
+            this.label8.Location = new System.Drawing.Point(5, 118);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 15);
             this.label8.TabIndex = 12;
@@ -400,7 +456,7 @@ namespace EmpManagement
             // 
             // textBoxVehiculo
             // 
-            this.textBoxVehiculo.Location = new System.Drawing.Point(73, 140);
+            this.textBoxVehiculo.Location = new System.Drawing.Point(73, 115);
             this.textBoxVehiculo.Name = "textBoxVehiculo";
             this.textBoxVehiculo.Size = new System.Drawing.Size(174, 23);
             this.textBoxVehiculo.TabIndex = 21;
@@ -411,16 +467,16 @@ namespace EmpManagement
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.comboBoxNivelE);
-            this.groupBox3.Location = new System.Drawing.Point(251, 418);
+            this.groupBox3.Location = new System.Drawing.Point(251, 457);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(255, 95);
+            this.groupBox3.Size = new System.Drawing.Size(255, 98);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Estudios";
             // 
             // textBoxCedula
             // 
-            this.textBoxCedula.Location = new System.Drawing.Point(73, 54);
+            this.textBoxCedula.Location = new System.Drawing.Point(73, 49);
             this.textBoxCedula.Name = "textBoxCedula";
             this.textBoxCedula.Size = new System.Drawing.Size(137, 23);
             this.textBoxCedula.TabIndex = 10;
@@ -428,7 +484,7 @@ namespace EmpManagement
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 57);
+            this.label15.Location = new System.Drawing.Point(6, 52);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(44, 15);
             this.label15.TabIndex = 2;
@@ -437,7 +493,7 @@ namespace EmpManagement
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 24);
+            this.label9.Location = new System.Drawing.Point(9, 19);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 15);
             this.label9.TabIndex = 1;
@@ -448,13 +504,13 @@ namespace EmpManagement
             this.comboBoxNivelE.FormattingEnabled = true;
             this.comboBoxNivelE.Items.AddRange(new object[] {
             "N/A",
-            "Primaria",
-            "Secundaria",
-            "Preparatoria",
-            "Licenciatura",
-            "Maestria",
-            "Doctorado"});
-            this.comboBoxNivelE.Location = new System.Drawing.Point(73, 21);
+            "PRIMARIA",
+            "SECUNDARIA",
+            "PREPARATORIA",
+            "LICENCIATURA",
+            "MAESTRIA",
+            "DOCTORADO"});
+            this.comboBoxNivelE.Location = new System.Drawing.Point(73, 16);
             this.comboBoxNivelE.Name = "comboBoxNivelE";
             this.comboBoxNivelE.Size = new System.Drawing.Size(137, 23);
             this.comboBoxNivelE.TabIndex = 9;
@@ -469,8 +525,8 @@ namespace EmpManagement
             // 
             // groupBoxDatosIngreso
             // 
-            this.groupBoxDatosIngreso.Controls.Add(this.comboBoxHor);
-            this.groupBoxDatosIngreso.Controls.Add(this.label22);
+            this.groupBoxDatosIngreso.Controls.Add(this.textBoxCorreo);
+            this.groupBoxDatosIngreso.Controls.Add(this.label23);
             this.groupBoxDatosIngreso.Controls.Add(this.comboBoxPuesto);
             this.groupBoxDatosIngreso.Controls.Add(this.label21);
             this.groupBoxDatosIngreso.Controls.Add(this.comboBoxDep);
@@ -479,29 +535,28 @@ namespace EmpManagement
             this.groupBoxDatosIngreso.Controls.Add(this.label8);
             this.groupBoxDatosIngreso.Controls.Add(this.label16);
             this.groupBoxDatosIngreso.Controls.Add(this.dateTimePickerFechaIngreso);
-            this.groupBoxDatosIngreso.Location = new System.Drawing.Point(251, 236);
+            this.groupBoxDatosIngreso.Location = new System.Drawing.Point(251, 269);
             this.groupBoxDatosIngreso.Name = "groupBoxDatosIngreso";
-            this.groupBoxDatosIngreso.Size = new System.Drawing.Size(255, 176);
+            this.groupBoxDatosIngreso.Size = new System.Drawing.Size(255, 182);
             this.groupBoxDatosIngreso.TabIndex = 5;
             this.groupBoxDatosIngreso.TabStop = false;
             this.groupBoxDatosIngreso.Text = "Datos Ingreso";
             // 
-            // comboBoxHor
+            // textBoxCorreo
             // 
-            this.comboBoxHor.FormattingEnabled = true;
-            this.comboBoxHor.Location = new System.Drawing.Point(73, 110);
-            this.comboBoxHor.Name = "comboBoxHor";
-            this.comboBoxHor.Size = new System.Drawing.Size(174, 23);
-            this.comboBoxHor.TabIndex = 20;
+            this.textBoxCorreo.Location = new System.Drawing.Point(73, 146);
+            this.textBoxCorreo.Name = "textBoxCorreo";
+            this.textBoxCorreo.Size = new System.Drawing.Size(174, 23);
+            this.textBoxCorreo.TabIndex = 23;
             // 
-            // label22
+            // label23
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 113);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(50, 15);
-            this.label22.TabIndex = 19;
-            this.label22.Text = "Horario:";
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(5, 149);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(46, 15);
+            this.label23.TabIndex = 22;
+            this.label23.Text = "Correo:";
             // 
             // comboBoxPuesto
             // 
@@ -554,7 +609,7 @@ namespace EmpManagement
             this.label19.ForeColor = System.Drawing.Color.White;
             this.label19.Location = new System.Drawing.Point(0, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(518, 23);
+            this.label19.Size = new System.Drawing.Size(511, 23);
             this.label19.TabIndex = 6;
             this.label19.Text = "Registro/Actualización  Información de Empleado";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -566,11 +621,12 @@ namespace EmpManagement
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 585);
+            this.panel1.Size = new System.Drawing.Size(511, 610);
             this.panel1.TabIndex = 7;
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.groupBox2);
             this.panel6.Controls.Add(this.pictureBoxFoto);
             this.panel6.Controls.Add(this.groupBoxDatosIngreso);
             this.panel6.Controls.Add(this.groupBox1);
@@ -579,17 +635,179 @@ namespace EmpManagement
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 48);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(518, 537);
+            this.panel6.Size = new System.Drawing.Size(511, 562);
             this.panel6.TabIndex = 9;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBox6);
+            this.groupBox2.Controls.Add(this.textBox5);
+            this.groupBox2.Controls.Add(this.textBox4);
+            this.groupBox2.Controls.Add(this.comboBox6);
+            this.groupBox2.Controls.Add(this.comboBox5);
+            this.groupBox2.Controls.Add(this.comboBox4);
+            this.groupBox2.Controls.Add(this.comboBox3);
+            this.groupBox2.Controls.Add(this.comboBox2);
+            this.groupBox2.Controls.Add(this.comboBox7);
+            this.groupBox2.Controls.Add(this.listBox1);
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.label28);
+            this.groupBox2.Controls.Add(this.label27);
+            this.groupBox2.Controls.Add(this.label26);
+            this.groupBox2.Controls.Add(this.label25);
+            this.groupBox2.Controls.Add(this.label24);
+            this.groupBox2.Location = new System.Drawing.Point(512, 46);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(174, 479);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Visible = false;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(15, 267);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(100, 23);
+            this.textBox6.TabIndex = 19;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(62, 123);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 23);
+            this.textBox5.TabIndex = 18;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(62, 97);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 23);
+            this.textBox4.TabIndex = 17;
+            // 
+            // comboBox6
+            // 
+            this.comboBox6.FormattingEnabled = true;
+            this.comboBox6.Location = new System.Drawing.Point(16, 443);
+            this.comboBox6.Name = "comboBox6";
+            this.comboBox6.Size = new System.Drawing.Size(121, 23);
+            this.comboBox6.TabIndex = 15;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(17, 414);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(121, 23);
+            this.comboBox5.TabIndex = 14;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(16, 384);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(121, 23);
+            this.comboBox4.TabIndex = 13;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Location = new System.Drawing.Point(16, 354);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 23);
+            this.comboBox3.TabIndex = 12;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(15, 325);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 23);
+            this.comboBox2.TabIndex = 11;
+            // 
+            // comboBox7
+            // 
+            this.comboBox7.FormattingEnabled = true;
+            this.comboBox7.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3"});
+            this.comboBox7.Location = new System.Drawing.Point(79, 69);
+            this.comboBox7.Name = "comboBox7";
+            this.comboBox7.Size = new System.Drawing.Size(83, 23);
+            this.comboBox7.TabIndex = 10;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(6, 158);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(150, 94);
+            this.listBox1.TabIndex = 7;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(16, 296);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(120, 23);
+            this.comboBox1.TabIndex = 6;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 126);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(30, 15);
+            this.label28.TabIndex = 4;
+            this.label28.Text = "pass";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(6, 105);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(30, 15);
+            this.label27.TabIndex = 3;
+            this.label27.Text = "card";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 77);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(43, 15);
+            this.label26.TabIndex = 2;
+            this.label26.Text = "TipoUs";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 53);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(56, 15);
+            this.label25.TabIndex = 1;
+            this.label25.Text = "NOMBRE";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(16, 24);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(18, 15);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "ID";
             // 
             // pictureBoxFoto
             // 
+            this.pictureBoxFoto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBoxFoto.Location = new System.Drawing.Point(9, 6);
             this.pictureBoxFoto.Name = "pictureBoxFoto";
-            this.pictureBoxFoto.Size = new System.Drawing.Size(236, 236);
+            this.pictureBoxFoto.Size = new System.Drawing.Size(236, 257);
             this.pictureBoxFoto.TabIndex = 6;
             this.pictureBoxFoto.TabStop = false;
-            this.pictureBoxFoto.Click += new System.EventHandler(this.pictureBoxFoto_Click);
             this.pictureBoxFoto.DoubleClick += new System.EventHandler(this.pictureBoxFoto_DoubleClick);
             // 
             // panel2
@@ -599,7 +817,7 @@ namespace EmpManagement
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(518, 48);
+            this.panel2.Size = new System.Drawing.Size(511, 48);
             this.panel2.TabIndex = 7;
             // 
             // panel5
@@ -609,13 +827,13 @@ namespace EmpManagement
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 23);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(518, 25);
+            this.panel5.Size = new System.Drawing.Size(511, 25);
             this.panel5.TabIndex = 1;
             // 
             // labelpuesto
             // 
             this.labelpuesto.AutoSize = true;
-            this.labelpuesto.Location = new System.Drawing.Point(340, 4);
+            this.labelpuesto.Location = new System.Drawing.Point(463, 3);
             this.labelpuesto.Name = "labelpuesto";
             this.labelpuesto.Size = new System.Drawing.Size(36, 15);
             this.labelpuesto.TabIndex = 12;
@@ -631,7 +849,7 @@ namespace EmpManagement
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(518, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(511, 25);
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -646,26 +864,25 @@ namespace EmpManagement
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(86, 22);
             this.toolStripDropDownButton1.Text = "Opciones";
-            this.toolStripDropDownButton1.Click += new System.EventHandler(this.toolStripDropDownButton1_Click);
             // 
             // GuardarToolStripMenuItem
             // 
             this.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem";
-            this.GuardarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.GuardarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.GuardarToolStripMenuItem.Text = "Guardar";
             this.GuardarToolStripMenuItem.Click += new System.EventHandler(this.imprimirToolStripMenuItem_Click);
             // 
             // limpiarToolStripMenuItem
             // 
             this.limpiarToolStripMenuItem.Name = "limpiarToolStripMenuItem";
-            this.limpiarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.limpiarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.limpiarToolStripMenuItem.Text = "Limpiar";
             this.limpiarToolStripMenuItem.Click += new System.EventHandler(this.limpiarToolStripMenuItem_Click);
             // 
             // cancelarToolStripMenuItem
             // 
             this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
-            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cancelarToolStripMenuItem.Text = "Cancelar";
             this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
             // 
@@ -680,14 +897,49 @@ namespace EmpManagement
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(518, 23);
+            this.panel4.Size = new System.Drawing.Size(511, 23);
             this.panel4.TabIndex = 0;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(18, 263);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(36, 15);
+            this.label29.TabIndex = 16;
+            this.label29.Text = "Edad:";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(108, 262);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(72, 15);
+            this.label30.TabIndex = 17;
+            this.label30.Text = "Antiguedad:";
+            this.label30.Click += new System.EventHandler(this.label30_Click_1);
+            // 
+            // textBoxEdad
+            // 
+            this.textBoxEdad.Enabled = false;
+            this.textBoxEdad.Location = new System.Drawing.Point(60, 258);
+            this.textBoxEdad.Name = "textBoxEdad";
+            this.textBoxEdad.Size = new System.Drawing.Size(42, 23);
+            this.textBoxEdad.TabIndex = 18;
+            // 
+            // textBoxAntigu
+            // 
+            this.textBoxAntigu.Enabled = false;
+            this.textBoxAntigu.Location = new System.Drawing.Point(183, 259);
+            this.textBoxAntigu.Name = "textBoxAntigu";
+            this.textBoxAntigu.Size = new System.Drawing.Size(47, 23);
+            this.textBoxAntigu.TabIndex = 19;
             // 
             // NuevoEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 585);
+            this.ClientSize = new System.Drawing.Size(511, 610);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "NuevoEmpleado";
@@ -704,6 +956,8 @@ namespace EmpManagement
             this.groupBoxDatosIngreso.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFoto)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -774,8 +1028,31 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripMenuItem cancelarToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         public System.Windows.Forms.Label labelpuesto;
-        public System.Windows.Forms.ComboBox comboBoxHor;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.PictureBox pictureBoxFoto;
+        public System.Windows.Forms.TextBox textBoxCorreo;
+        private System.Windows.Forms.Label label23;
+        public System.Windows.Forms.TextBox textBoxDescCon;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        public System.Windows.Forms.TextBox textBoxAntigu;
+        public System.Windows.Forms.TextBox textBoxEdad;
     }
 }

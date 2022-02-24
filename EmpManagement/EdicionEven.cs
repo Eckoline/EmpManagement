@@ -99,7 +99,7 @@ namespace EmpManagement
                     case 1:
                         string descripcion, grupo, color;
                         int newrow;
-                        newrow = dataGridViewDatos.Rows.Count - 1;
+                        newrow = 0;
 
                         descripcion = dataGridViewDatos.Rows[newrow].Cells[1].Value.ToString();
                         grupo = dataGridViewDatos.Rows[newrow].Cells[2].Value.ToString();

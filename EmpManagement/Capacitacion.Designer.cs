@@ -147,15 +147,16 @@ namespace EmpManagement
             // terminarToolStripMenuItem
             // 
             this.terminarToolStripMenuItem.Name = "terminarToolStripMenuItem";
-            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.terminarToolStripMenuItem.Text = "Terminar y solicitar";
             this.terminarToolStripMenuItem.Click += new System.EventHandler(this.terminarToolStripMenuItem_Click);
             // 
             // restablecerToolStripMenuItem
             // 
             this.restablecerToolStripMenuItem.Name = "restablecerToolStripMenuItem";
-            this.restablecerToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.restablecerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.restablecerToolStripMenuItem.Text = "Restablecer";
+            this.restablecerToolStripMenuItem.Click += new System.EventHandler(this.restablecerToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -394,7 +395,6 @@ namespace EmpManagement
             this.textBoxHor.Name = "textBoxHor";
             this.textBoxHor.Size = new System.Drawing.Size(53, 23);
             this.textBoxHor.TabIndex = 9;
-            this.textBoxHor.Text = "00:00";
             // 
             // label6
             // 

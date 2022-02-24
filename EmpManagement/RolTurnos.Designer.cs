@@ -110,9 +110,6 @@ namespace EmpManagement
             this.panel6 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verRolActualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reestablecerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -1022,8 +1019,6 @@ namespace EmpManagement
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportarToolStripMenuItem,
-            this.verRolActualToolStripMenuItem,
             this.terminarToolStripMenuItem,
             this.reestablecerToolStripMenuItem1});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
@@ -1033,38 +1028,17 @@ namespace EmpManagement
             this.toolStripDropDownButton1.Text = "Opciones";
             this.toolStripDropDownButton1.ToolTipText = "Opciones";
             // 
-            // exportarToolStripMenuItem
-            // 
-            this.exportarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.excelToolStripMenuItem});
-            this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.exportarToolStripMenuItem.Text = "Vista Previa";
-            // 
-            // excelToolStripMenuItem
-            // 
-            this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
-            this.excelToolStripMenuItem.Text = "Excel";
-            this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
-            // 
-            // verRolActualToolStripMenuItem
-            // 
-            this.verRolActualToolStripMenuItem.Name = "verRolActualToolStripMenuItem";
-            this.verRolActualToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.verRolActualToolStripMenuItem.Text = "Ver Rol Actual";
-            // 
             // terminarToolStripMenuItem
             // 
             this.terminarToolStripMenuItem.Name = "terminarToolStripMenuItem";
-            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.terminarToolStripMenuItem.Text = "Terminar";
             this.terminarToolStripMenuItem.Click += new System.EventHandler(this.terminarToolStripMenuItem_Click);
             // 
             // reestablecerToolStripMenuItem1
             // 
             this.reestablecerToolStripMenuItem1.Name = "reestablecerToolStripMenuItem1";
-            this.reestablecerToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.reestablecerToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.reestablecerToolStripMenuItem1.Text = "Reestablecer";
             this.reestablecerToolStripMenuItem1.Click += new System.EventHandler(this.reestablecerToolStripMenuItem1_Click);
             // 
@@ -1215,8 +1189,6 @@ namespace EmpManagement
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem exportarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem excelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;
@@ -1224,7 +1196,6 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxID;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxNombre;
-        private System.Windows.Forms.ToolStripMenuItem verRolActualToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;

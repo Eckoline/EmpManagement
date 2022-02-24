@@ -113,11 +113,10 @@ namespace EmpManagement
             switch (Int32.Parse(labelClase.Text))
             {
                 case 1:
-                 
+
                     break;
                 case 2:
-
-                    // treeView1.Nodes.Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
                     treeView1.Nodes[0].Nodes[1].Remove();
                     treeView1.Nodes[0].Nodes[1].Remove();
                     treeView1.Nodes[0].Nodes[1].Remove();
@@ -131,9 +130,11 @@ namespace EmpManagement
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[1].Remove();
                     break;
                 case 4:
+                    treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[1].Remove();
@@ -142,6 +143,7 @@ namespace EmpManagement
                     treeView1.Nodes[0].Nodes[1].Remove();
                     break;
                 case 5:
+                    treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
@@ -156,20 +158,38 @@ namespace EmpManagement
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
                     break;
                 case 7:
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
                     treeView1.Nodes[0].Nodes[1].Remove();
                     treeView1.Nodes[0].Nodes[1].Remove();
-                   
                     break;
-
+                case 8:
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    break;
+                case 9:
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[0].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    treeView1.Nodes[0].Nodes[1].Remove();
+                    break;
             }
             SetTreeViewTheme(treeView1.Handle);
-            try
+            /*try
             {
                 conexionbd conexion = new conexionbd();
                 conexion.abrir();
@@ -181,7 +201,7 @@ namespace EmpManagement
             catch (Exception ex)
             {
                 Console.WriteLine("Error en la conexión " + ex.Message);
-            }
+            }*/
          
         }
 
@@ -283,7 +303,26 @@ namespace EmpManagement
                 case "Edición Eventos":
                     AbrirFormulario<EdicionEven>();
                     break;
+                case "Empleados":
+                    AbrirFormulario<RegistrarEmpleado>();
+                    break;
+                case "Carga Imagen":
+                    AbrirFormulario<CargarImagenes>();
+                    break;
+
+                /*  case "Admin Reloj":
+                      AbrirFormulario<AdminReloj>();
+                      break;
+                */
+                case "Mis Capacitaciones":
+                    AbrirFormulario<MisCap>();
+                    break;
+                case "root":
+                    AbrirFormulario<Bajas>();
+                    break;
+
             }
+
         }
     }
 }

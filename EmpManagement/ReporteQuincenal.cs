@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Diagnostics;
+using Excel = Microsoft.Office.Interop.Excel;
 
 
 namespace EmpManagement
@@ -22,7 +23,20 @@ namespace EmpManagement
         DataTable detalledatos = new DataTable();
         private void ReporteQuincenal_Load(object sender, EventArgs e)
         {
-
+            dataGridViewDatos.DataSource = null;
+            dataGridViewDetalleDias.DataSource = null;
+            detalledatos.Columns.Add("ID");
+            detalledatos.Columns.Add("Nombre");
+            detalledatos.Columns.Add("Asistencias");
+            detalledatos.Columns.Add("Inasistencias");
+            detalledatos.Columns.Add("Retardos");
+            detalledatos.Columns.Add("Sal. Temp.");
+            detalledatos.Columns.Add("Inconsistencias");
+            detalledatos.Columns.Add("H.T. Laboradas");
+            detalledatos.Columns.Add("H.T. Comedor");
+            detalledatos.Columns.Add("H. Extras");
+            detalledatos.Columns.Add("Turno");
+            detalledatos.Columns.Add("Comentarios");
         }
 
         private void buttonAcept_Click(object sender, EventArgs e)
@@ -268,7 +282,7 @@ namespace EmpManagement
                                                         {
                                                             if (eventosempleado[i, 1] == "Retardo")
                                                             {
-                                                                evento = evento + " " + eventosempleado[i, 0];
+                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
                                                                 aux1 = 0;
                                                                 inc2 = 0;
                                                         
@@ -290,7 +304,7 @@ namespace EmpManagement
                                                         {
                                                             if (eventosempleado[i, 1] == "Salida Temprano")
                                                             {
-                                                                evento = evento + " " + eventosempleado[i, 0];
+                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
                                                                 aux2 = 0;
                                                                 inc2 = 0;
                                                             }
@@ -305,7 +319,7 @@ namespace EmpManagement
                                                 hrs_extra = TimeSpan.Zero;
                                                 detalle = "Se encontraron dos registros sin coherencia.";
                                             }
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + inc2 + ",'" + detalle + "','" + fechas[h] + " "+evento +"','" + hrs_extra + "','"+ evento+"')";
+                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + inc2 + ",'" + detalle + "','"+evento +"','" + hrs_extra + "','"+ evento+"')";
                                             insertadetalledias(query);
                                             //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, auxcomedor, detalle);
                                             break;
@@ -361,7 +375,7 @@ namespace EmpManagement
                                                         {
                                                             if (eventosempleado[i, 1] == "Retardo")
                                                             {
-                                                                evento = evento + " " + eventosempleado[i, 0];
+                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
                                                                 aux1 = 0;
                                                                 inc3 = 0;
                                                             }
@@ -382,7 +396,7 @@ namespace EmpManagement
                                                         {
                                                             if (eventosempleado[i, 1] == "Retardo")
                                                             {
-                                                                evento = evento + " " + eventosempleado[i, 0];
+                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
                                                                 aux1 = 0;
                                                                 inc3 = 0;
                                                             }
@@ -400,7 +414,7 @@ namespace EmpManagement
                                                 puede obtener retardo, salida temprano*/
 
                                             }
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "',"+inc3+",'" + detalle + "','" + fechas[h] + " " + evento +"','" + hrs_extra + "','" + evento + "')";
+                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "',"+inc3+",'" + detalle + "','"+ evento +"','" + hrs_extra + "','" + evento + "')";
                                             insertadetalledias(query);
                                             //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, 1, detalle);
 
@@ -459,7 +473,7 @@ namespace EmpManagement
                                                     {
                                                         if (eventosempleado[i, 1] == "Salida Temprano")
                                                         {
-                                                            evento = evento + " " + eventosempleado[i, 0];
+                                                            evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
                                                             aux2 = 0;
                                                             aux3 = 0;
                                                         }
@@ -482,14 +496,14 @@ namespace EmpManagement
                                                     {
                                                         if (eventosempleado[i, 1] == "Retardo")
                                                         {
-                                                            evento = evento + " " + eventosempleado[i, 0];
+                                                            evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
                                                             aux1 = 0;
                                                             aux3 = 0;
                                                         }
                                                     }
                                                 }
                                             }
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','" + fechas[h] + " " + evento + "','" + hrs_extra + "','" + evento + "')";
+                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','"+ evento + "','" + hrs_extra + "','" + evento + "')";
                                             insertadetalledias(query);
                                             break;
 
@@ -575,7 +589,7 @@ namespace EmpManagement
 
                                                 }
                                                 //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, aux3, detalle);
-                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','" + fechas[h] + " " + evento +"','" + hrs_extra + "','" + evento + "')";
+                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','"+ evento +"','" + hrs_extra + "','" + evento + "')";
                                                 insertadetalledias(query);
                                             }
 
@@ -622,21 +636,6 @@ namespace EmpManagement
             adaptador.Fill(dtempleado);
             conexion.cerrar();
 
-            DataTable detalledatos = new DataTable();
-            detalledatos.Columns.Clear();
-            detalledatos.Rows.Clear();
-            detalledatos.Columns.Add("ID");
-            detalledatos.Columns.Add("Nombre");
-            detalledatos.Columns.Add("Asistencias");
-            detalledatos.Columns.Add("Inasistencias");
-            detalledatos.Columns.Add("Retardos");
-            detalledatos.Columns.Add("Sal. Temp.");
-            detalledatos.Columns.Add("Inconsistencias");
-            detalledatos.Columns.Add("H.T. Laboradas");
-            detalledatos.Columns.Add("H.T. Comedor");
-            detalledatos.Columns.Add("H. Extras");
-            detalledatos.Columns.Add("Turno");
-            detalledatos.Columns.Add("Comentarios");
             string asisbd, inasisbd, retbd, saltempbd, turnobd, incosisbd;
             int hrslabbd, hrscombd, hrsextbd = 0;
             foreach (DataRow row in dtempleado.Rows)
@@ -713,7 +712,80 @@ namespace EmpManagement
         }
         private void excelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExportarDatos(dataGridViewDatos);
+            //ExportarDatos(dataGridViewDatos);
+            // C:\Users\userf\source\repos\EmpManagement\EmpManagement\documentos\gafete.xlsx
+            conexionbd conexion = new conexionbd();
+            DataTable dtem = new DataTable();
+            Excel.Application oXL;
+            Excel._Workbook oWB;
+            Excel._Worksheet oSheet;
+            Excel.Range oRng;
+
+            int contador = 0;
+
+
+            string[,] saNames = new string[dataGridViewDatos.Rows.Count, 12];
+            //Debug.WriteLine(dataGridViewDatos.Rows.Count);
+
+            foreach (DataGridViewRow row in dataGridViewDatos.Rows)
+            {
+                saNames[contador, 0] = row.Cells["ID"].Value.ToString();
+                saNames[contador, 1] = row.Cells["Nombre"].Value.ToString();
+                saNames[contador, 2] = row.Cells["Asistencias"].Value.ToString();
+                saNames[contador, 3] = row.Cells["Inasistencias"].Value.ToString();
+                saNames[contador, 4] = row.Cells["Retardos"].Value.ToString();
+                saNames[contador, 5] = row.Cells["Sal. Temp."].Value.ToString();
+                saNames[contador, 6] = row.Cells["Inconsistencias"].Value.ToString();
+                saNames[contador, 7] = row.Cells["H.T. Laboradas"].Value.ToString();
+                saNames[contador, 8] = row.Cells["H.T. Comedor"].Value.ToString();
+                saNames[contador, 9] = row.Cells["H. Extras"].Value.ToString();
+                saNames[contador, 10] = row.Cells["Turno"].Value.ToString();
+                saNames[contador, 11] = row.Cells["Comentarios"].Value.ToString();
+                contador = contador + 1;
+            }
+            contador = 0;
+            // try
+            //{
+            //Start Excel and get Application object.
+            oXL = new Excel.Application();
+            oXL.Visible = true;
+
+            //Get a new workbook.
+            oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C:\Excel\QuincenalReporte.xlsx"));
+            oSheet = (Excel._Worksheet)oWB.ActiveSheet;
+
+            //Add table headers going cell by cell.
+            /* oSheet.Cells[1, 1] = "First Name";
+             oSheet.Cells[1, 2] = "Last Name";
+             oSheet.Cells[1, 3] = "Full Name";
+             oSheet.Cells[1, 4] = "Salary";
+            */
+            //Format A1:D1 as bold, vertical alignment = center.
+            /*
+            oSheet.get_Range("A1", "D1").Font.Bold = true;
+            oSheet.get_Range("A1", "D1").VerticalAlignment =
+            Excel.XlVAlign.xlVAlignCenter;
+            */
+            // Create an array to multiple values at once.
+            //Fill A2:B6 with an array of values (First and Last Names).
+
+            oSheet.get_Range("A2", "L" + dataGridViewDatos.Rows.Count.ToString()).Value2 = saNames;
+            //oSheet.get_Range("A").Value2 = dataGridViewDatos.CurrentRow.Cells["PUESTO"].Value.ToString();
+            oXL.Visible = true;
+            oXL.UserControl = true;
+            // }
+            /*
+             catch (Exception theException)
+             {
+                 String errorMessage;
+                 errorMessage = "Error: ";
+                 errorMessage = String.Concat(errorMessage, theException.Message);
+                 errorMessage = String.Concat(errorMessage, " Line: ");
+                 errorMessage = String.Concat(errorMessage, theException.Source);
+
+                 MessageBox.Show(errorMessage, "Error");
+             }
+            */
         }
 
         private void ExportarDatos(DataGridView datalistado)
@@ -890,6 +962,33 @@ namespace EmpManagement
                     }
                 }
             }
+        }
+
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                toolStripTextBox2.Text = "";
+                detalledatos.DefaultView.RowFilter = $"ID LIKE '{toolStripTextBox1.Text}%'";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void toolStripTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                toolStripTextBox1.Text = "";
+                detalledatos.DefaultView.RowFilter = $"Nombre LIKE '{toolStripTextBox2.Text}%'";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }

@@ -40,14 +40,11 @@ namespace EmpManagement
             comando.ExecuteNonQuery();
             conexion.cerrar();
             labelsoli.Text = Program.usuario;
-
-
             Cargacompplas();
         }
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DataTable dtEmp = new DataTable();
             if (toolStripComboBox1.Text == "COMPAÑIA PLASTICA INTERNACIONAL")
             {
                 Cargacompplas();
@@ -151,7 +148,7 @@ namespace EmpManagement
                     comando.ExecuteNonQuery();
                 }
                 CargaAsis();
-                Cargawit();
+                Cargacompplas();
                 conexion.cerrar();
             }
         }
@@ -184,7 +181,7 @@ namespace EmpManagement
                 }
                 conexion.cerrar();
                 CargaAsis();
-                Cargawit();
+                Cargacompplas();
             }
         }
 
@@ -214,131 +211,156 @@ namespace EmpManagement
 
         private void terminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
-            DialogResult resultado = MessageBox.Show("¿Seguro que desea terminar?", "Terminar solicitud", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (resultado == DialogResult.OK)
+            if (dataGridViewAsistentes.Rows.Count > 0)
             {
-                if ((textBoxInstructor.Equals("")) || (textBoxNomCap.Equals("")) || textBoxDesc.Equals("") || (textBoxHor.Equals("")) || (dateTimePicker1.Value > dateTimePicker2.Value))
+                DialogResult resultado = MessageBox.Show("¿Seguro que desea terminar?", "Terminar solicitud", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (resultado == DialogResult.OK)
                 {
-                    MessageBox.Show("Los datos introducidos no son correctos o no se han llenado todos los campos.");
-                }
-                else
-                {
-                    conexionbd conexion = new conexionbd();
-                    DataTable dtidcap = new DataTable();
-                    string idcap;
-                    string descripcion, instructor, nombrecap, solicitante;
-                    string fecin, fecfin, fecrec;
-                    nombrecap = textBoxNomCap.Text;
-                    instructor = textBoxInstructor.Text;
-                    descripcion = textBoxDesc.Text;
-                    solicitante = labelsoli.Text;
-                    fecin = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-                    fecfin = dateTimePicker2.Value.ToString("yyyy-MM-dd");
-                    fecrec = DateTime.Now.ToString("yyyy-MM-dd");
-                    conexion.abrir();
-                    string query = "INSERT INTO CAPACITACION VALUES('" + nombrecap + "','" + descripcion + "','" + instructor + "','" + fecrec + "','" + fecin + "','" + fecfin + "','" + solicitante + "',0,'" + textBoxHor.Text + "')";
-                    SqlCommand comando = new SqlCommand(query, conexion.con);
-                    comando.ExecuteNonQuery();
-                    conexion.cerrar();
 
-                    conexion.abrir();
-                    query = "SELECT TOP 1 ID_CAP from capacitacion ORDER BY ID_CAP DESC;";
-                    SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                    adaptador.Fill(dtidcap);
-                    conexion.cerrar();
-                    idcap = dtidcap.Rows[0]["ID_CAP"].ToString();
-
-                    foreach (DataGridViewRow row in dataGridViewAsistentes.Rows)
+                    if ((textBoxInstructor.Text.Equals("")) || (textBoxNomCap.Text.Equals("")) || textBoxDesc.Text.Equals("") || (textBoxHor.Text.Equals("")) || (DateTime.Parse(dateTimePicker2.Value.ToString("dd-MM-yyyy")) < DateTime.Parse(dateTimePicker2.Value.ToString("dd-MM-yyyy"))))
                     {
+                        Debug.WriteLine(dateTimePicker1.Value.ToString());
+                        Debug.WriteLine(dateTimePicker2.Value.ToString());
+                        MessageBox.Show("Los datos introducidos no son correctos o no se han llenado todos los campos.");
+                    }
+                    else
+                    {
+                        conexionbd conexion = new conexionbd();
+                        DataTable dtidcap = new DataTable();
+                        string idcap;
+                        string descripcion, instructor, nombrecap, solicitante;
+                        string fecin, fecfin, fecrec;
+                        nombrecap = textBoxNomCap.Text;
+                        instructor = textBoxInstructor.Text;
+                        descripcion = textBoxDesc.Text;
+                        solicitante = labelsoli.Text;
+                        fecin = dateTimePicker1.Value.ToString("MM-dd-yyyy");
+                        fecfin = dateTimePicker2.Value.ToString("MM-dd-yyyy");
+                        fecrec = DateTime.Now.ToString("MM-dd-yyyy");
                         conexion.abrir();
-                        query = "INSERT INTO EMPYCAP VALUES(" + row.Cells["ID"].Value.ToString() + "," + idcap + ")";
-                        comando = new SqlCommand(query, conexion.con);
+                        string query = "INSERT INTO CAPACITACION VALUES('" + nombrecap + "','" + descripcion + "','" + instructor + "','" + fecrec + "','" + fecin + "','" + fecfin + "','" + solicitante + "',0,'" + textBoxHor.Text + "')";
+                        SqlCommand comando = new SqlCommand(query, conexion.con);
                         comando.ExecuteNonQuery();
                         conexion.cerrar();
-                    }
-                    MessageBox.Show("Se ha realizado la solicitud.");
-                    // C:\Users\userf\source\repos\EmpManagement\EmpManagement\documentos\gafete.xlsx
-                    Excel.Application oXL;
-                    Excel._Workbook oWB;
-                    Excel._Worksheet oSheet;
-                    Excel.Range oRng;
-                    string[,] saNames = new string[dataGridViewAsistentes.Rows.Count, 3];
-                    int contador = 0;
-                    Debug.WriteLine(dataGridViewAsistentes.Rows.Count);
-                    foreach (DataGridViewRow row in dataGridViewAsistentes.Rows)
-                    {
-                        saNames[contador, 0] = row.Cells["Nombre"].Value.ToString();
-                        saNames[contador, 1] = row.Cells["PUESTO"].Value.ToString();
-                        saNames[contador, 2] = row.Cells["DEPARTAMENTO"].Value.ToString();
-                        contador = contador + 1;
-                    }
-                    contador = 0;
-                    // try
-                    //{
-                    //Start Excel and get Application object.
-                    oXL = new Excel.Application();
-                    oXL.Visible = true;
 
-                    //Get a new workbook.
-                    oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C:\Users\userf\source\repos\EmpManagement\EmpManagement\Excel\SolicitudCapacitacion.xlsx"));
-                    oSheet = (Excel._Worksheet)oWB.ActiveSheet;
+                        conexion.abrir();
+                        query = "SELECT TOP 1 ID_CAP from capacitacion ORDER BY ID_CAP DESC;";
+                        SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                        adaptador.Fill(dtidcap);
+                        conexion.cerrar();
+                        idcap = dtidcap.Rows[0]["ID_CAP"].ToString();
 
-                    //Add table headers going cell by cell.
-                    /* oSheet.Cells[1, 1] = "First Name";
-                     oSheet.Cells[1, 2] = "Last Name";
-                     oSheet.Cells[1, 3] = "Full Name";
-                     oSheet.Cells[1, 4] = "Salary";
-                    */
-                    //Format A1:D1 as bold, vertical alignment = center.
-                    /*
-                    oSheet.get_Range("A1", "D1").Font.Bold = true;
-                    oSheet.get_Range("A1", "D1").VerticalAlignment =
-                    Excel.XlVAlign.xlVAlignCenter;
-                    */
-                    // Create an array to multiple values at once.
-                    //Fill A2:B6 with an array of values (First and Last Names).
-                    oSheet.get_Range("B9").Value2 = textBoxNomCap.Text;
-                    oSheet.get_Range("B6").Value2 = DateTime.Now.ToShortDateString();
-
-                    oSheet.get_Range("B10").Value2 = textBoxInstructor.Text;
-                    oSheet.get_Range("B12").Value2 = textBoxHor.Text;
-
-                    oSheet.get_Range("B11").Value2 = dateTimePicker1.Value.ToShortDateString();
-                    oSheet.get_Range("D11").Value2 = dateTimePicker2.Value.ToShortDateString();
-
-                    if (dataGridViewAsistentes.Rows.Count > 10)
-                    {
-                        int incremento;
-                        incremento = dataGridViewAsistentes.Rows.Count - 10;
-                        for (int i = 0; i < incremento; i++)
+                        foreach (DataGridViewRow row in dataGridViewAsistentes.Rows)
                         {
-                            oSheet.Range["A20"].EntireRow.Insert();
+                            conexion.abrir();
+                            query = "INSERT INTO EMPYCAP VALUES(" + row.Cells["ID"].Value.ToString() + "," + idcap + ")";
+                            comando = new SqlCommand(query, conexion.con);
+                            comando.ExecuteNonQuery();
+                            conexion.cerrar();
                         }
+                        MessageBox.Show("Se ha realizado la solicitud.");
+                        // C:\Users\userf\source\repos\EmpManagement\EmpManagement\documentos\gafete.xlsx
+                        Excel.Application oXL;
+                        Excel._Workbook oWB;
+                        Excel._Worksheet oSheet;
+                        Excel.Range oRng;
+                        string[,] saNames = new string[dataGridViewAsistentes.Rows.Count, 3];
+                        int contador = 0;
+                        Debug.WriteLine(dataGridViewAsistentes.Rows.Count);
+                        foreach (DataGridViewRow row in dataGridViewAsistentes.Rows)
+                        {
+                            saNames[contador, 0] = row.Cells["Nombre"].Value.ToString();
+                            saNames[contador, 1] = row.Cells["PUESTO"].Value.ToString();
+                            saNames[contador, 2] = row.Cells["DEPARTAMENTO"].Value.ToString();
+                            contador = contador + 1;
+                        }
+                        contador = 0;
+                        // try
+                        //{
+                        //Start Excel and get Application object.
+                        oXL = new Excel.Application();
+                        oXL.Visible = true;
 
+                        //Get a new workbook.
+                        string oldName = @"C:\Excel\SolicitudCapacitacion.xlsx";
+                        string newName = @"C:\Excel\SolicitudCapacitacion" + idcap + ".xlsx";
+                        System.IO.File.Copy(oldName, newName);
+
+                        //oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C:\Excel\SolicitudCapacitacion.xlsx"));
+                        oWB = (Excel._Workbook)(oXL.Workbooks.Open(newName));
+                        oSheet = (Excel._Worksheet)oWB.ActiveSheet;
+
+                        //Add table headers going cell by cell.
+                        /* oSheet.Cells[1, 1] = "First Name";
+                         oSheet.Cells[1, 2] = "Last Name";
+                         oSheet.Cells[1, 3] = "Full Name";
+                         oSheet.Cells[1, 4] = "Salary";
+                        */
+                        //Format A1:D1 as bold, vertical alignment = center.
+                        /*
+                        oSheet.get_Range("A1", "D1").Font.Bold = true;
+                        oSheet.get_Range("A1", "D1").VerticalAlignment =
+                        Excel.XlVAlign.xlVAlignCenter;
+                        */
+                        // Create an array to multiple values at once.
+                        //Fill A2:B6 with an array of values (First and Last Names).
+                        oSheet.get_Range("B9").Value2 = textBoxNomCap.Text;
+                        oSheet.get_Range("B6").Value2 = DateTime.Now.ToShortDateString();
+
+                        oSheet.get_Range("B10").Value2 = textBoxInstructor.Text;
+                        oSheet.get_Range("B12").Value2 = textBoxHor.Text;
+
+                        oSheet.get_Range("B11").Value2 = dateTimePicker1.Value.ToShortDateString();
+                        oSheet.get_Range("D11").Value2 = dateTimePicker2.Value.ToShortDateString();
+
+                        if (dataGridViewAsistentes.Rows.Count > 10)
+                        {
+                            int incremento;
+                            incremento = dataGridViewAsistentes.Rows.Count - 10;
+                            for (int i = 0; i < incremento; i++)
+                            {
+                                oSheet.Range["A20"].EntireRow.Insert();
+                            }
+
+                        }
+                        oSheet.get_Range("A14", "C" + (13 + dataGridViewAsistentes.Rows.Count).ToString()).Value2 = saNames;
+                        //oSheet.get_Range("A").Value2 = dataGridViewDatos.CurrentRow.Cells["PUESTO"].Value.ToString();
+                        oXL.Visible = true;
+                        oXL.UserControl = true;
+                        // }
+                        /*
+                         catch (Exception theException)
+                         {
+                             String errorMessage;
+                             errorMessage = "Error: ";
+                             errorMessage = String.Concat(errorMessage, theException.Message);
+                             errorMessage = String.Concat(errorMessage, " Line: ");
+                             errorMessage = String.Concat(errorMessage, theException.Source);
+
+                             MessageBox.Show(errorMessage, "Error");
+                         }
+                        */
+
+                        this.Close();
                     }
-                    oSheet.get_Range("A14", "C" + (13 + dataGridViewAsistentes.Rows.Count).ToString()).Value2 = saNames;
-                    //oSheet.get_Range("A").Value2 = dataGridViewDatos.CurrentRow.Cells["PUESTO"].Value.ToString();
-                    oXL.Visible = true;
-                    oXL.UserControl = true;
-                    // }
-                    /*
-                     catch (Exception theException)
-                     {
-                         String errorMessage;
-                         errorMessage = "Error: ";
-                         errorMessage = String.Concat(errorMessage, theException.Message);
-                         errorMessage = String.Concat(errorMessage, " Line: ");
-                         errorMessage = String.Concat(errorMessage, theException.Source);
-
-                         MessageBox.Show(errorMessage, "Error");
-                     }
-                    */
-
-                    this.Close();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Debe registrar al menos un asistente.");
             }
         }
 
+        private void restablecerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            conexionbd conexion = new conexionbd();
+            conexion.abrir();
+            String query = "DELETE FROM TEMP";
+            Console.WriteLine(query);
+            SqlCommand comando = new SqlCommand(query, conexion.con);
+            comando.ExecuteNonQuery();
+            conexion.cerrar();
+
+        }
     }
 }
