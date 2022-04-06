@@ -33,6 +33,8 @@ namespace EmpManagement
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBoxControl = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxObs = new System.Windows.Forms.TextBox();
             this.dateTimePickerFecFin = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerFecIn = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -54,17 +56,19 @@ namespace EmpManagement
             this.panel6 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxID = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxNombre = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBox2 = new System.Windows.Forms.ToolStripComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxObs = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBoxControl.SuspendLayout();
@@ -124,6 +128,23 @@ namespace EmpManagement
             this.groupBoxControl.TabIndex = 9;
             this.groupBoxControl.TabStop = false;
             this.groupBoxControl.Text = "Detalle Evento";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 325);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 15);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "Observaciones";
+            // 
+            // textBoxObs
+            // 
+            this.textBoxObs.Location = new System.Drawing.Point(6, 343);
+            this.textBoxObs.Multiline = true;
+            this.textBoxObs.Name = "textBoxObs";
+            this.textBoxObs.Size = new System.Drawing.Size(222, 77);
+            this.textBoxObs.TabIndex = 18;
             // 
             // dateTimePickerFecFin
             // 
@@ -228,6 +249,7 @@ namespace EmpManagement
             // comboBoxTipo
             // 
             this.comboBoxTipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipo.FormattingEnabled = true;
             this.comboBoxTipo.Location = new System.Drawing.Point(56, 258);
             this.comboBoxTipo.Name = "comboBoxTipo";
@@ -338,7 +360,12 @@ namespace EmpManagement
             this.toolStripTextBoxID,
             this.toolStripSeparator1,
             this.toolStripLabel2,
-            this.toolStripTextBoxNombre});
+            this.toolStripTextBoxNombre,
+            this.toolStripSeparator3,
+            this.toolStripLabel3,
+            this.toolStripComboBox1,
+            this.toolStripLabel4,
+            this.toolStripComboBox2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(944, 32);
@@ -347,20 +374,11 @@ namespace EmpManagement
             // 
             // toolStripDropDownButton1
             // 
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.guardarToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(86, 29);
             this.toolStripDropDownButton1.Text = "Opciones";
-            // 
-            // guardarToolStripMenuItem
-            // 
-            this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.guardarToolStripMenuItem.Text = "Guardar";
-            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -396,6 +414,42 @@ namespace EmpManagement
             this.toolStripTextBoxNombre.Size = new System.Drawing.Size(100, 32);
             this.toolStripTextBoxNombre.TextChanged += new System.EventHandler(this.toolStripTextBoxNombre_TextChanged);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 32);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(34, 29);
+            this.toolStripLabel3.Text = "Área:";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 32);
+            this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(38, 29);
+            this.toolStripLabel4.Text = "Turno";
+            // 
+            // toolStripComboBox2
+            // 
+            this.toolStripComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox2.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3"});
+            this.toolStripComboBox2.Name = "toolStripComboBox2";
+            this.toolStripComboBox2.Size = new System.Drawing.Size(121, 32);
+            this.toolStripComboBox2.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox2_SelectedIndexChanged);
+            // 
             // panel7
             // 
             this.panel7.Controls.Add(this.label1);
@@ -418,23 +472,6 @@ namespace EmpManagement
             this.label1.TabIndex = 1;
             this.label1.Text = "Control de eventos por empleado";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBoxObs
-            // 
-            this.textBoxObs.Location = new System.Drawing.Point(6, 343);
-            this.textBoxObs.Multiline = true;
-            this.textBoxObs.Name = "textBoxObs";
-            this.textBoxObs.Size = new System.Drawing.Size(222, 77);
-            this.textBoxObs.TabIndex = 18;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 325);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 15);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Observaciones";
             // 
             // VacOIncapacidad
             // 
@@ -478,7 +515,6 @@ namespace EmpManagement
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label1;
@@ -504,5 +540,10 @@ namespace EmpManagement
         private System.Windows.Forms.DateTimePicker dateTimePickerFecIn;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxObs;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox2;
     }
 }

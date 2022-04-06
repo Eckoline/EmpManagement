@@ -33,6 +33,7 @@ namespace EmpManagement
             dateTimePickerIni.Text = dtfec.Rows[0]["CHECKTIME"].ToString();
             conexion.cerrar();
             dateTimePickerFin.Value = DateTime.Now;
+            labeltime.Text = DateTime.Now.ToString();
            
         }
 
@@ -89,6 +90,23 @@ namespace EmpManagement
             }
             //SDK.sta_readAttLog(listBox2, dt_period);
             this.Close();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            rel = SDK.sta_ConnectTCP(listBox2, textBoxID.Text.Trim(), textBoxPORT.Text.Trim(), textBoxCK.Text.Trim());
+            if (rel == 1)
+            {
+             
+               int prueba= SDK.sta_SYNCTime(listBox2, labeltime);
+            }
+            SDK.sta_DisConnect();
+
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

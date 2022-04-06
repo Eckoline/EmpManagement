@@ -76,7 +76,7 @@ namespace EmpManagement
             this.dataGridViewDatos.Name = "dataGridViewDatos";
             this.dataGridViewDatos.ReadOnly = true;
             this.dataGridViewDatos.RowTemplate.Height = 25;
-            this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewDatos.Size = new System.Drawing.Size(936, 495);
             this.dataGridViewDatos.TabIndex = 3;
             // 
@@ -226,6 +226,7 @@ namespace EmpManagement
             // 
             // toolStripComboBox1
             // 
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(180, 32);
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);

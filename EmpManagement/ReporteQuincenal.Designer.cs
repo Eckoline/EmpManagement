@@ -45,6 +45,7 @@ namespace EmpManagement
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.limpiarFechasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -66,7 +67,7 @@ namespace EmpManagement
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.limpiarFechasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDatos)).BeginInit();
             this.groupBoxOpciones.SuspendLayout();
@@ -101,6 +102,7 @@ namespace EmpManagement
             this.dataGridViewDetalleDias.RowTemplate.Height = 25;
             this.dataGridViewDetalleDias.Size = new System.Drawing.Size(933, 200);
             this.dataGridViewDetalleDias.TabIndex = 1;
+            this.dataGridViewDetalleDias.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewDetalleDias_CellFormatting);
             // 
             // dataGridViewDatos
             // 
@@ -221,7 +223,8 @@ namespace EmpManagement
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportarToolStripMenuItem,
-            this.limpiarFechasToolStripMenuItem});
+            this.limpiarFechasToolStripMenuItem,
+            this.reporteExcelToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -240,9 +243,16 @@ namespace EmpManagement
             // excelToolStripMenuItem
             // 
             this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             this.excelToolStripMenuItem.Text = "Excel";
             this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
+            // 
+            // limpiarFechasToolStripMenuItem
+            // 
+            this.limpiarFechasToolStripMenuItem.Name = "limpiarFechasToolStripMenuItem";
+            this.limpiarFechasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.limpiarFechasToolStripMenuItem.Text = "Limpiar Fechas";
+            this.limpiarFechasToolStripMenuItem.Click += new System.EventHandler(this.limpiarFechasToolStripMenuItem_Click);
             // 
             // toolStripProgressBar1
             // 
@@ -429,11 +439,12 @@ namespace EmpManagement
             this.label3.Text = "Reporte de Tiempos Quincenal";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // limpiarFechasToolStripMenuItem
+            // reporteExcelToolStripMenuItem
             // 
-            this.limpiarFechasToolStripMenuItem.Name = "limpiarFechasToolStripMenuItem";
-            this.limpiarFechasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.limpiarFechasToolStripMenuItem.Text = "Limpiar Fechas";
+            this.reporteExcelToolStripMenuItem.Name = "reporteExcelToolStripMenuItem";
+            this.reporteExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reporteExcelToolStripMenuItem.Text = "Reporte Tiempos";
+            this.reporteExcelToolStripMenuItem.Click += new System.EventHandler(this.reporteExcelToolStripMenuItem_Click);
             // 
             // ReporteQuincenal
             // 
@@ -506,5 +517,6 @@ namespace EmpManagement
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button buttonJustificar;
         private System.Windows.Forms.ToolStripMenuItem limpiarFechasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteExcelToolStripMenuItem;
     }
 }

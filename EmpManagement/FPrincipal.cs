@@ -310,15 +310,28 @@ namespace EmpManagement
                     AbrirFormulario<CargarImagenes>();
                     break;
 
-                /*  case "Admin Reloj":
+                /* case "Admin Reloj":
                       AbrirFormulario<AdminReloj>();
-                      break;
-                */
+                      break;*/
+                
                 case "Mis Capacitaciones":
                     AbrirFormulario<MisCap>();
                     break;
-                case "root":
-                    AbrirFormulario<Bajas>();
+                case "Rol Actual":
+                    AbrirFormulario<RolTurnosActual>();
+                    break;
+
+                case "pruebas":
+                    AbrirFormulario<FormPruebas>();
+                    break;
+
+                case "Eventualidades":
+                    AbrirFormulario<EstatusEventos>();
+                    break;
+
+
+                case "Contratos":
+                    AbrirFormulario<ContratosPrueba>();
                     break;
 
             }

@@ -147,14 +147,14 @@ namespace EmpManagement
             // terminarToolStripMenuItem
             // 
             this.terminarToolStripMenuItem.Name = "terminarToolStripMenuItem";
-            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.terminarToolStripMenuItem.Text = "Terminar y solicitar";
             this.terminarToolStripMenuItem.Click += new System.EventHandler(this.terminarToolStripMenuItem_Click);
             // 
             // restablecerToolStripMenuItem
             // 
             this.restablecerToolStripMenuItem.Name = "restablecerToolStripMenuItem";
-            this.restablecerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restablecerToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.restablecerToolStripMenuItem.Text = "Restablecer";
             this.restablecerToolStripMenuItem.Click += new System.EventHandler(this.restablecerToolStripMenuItem_Click);
             // 

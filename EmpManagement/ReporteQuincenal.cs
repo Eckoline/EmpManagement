@@ -9,7 +9,7 @@ using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Diagnostics;
 using Excel = Microsoft.Office.Interop.Excel;
-
+using System.Text.RegularExpressions;
 
 namespace EmpManagement
 {
@@ -37,10 +37,12 @@ namespace EmpManagement
             detalledatos.Columns.Add("H. Extras");
             detalledatos.Columns.Add("Turno");
             detalledatos.Columns.Add("Comentarios");
+            reporteExcelToolStripMenuItem.Visible = false;
         }
 
         private void buttonAcept_Click(object sender, EventArgs e)
         {
+            
             detalledias.Rows.Clear();
             detalledatos.Clear();
             TimeSpan hrs_comedor = TimeSpan.Zero;
@@ -64,6 +66,8 @@ namespace EmpManagement
 
             //Obtención de empleados.
             DataTable dtHor = new DataTable();
+            DataTable dthorpys = new DataTable();
+            DataTable dthorsab = new DataTable();
             conexionbd conexion = new conexionbd();
             conexion.abrir();
             string query;
@@ -73,22 +77,55 @@ namespace EmpManagement
             conexion.cerrar();
             int marcastop = 0;
             int idhor = 0;
-            int[] semanalpys = { 17, 23 }; //id de los horarios de lunes a viernes de admin y calidad, se filtran solo estos para que el sistema lo haga solo una vez y no tambien cuando sea sabado
+            //int[] semanalpys = { 17, 23, 28, 29, 30,31,32 }; //id de los horarios de lunes a viernes de admin y calidad, se filtran solo estos para que el sistema lo haga solo una vez y no tambien cuando sea sabado
+
+            conexion.abrir();
+            query = "SELECT ID_HOR FROM HORARIOS WHERE idgroup = 2 and tipohor = 1;";
+            adaptador0 = new SqlDataAdapter(query, conexion.con);
+            adaptador0.Fill(dthorpys);
+            conexion.cerrar();
+            Debug.WriteLine("PYS");
+            int[] semanalpys = new int[dthorpys.Rows.Count];
+
+            for (int i = 0; i < dthorpys.Rows.Count; i++)
+            {
+                semanalpys[i] = Int32.Parse(dthorpys.Rows[i][0].ToString());
+                Debug.WriteLine(semanalpys[i]);
+            }
+
+            conexion.abrir();
+            query = "SELECT ID_HOR FROM HORARIOS WHERE idgroup = 2 and tipohor = 2 and Descripcion LIKE '%SABADO%';";
+            adaptador0 = new SqlDataAdapter(query, conexion.con);
+            adaptador0.Fill(dthorsab);
+            conexion.cerrar();
+
+            // int[] semanapysab = { 9, 11, 13, 15, 19 };
+
+            int[] semanapysab = new int[dthorsab.Rows.Count];
+
+            for (int i = 0; i < dthorsab.Rows.Count; i++)
+            {
+                semanapysab[i] = Int32.Parse(dthorsab.Rows[i]["ID_HOR"].ToString()) - 1;
+                Debug.WriteLine(semanapysab[i]);
+            }
+
             toolStripProgressBar1.Minimum = 0;
             toolStripProgressBar1.Maximum = dtHor.Rows.Count;
             toolStripProgressBar1.Value = 0;
-
-            while (marcastop < dtHor.Rows.Count) //Hara todo el proceso hasta que haya revisado todos los horarios
+            while (marcastop < dtHor.Rows.Count)
             {
-               // int asistencia = 0;
+                //int asistencia = 0;
                 //int inasistencia = 0;
                 //int retardo = 0;
                 //int incosistencia = 0;
                 //int salidatemprano = 0;
-                string detalle;
-                hrs_comedor = TimeSpan.Zero;
-                hrs_laboradas = TimeSpan.Zero;
-             
+                string detalle = "";
+                string evento = "";
+                string observaciones = "";
+                string tipoeven = "";
+                string banderacambio = "";
+                //hrs_comedor = TimeSpan.Zero;
+                //hrs_laboradas = TimeSpan.Zero;
                 DateTime aux;
                 hrsdia_laboradas = TimeSpan.Zero;
                 hrsdia_comedor = TimeSpan.Zero;
@@ -96,45 +133,58 @@ namespace EmpManagement
                 idhor = Int32.Parse(dtHor.Rows[marcastop]["ID_HOR"].ToString());
                 DataTable dtEmpleado = new DataTable();
                 conexion.abrir();
-                query = "SELECT USERINFOCUS.BADGENUMBER,USERINFOCUS.NAME,HOREMPLEADO.ID_HOR,HORARIOS.HOR_IN,HORARIOS.HOR_OUT,HORARIOS.HRS_DIA,USERINFOCUS.DEFAULTDEPTID FROM(USERINFOCUS INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER = HOREMPLEADO.BADGENUMBER)INNER JOIN HORARIOS ON HORARIOS.ID_HOR = HOREMPLEADO.ID_HOR WHERE HOREMPLEADO.ID_HOR=" + idhor + ";";
-                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                adaptador.Fill(dtEmpleado);
+                query = "SELECT USERINFOCUS.BADGENUMBER,USERINFOCUS.NAME,HOREMPLEADO.ID_HOR,USERINFOCUS.DEFAULTDEPTID,HORARIOS.HOR_IN,HORARIOS.HOR_INTURNO,HORARIOS.HOR_OUT,HORARIOS.HRS_DIA FROM(USERINFOCUS INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER = HOREMPLEADO.BADGENUMBER)INNER JOIN HORARIOS ON HORARIOS.ID_HOR = HOREMPLEADO.ID_HOR WHERE HOREMPLEADO.ID_HOR=" + idhor + " AND USERINFOCUS.DEFAULTDEPTID NOT IN (32) AND USERINFOCUS.DEFAULTDEPTID IS NOT NULL;";
+                //Debug.WriteLine(query);
+                adaptador0 = new SqlDataAdapter(query, conexion.con);
+                adaptador0.Fill(dtEmpleado);
                 conexion.cerrar();
-                if (Array.Exists(semanalpys, x => x == idhor)) //pregunta si los id del arreglo semanalpys existe dentro de idhor (semanal deberia cambiarse por quincenal)
+
+                if (Array.Exists(semanalpys, x => x == idhor))
                 {
-                    for (int j = 0; j < dtEmpleado.Rows.Count; j++) //recorre todos los empleados con ese id de horario
-                    {   //trae los horarios del empleado en turno
+
+                    for (int j = 0; j < dtEmpleado.Rows.Count; j++)
+                    {
                         DataTable dtEmpleadoHor = new DataTable();
                         conexion.abrir();
-                        query = "SELECT USERINFOCUS.BADGENUMBER,USERINFOCUS.NAME,HOREMPLEADO.ID_HOR,HORARIOS.HOR_INTURNO,HORARIOS.HOR_IN,HORARIOS.HOR_OUT,HORARIOS.HRS_DIA,HORARIOS.HRS_SEMANA FROM(USERINFOCUS INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER = HOREMPLEADO.BADGENUMBER)INNER JOIN HORARIOS ON HORARIOS.ID_HOR = HOREMPLEADO.ID_HOR WHERE USERINFOCUS.BADGENUMBER= " + dtEmpleado.Rows[j]["BADGENUMBER"].ToString();
+                        query = "SELECT USERINFOCUS.BADGENUMBER,USERINFOCUS.NAME,HOREMPLEADO.ID_HOR,HORARIOS.HOR_IN,HORARIOS.HOR_INTURNO,HORARIOS.HOR_OUT,HORARIOS.HRS_DIA,HORARIOS.HRS_SEMANA,HORARIOS.Descripcion FROM(USERINFOCUS INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER = HOREMPLEADO.BADGENUMBER)INNER JOIN HORARIOS ON HORARIOS.ID_HOR = HOREMPLEADO.ID_HOR WHERE USERINFOCUS.BADGENUMBER= " + dtEmpleado.Rows[j]["BADGENUMBER"].ToString();
+                        // Debug.WriteLine(query);
                         SqlDataAdapter adaptador1 = new SqlDataAdapter(query, conexion.con);
                         adaptador1.Fill(dtEmpleadoHor);
                         conexion.cerrar();
-                        TimeSpan tin = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_INTURNO"].ToString());
-                        TimeSpan tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_IN"].ToString());
-                        TimeSpan tinsab = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_INTURNO"].ToString());
-                        TimeSpan tinsab1 = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_IN"].ToString());
-                        TimeSpan tout = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_OUT"].ToString());
-                        TimeSpan toutsab = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_OUT"].ToString());
-                        TimeSpan hrs_dia = tout - tin1;
-                        TimeSpan hrs_diasab = toutsab - tinsab1;
-
-                        //recorre las fechas descritas en los datetimepicker
-                        for (int h = 0; h <= fechas.Length - 2; h++)
+                        TimeSpan tin1, tin, tout, tin1sab, tinsab, toutsab;
+                        tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_INTURNO"].ToString());
+                        tin = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_IN"].ToString());
+                        tout = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_OUT"].ToString());
+                        Debug.WriteLine(tin1);
+                        Debug.WriteLine(tin);
+                        Debug.WriteLine(tout);
+                        //TimeSpan hrs_dia = tout - tin1;
+                        TimeSpan hrs_dia = tout - tin;
+                        if (idhor == 30)
                         {
+                            hrs_dia = new TimeSpan(9, 0, 0);
+                        }
+                        //Debug.WriteLine(hrs_dia);
+                        for (int h = 0; h < fechas.Length - 1; h++)
+                        {
+                            // Debug.WriteLine(dtEmpleado.Rows[j]["BADGENUMBER"].ToString());
+                            //Debug.WriteLine(fechas[h]);
                             DataTable dtvalidacion = new DataTable();
                             conexion.abrir();
                             query = "SELECT * FROM detalledias where BADGENUMBER=" + dtEmpleado.Rows[j]["BADGENUMBER"].ToString() + " AND fecha='" + fechas[h] + "'";
                             SqlDataAdapter adaptadorvalidacion = new SqlDataAdapter(query, conexion.con);
                             adaptadorvalidacion.Fill(dtvalidacion);
                             conexion.cerrar();
-                            if (dtvalidacion.Rows.Count ==0)
+                            if (dtvalidacion.Rows.Count > 0)
                             {
-                                //obtiene marcas
+
+                            }
+                            else
+                            {
+                                //Console.WriteLine(h);
                                 conexion.abrir();
                                 DataTable dtMarcas = new DataTable();
                                 query = "SELECT DISTINCT CHECKTIME,BADGENUMBER FROM CHECKINOUT WHERE BADGENUMBER=" + dtEmpleado.Rows[j]["BADGENUMBER"].ToString() + " AND CHECKTIME BETWEEN '" + fechas[h] + "' AND '" + fechas[h + 1] + "' ORDER BY CHECKTIME;";
-                                Console.WriteLine(query);
                                 SqlDataAdapter adaptadorM = new SqlDataAdapter(query, conexion.con);
                                 adaptadorM.Fill(dtMarcas);
                                 conexion.cerrar();
@@ -143,7 +193,6 @@ namespace EmpManagement
                                 TimeSpan dif = new TimeSpan();
                                 //TimeSpan[] checadas = new TimeSpan[dtMarcas.Rows.Count];
 
-                                //si las marcas son igual a 0 quiere decir que no registro ni una sola entrada o que es dia sabado
                                 if (dtMarcas.Rows.Count == 0)
                                 {
                                     int dia, mes, registros;
@@ -160,478 +209,635 @@ namespace EmpManagement
                                     {
                                         detalle = dtDiasF.Rows[0]["descripcion"].ToString();
                                         conexion.abrir();
-                                        query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00:00','00:00:00',0,'" + detalle + "','','00:00:00','')";
-                                        insertadetalledias(query);
+                                        query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00','00:00',0,'','" + detalle + "','00:00:00','','00:00:00')";
+                                        SqlCommand comando = new SqlCommand(query, conexion.con);
+                                        comando.ExecuteNonQuery();
+                                        conexion.cerrar();
+                                        //Debug.WriteLine(query);
                                         //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 0, 0, 0, 0, 0, 0, 0, detalle);
                                     }
                                     else
                                     {
-                                        String[,] eventosempleado = new string[10, 2];
+                                        String[,] eventosempleado = new string[10, 3];
                                         detalle = "";
-                                        eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
+                                        evento = "";
+                                        tipoeven = "";
+                                        observaciones = "";
+
+                                        eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Inasistencia");
+                                        evento = eventosempleado[0, 0];
+                                        tipoeven = eventosempleado[0, 1];
+                                        observaciones = eventosempleado[0, 2];
+
+
                                         if (eventosempleado[0, 0] != null)
                                         {
-                                            for (int i = 0; i < 10; i++)
-                                            {
-                                                if (eventosempleado[i, 1] == "Inasistencia")
-                                                {
-                                                    detalle = detalle + " " + eventosempleado[i, 0];
-                                                }
-                                            }
-                                        
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00:00','00:00:00',0,'No se encontraron marcas.','" + fechas[h] + " " + detalle + "','00:00:00','"+detalle+"')";
-                                            insertadetalledias(query);
+                                            evento = eventosempleado[0, 0];
+                                            tipoeven = eventosempleado[0, 1];
+                                            observaciones = eventosempleado[0, 2];
+                                            conexion.abrir();
+                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00','00:00',0,'No se encontrarón marcas.','" + fechas[h] + " " + evento + ". " + observaciones + " ','00:00:00','" + evento + "','00:00:00')";
+                                            SqlCommand comando = new SqlCommand(query, conexion.con);
+                                            comando.ExecuteNonQuery();
+                                            conexion.cerrar();
                                         }
                                         else
                                         {
-                                            if (DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek != DayOfWeek.Sunday)
+                                            if ((DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Sunday))
                                             {
-                                                detalle = "No se encontraron marcas";
-                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,1,0,0,'00:00','00:00',1,'" + detalle + "','','00:00:00','')";
-                                                insertadetalledias(query);
-                                                //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 0, 1, 0, 0, 0, 0, 1, detalle);
+                                                detalle = "Día Domingo.";
+                                                conexion.abrir();
+                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00','00:00',0,'" + detalle + "','','00:00:00','','00:00:00')";
+                                                SqlCommand comando = new SqlCommand(query, conexion.con);
+                                                comando.ExecuteNonQuery();
+                                                conexion.cerrar();
+                                            }
+                                            else
+                                            {
+                                                if((DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday))
+                                                {
+                                                    string idtemp = dtEmpleado.Rows[j]["Badgenumber"].ToString();
+                                                    if (idtemp=="50" || idtemp=="172" || idtemp =="745" || idtemp=="388")
+                                                    {
+                                                        detalle = "Día Sabado. Correcto";
+                                                        conexion.abrir();
+                                                        query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00','00:00',0,'" + detalle + "','','00:00:00','','00:00:00')";
+                                                        SqlCommand comando = new SqlCommand(query, conexion.con);
+                                                        comando.ExecuteNonQuery();
+                                                        conexion.cerrar();
+                                                    }
+                                                    else
+                                                    {
+                                                        detalle = "No se encontraron marcas.";
+                                                        conexion.abrir();
+                                                        query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,1,0,0,'00:00','00:00',1,'" + detalle + "','','00:00:00','','00:00:00')";
+                                                        SqlCommand comando = new SqlCommand(query, conexion.con);
+                                                        comando.ExecuteNonQuery();
+                                                        conexion.cerrar();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    detalle = "No se encontraron marcas.";
+                                                    conexion.abrir();
+                                                    query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,1,0,0,'00:00','00:00',1,'" + detalle + "','','00:00:00','','00:00:00')";
+                                                    SqlCommand comando = new SqlCommand(query, conexion.con);
+                                                    comando.ExecuteNonQuery();
+                                                    conexion.cerrar();
+                                                }
+                                     
                                             }
                                         }
                                     }
+
                                 }
-                                else //si si encuentra, hará el proceso
-                                {//proceso de registro de checadas en el arreglo.
-                                 //Debug.WriteLine("Checadas recibidas");
+                                else
+                                {
                                     for (int i = 0; i < dtMarcas.Rows.Count; i++)
                                     {
                                         checadasval[i] = TimeSpan.Parse(DateTime.Parse(dtMarcas.Rows[i]["CHECKTIME"].ToString()).ToString("HH:mm"), System.Globalization.CultureInfo.CurrentCulture);
                                         // Debug.WriteLine(checadasval[i]);
 
                                     }
-                                    // Debug.WriteLine("Checadas acomodadas y validadas");
+
                                     for (int i = 0; i < dtMarcas.Rows.Count - 1; i++)
                                     {
                                         dif = checadasval[i + 1] - checadasval[i];
                                         if (dif < basecomparacionmin)
                                         {
                                             //checadas[i] = checadas[i+1];
-                                            checadasval[i] = checadasval[i + 1];
+                                            checadasval[i + 1] = checadasval[i];
                                         }
                                     }
+
                                     List<TimeSpan> lst = checadasval.ToList();
                                     List<TimeSpan> checadasfin = lst.Distinct().ToList();
-
-                                    //Debug.WriteLine(dtEmpleado.Rows[j]["Badgenumber"].ToString());
-                                    Debug.WriteLine(fechas[h]);
-                                    Debug.WriteLine("Checadas finales");
                                     TimeSpan[] checadas = checadasfin.ToArray();
-                                    for (int i = 0; i < checadas.Length - 1; i++)
+
+                                    if ((DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Sunday))
                                     {
-                                        Debug.WriteLine(checadas[i]);
-                                    }       
-                                    switch (checadas.Length-1)
+
+                                        detalle = "";
+                                        evento = "";
+                                        detalle = "";
+                                        tipoeven = "";
+                                        observaciones = "";
+                                        if ((checadas.Length - 1) > 1)
+                                        {
+                                            detalle = "Asistencia Día Domingo.";
+                                            hrsdia_laboradas = checadas[checadas.Length - 2] - checadas[0];
+                                            conexion.abrir();
+                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'" + hrsdia_laboradas + "','00:00:00',0,'" + detalle + "','','00:00:00','','00:00:00')";
+                                            //Debug.WriteLine(query);
+                                            SqlCommand comando = new SqlCommand(query, conexion.con);
+                                            comando.ExecuteNonQuery();
+                                            conexion.cerrar();
+                                            //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, aux3, detalle);
+                                        }
+                                        else
+                                        {
+                                            detalle = "Asistencia Día Domingo. Solo se encontró una Marca.";
+                                            //hrsdia_laboradas = checadas[checadas.Length - 2] - checadas[0];
+                                            conexion.abrir();
+                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00:00','00:00:00',0,'" + detalle + "','','00:00:00','','00:00:00')";
+                                            //Debug.WriteLine(query);
+                                            SqlCommand comando = new SqlCommand(query, conexion.con);
+                                            comando.ExecuteNonQuery();
+                                            conexion.cerrar();
+                                        }
+                                    }
+                                    else
                                     {
-                                        case 1://si solo encuentra una checada
-                                      
-                                            hrsdia_laboradas = TimeSpan.Zero;
-                                            hrsdia_comedor = TimeSpan.Zero;
-                                            detalle = "Se encontró solo una marca";
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0,0,0,'00:00','00:00',1,'" + detalle + "','','00:00:00','')";
-                                            insertadetalledias(query);
-                                            //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, 0, 0, TimeSpan.Zero, TimeSpan.Zero, 1, detalle);
-                                            break;
-
-                                        case 2://si solo encuentra dos checadas
-                                            int aux1 = 0, aux2 = 0;
-                                            int auxcomedor = 0;
-                                            int inc2 = 0;
-                                            string evento = "";
-                                            TimeSpan auxtimetout = TimeSpan.Zero;
-                                            TimeSpan auxtimetin = TimeSpan.Zero;
-                                            TimeSpan auxtimehrsdia = TimeSpan.Zero;
-
-                                            if (DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)
-                                            {
-                                                auxtimetin = tinsab;
-                                                auxtimetout = toutsab;
-                                                auxtimehrsdia = hrs_diasab;
-                                                detalle = "Día Sabado. No se encontraron marcas de comedor.";
-                                                inc2 = 0;
-
-                                            }
-                                            else
-                                            {
-                                                auxtimetin = tin;
-                                                auxtimetout = tout;
-                                                auxtimehrsdia = hrs_dia;
-                                                detalle = "Se encontraron solo 2 marcas.";
-                                                inc2 = 1;
-                                            }
-                                   
-                                            hrsdia_laboradas = checadas[1] - checadas[0];
-                                            hrsdia_comedor = TimeSpan.Zero;
-                                            if (hrsdia_laboradas >= auxtimehrsdia)
-                                            {
-                                                hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
-                                                if (checadas[0] > auxtimetin)
+                                        switch (checadas.Length - 1)
+                                        {
+                                            case 1:
+                                                evento = "";
+                                                detalle = "";
+                                                tipoeven = "";
+                                                observaciones = "";
+                                                hrsdia_laboradas = TimeSpan.Zero;
+                                                hrsdia_comedor = TimeSpan.Zero;
+                                                int bandera = 1;
+                                                detalle = "Se encontró solo una marca.";
+                                                String[,] eventosempleado1 = new string[10, 3];
+                                                eventosempleado1 = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Salida Temprano");
+                                                if (eventosempleado1[0, 0] != null)
                                                 {
-                                                    inc2 = 1;
-                                                    aux1 = 1;
-                                                    String[,] eventosempleado = new string[10, 2];
-                                               
-                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
-
-                                                    if (eventosempleado[0, 0] != null)
-                                                    {
-                                                        for (int i = 0; i < 10; i++)
-                                                        {
-                                                            if (eventosempleado[i, 1] == "Retardo")
-                                                            {
-                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
-                                                                aux1 = 0;
-                                                                inc2 = 0;
-                                                        
-                                                            }
-                                                        }
-                                                    }
+                                                    evento = fechas[h] + ". " + eventosempleado1[0, 0];
+                                                    tipoeven = eventosempleado1[0, 1];
+                                                    observaciones = eventosempleado1[0, 2];
+                                                    bandera = 0;
                                                 }
-                                                if (checadas[1] < auxtimetout)
+                                                conexion.abrir();
+                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',0,0,0,0,'00:00','00:00'," + bandera + ",'" + detalle + "','" + evento + ". " + observaciones + "','00:00:00','" + tipoeven + "','00:00:00')";
+                                                SqlCommand comando = new SqlCommand(query, conexion.con);
+                                                comando.ExecuteNonQuery();
+                                                conexion.cerrar();
+                                                //Debug.WriteLine(query);
+                                                //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, 0, 0, TimeSpan.Zero, TimeSpan.Zero, 1, detalle);
+                                                break;
+
+                                            case 2:
+                                                evento = "";
+                                                detalle = "";
+                                                tipoeven = "";
+                                                observaciones = "";
+                                                int aux1 = 0, aux2 = 0;
+                                                int auxporteros = 0;
+                                                int inc2 = 0;
+
+                                                if ((Array.Exists(semanapysab, x => x == idhor)) && ((DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)))
                                                 {
-                                                    aux2 = 1;
-                                                    inc2 = 1;
-                                                    
-                                                 
-                                                    String[,] eventosempleado = new string[10, 2];
-                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
-                                                    if (eventosempleado[0, 0] != null)
-                                                    {
-                                                        for (int i = 0; i < 10; i++)
-                                                        {
-                                                            if (eventosempleado[i, 1] == "Salida Temprano")
-                                                            {
-                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
-                                                                aux2 = 0;
-                                                                inc2 = 0;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                hrs_extra = TimeSpan.Zero;
-                                                detalle = "No se registro comedor.";
-                                            }
-                                            else
-                                            {
-                                                hrs_extra = TimeSpan.Zero;
-                                                detalle = "Se encontraron dos registros sin coherencia.";
-                                            }
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + inc2 + ",'" + detalle + "','"+evento +"','" + hrs_extra + "','"+ evento+"')";
-                                            insertadetalledias(query);
-                                            //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, auxcomedor, detalle);
-                                            break;
-                                        case 3://si solo encuentra 3 checadas
-                                            aux1 = 0;
-                                            aux2 = 0;
-                                            auxcomedor = 0;
-                                            int inc3 = 0;
-                                            auxtimetout = TimeSpan.Zero;
-                                            auxtimetin = TimeSpan.Zero;
-                                            auxtimehrsdia = TimeSpan.Zero;
-                                            evento = "";
-                                       
-
-                                            if (DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)
-                                            {
-
-                                                auxtimetin = tinsab;
-                                                auxtimetout = toutsab;
-                                                auxtimehrsdia = hrs_diasab;
-                                                detalle = "Día sabado. Se encontraron solo 3 marcas";
-
-                                            }
-                                            else
-                                            {
-                                                auxtimetin = tin;
-                                                auxtimetout = tout;
-                                                auxtimehrsdia = hrs_dia;
-                                                detalle = "Se encontraron solo 3 registros. No se registro entrada o Salida Comedor";
-                                            }
-
-                                         
-                                            //inasistencia = 0;
-                                            //retardo = 0;
-                                            //salidatemprano = 0;
-                                            hrsdia_laboradas = checadas[2] - checadas[0];
-                                            hrsdia_comedor = TimeSpan.Zero;
-                                     
-
-                                            hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
-                                            if (hrsdia_laboradas >= auxtimehrsdia)
-                                            {
-                                                if (checadas[0] > auxtimetin)
-                                                {
-                                                    aux1 = 1;
-                                                    inc3 = 1;
-                                                    String[,] eventosempleado = new string[10, 2];
-                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
-                                                    evento = "";
-                                                    if (eventosempleado[0, 0] != null)
-                                                    {
-                                                        for (int i = 0; i < 10; i++)
-                                                        {
-                                                            if (eventosempleado[i, 1] == "Retardo")
-                                                            {
-                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
-                                                                aux1 = 0;
-                                                                inc3 = 0;
-                                                            }
-                                                        }
-
-                                                    }
-                                                }
-                                                if (checadas[2] < auxtimetout)
-                                                {
-                                                    aux2 = 1;
-                                                    inc3 = 1;
-                                                    String[,] eventosempleado = new string[10, 2];
-                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
-                                                    evento = "";
-                                                    if (eventosempleado[0, 0] != null)
-                                                    {
-                                                        for (int i = 0; i < 10; i++)
-                                                        {
-                                                            if (eventosempleado[i, 1] == "Retardo")
-                                                            {
-                                                                evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
-                                                                aux1 = 0;
-                                                                inc3 = 0;
-                                                            }
-                                                        }
-
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-
-                                                /* pendiente de desarrollo, la idea es observar si la 3er checada es
-                                                 salida final o salida de comedor, si es salida final se puede deducir 
-                                                que no se hizo la checada de salida de comedor, pero se
-                                                puede obtener retardo, salida temprano*/
-
-                                            }
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "',"+inc3+",'" + detalle + "','"+ evento +"','" + hrs_extra + "','" + evento + "')";
-                                            insertadetalledias(query);
-                                            //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, 1, detalle);
-
-                                            break;
-                                        case 4://si encuentra las 4 checadas
-                                            int aux3 = 0;
-                                            auxtimetout = TimeSpan.Zero;
-                                            auxtimetin = TimeSpan.Zero;
-                                            auxtimehrsdia = TimeSpan.Zero;
-                                            evento = "";
-
-                                            if (DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)
-                                            {
-                                                auxtimetin = tinsab;
-                                                auxtimetout = toutsab;
-                                                auxtimehrsdia = hrs_diasab;
-
-                                            }
-                                            else
-                                            {
-                                                auxtimetin = tin;
-                                                auxtimetout = tout;
-                                                auxtimehrsdia = hrs_dia;
-                                            }
-
-                                            aux1 = 0;
-                                            aux2 = 0;
-                                      
-                                            //inasistencia = 0;
-                                            //retardo = 0;
-                                            //salidatemprano = 0;
-
-                                            hrsdia_laboradas = checadas[3] - checadas[0];
-                                            hrsdia_comedor = checadas[2] - checadas[1];
-                                            //incosistencia = 0;
-                                            detalle = "Correcto";
-                                            hrs_comedor = hrs_comedor + hrsdia_comedor;
-                                            hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
-                                           
-                                            if (hrsdia_laboradas < auxtimehrsdia)
-                                            {
-                                                aux3 = 1;
-                                                detalle = "Inconsistencia de horas laboradas son menores que las correspondientes a la jornada";
-
-                                            }
-                                            if (checadas[3] < auxtimetout)
-                                            {
-                                        
-                                                aux2 = 1;
-                                                String[,] eventosempleado = new string[10, 2];
-                                                eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
-                                                aux3 = 1;
-                                                if (eventosempleado[0, 0] != null)
-                                                {
-                                                    for (int i = 0; i < 10; i++)
-                                                    {
-                                                        if (eventosempleado[i, 1] == "Salida Temprano")
-                                                        {
-                                                            evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
-                                                            aux2 = 0;
-                                                            aux3 = 0;
-                                                        }
-                                                    }
-
-                                                }
-
-                                            }
-                                            if (checadas[0] > auxtimetin)
-                                            {
-                                                aux1 = 1;
-                                                aux3 = 1;
-                                
-                                                String[,] eventosempleado = new string[10, 2];
-                                                eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
-
-                                                if (eventosempleado[0, 0] != null)
-                                                {
-                                                    for (int i = 0; i < 10; i++)
-                                                    {
-                                                        if (eventosempleado[i, 1] == "Retardo")
-                                                        {
-                                                            evento = fechas[h] + " " + eventosempleado[i, 0] + ". " + evento;
-                                                            aux1 = 0;
-                                                            aux3 = 0;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','"+ evento + "','" + hrs_extra + "','" + evento + "')";
-                                            insertadetalledias(query);
-                                            break;
-
-                                        default:
-                                            evento = "";
-                                            if ((checadas.Length-1) > 4)
-                                            {
-                                                aux3 = 0;
-                                                auxtimetout = TimeSpan.Zero;
-                                                auxtimetin = TimeSpan.Zero;
-                                                auxtimehrsdia = TimeSpan.Zero;
-
-                                                if (DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)
-                                                {
-                                                    auxtimetin = tinsab;
-                                                    auxtimetout = toutsab;
-                                                    auxtimehrsdia = hrs_diasab;
-
+                                                    tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_INTURNO"].ToString());
+                                                    tin = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_IN"].ToString());
+                                                    tout = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_OUT"].ToString());
+                                                    //hrs_dia = tout - tin1
+                                                    hrs_dia = tout - tin;
                                                 }
                                                 else
                                                 {
-                                                    auxtimetin = tin;
-                                                    auxtimetout = tout;
-                                                    auxtimehrsdia = hrs_dia;
+                                                    tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_INTURNO"].ToString());
+                                                    tin = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_IN"].ToString());
+                                                    tout = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_OUT"].ToString());
+                                                    // hrs_dia = tout - tin1;
+                                                    hrs_dia = tout - tin;
+                                                }
+                                                if (idhor == 30)
+                                                {
+                                                    hrs_dia = new TimeSpan(9, 0, 0);
+                                                }
+                                                // Debug.WriteLine(hrs_dia);
+
+                                                auxporteros = 1;
+                                                detalle = "Se encontraron solo 2 marcas. No se registró comedor.";
+                                                hrsdia_laboradas = checadas[1] - checadas[0];
+                                                hrsdia_comedor = TimeSpan.Zero;
+                                                //   hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
+
+                                                if (checadas[0] > tin1)
+                                                {
+                                                    String[,] eventosempleado = new string[10, 3];
+                                                    aux1 = 1;
+                                                    inc2 = 1;
+                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Retardo");
+
+                                                    if (eventosempleado[0, 0] != null)
+                                                    {
+                                                        evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                        tipoeven = eventosempleado[0, 1];
+                                                        observaciones = eventosempleado[0, 2];
+                                                        aux1 = 0;
+                                                        inc2 = 0;
+                                                    }
+                                                }
+                                                if (checadas[1] < tout)
+                                                {
+                                                    aux2 = 1;
+                                                    inc2 = 1;
+                                                    String[,] eventosempleado = new string[10, 3];
+                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Salida Temprano");
+                                                    if (eventosempleado[0, 0] != null)
+                                                    {
+
+                                                        evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                        tipoeven = eventosempleado[0, 1];
+                                                        observaciones = eventosempleado[0, 2];
+                                                        aux2 = 0;
+                                                        inc2 = 0;
+                                                    }
+                                                }
+                                                if (hrsdia_laboradas > hrs_dia)
+                                                {
+                                                    hrs_extra = hrsdia_laboradas - hrs_dia;
+                                                    hrs_extra = calculahorasextra(hrs_extra);
+                                                }
+                                                else
+                                                {
+                                                    hrs_extra = TimeSpan.Zero;
+                                                    detalle = "Se encontraron dos marcas sin coherencia.";
                                                 }
 
+                                                conexion.abrir();
+                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + auxporteros + ",'" + detalle + ". " + banderacambio + "','" + evento + ". " + observaciones + "','" + hrs_extra + "','" + tipoeven + "','" + hrs_extra + "')";
+                                                comando = new SqlCommand(query, conexion.con);
+                                                comando.ExecuteNonQuery();
+                                                conexion.cerrar();
+                                                //Debug.WriteLine(query);
+                                                //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, auxporteros, detalle);
+                                                break;
+                                            case 3:
+                                                evento = "";
+                                                detalle = "";
+                                                tipoeven = "";
+                                                observaciones = "";
                                                 aux1 = 0;
                                                 aux2 = 0;
-                                     
-                                                //inasistencia = 0;
-                                                //retardo = 0;
-                                                //salidatemprano = 0;
+                                                int inc = 0;
+                                                detalle = "Se encontraron solo 3 marcas.";
+                                                evento = "";
+                                                tipoeven = "";
+                                                banderacambio = "";
 
-                                                hrsdia_laboradas = checadas[checadas.Length - 2] - checadas[0];
-                                                hrsdia_comedor = checadas[checadas.Length - 3] - checadas[1];
-                                                //incosistencia = 0;
-                                                detalle = "Se encontrarón más de 4 marcaciones. Presione el botón Marcaciones para conocer que sucede.";
-                                                hrs_comedor = hrs_comedor + hrsdia_comedor;
-                                                hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
-
-                                                if (checadas[checadas.Length - 2] < auxtimetout)
+                                                if ((Array.Exists(semanapysab, x => x == idhor)) && ((DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)))
                                                 {
-                                                    aux3 = 1;
-                                                    aux2 = 1;
-
-                                                    String[,] eventosempleado = new string[10, 2];
-                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
-
-                                                    if (eventosempleado[0, 0] != null)
-                                                    {
-                                                        for (int i = 0; i < 10; i++)
-                                                        {
-                                                            if (eventosempleado[i, 1] == "Salida Temprano")
-                                                            {
-                                                                evento = evento + " " + eventosempleado[i, 0];
-                                                                aux2 = 0;
-                                                                aux3 = 0;
-                                                            }
-                                                        }
-                                                    }
+                                                    tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_INTURNO"].ToString());
+                                                    tin = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_IN"].ToString());
+                                                    tout = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_OUT"].ToString());
+                                                    // hrs_dia = tout - tin1;
+                                                    hrs_dia = tout - tin;
+                                                }
+                                                else
+                                                {
+                                         
+                                                    tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_INTURNO"].ToString());
+                                                    tin = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_IN"].ToString());
+                                                    tout = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_OUT"].ToString());
+                                                    //hrs_dia = tout - tin1;
+                                                    hrs_dia = tout - tin;
 
                                                 }
-                                                if (checadas[0] > auxtimetin)
+                                                if (idhor == 30)
                                                 {
-                                                    aux3 = 1;
+                                                    hrs_dia = new TimeSpan(9, 0, 0);
+                                                }
+                                                // Debug.WriteLine(hrs_dia);
+                                                hrsdia_laboradas = checadas[2] - checadas[0];
+                                                hrsdia_comedor = TimeSpan.Zero;
+                                                //hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
+
+
+                                                if (checadas[0] > tin1)
+                                                {
                                                     aux1 = 1;
-
-                                                    String[,] eventosempleado = new string[10, 2];
-                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h]);
+                                                    inc = 1;
+                                                    String[,] eventosempleado = new string[10, 3];
+                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Retardo");
 
                                                     if (eventosempleado[0, 0] != null)
                                                     {
-                                                        for (int i = 0; i < 10; i++)
-                                                        {
-                                                            if (eventosempleado[i, 1] == "Retardo")
-                                                            {
-                                                                evento = evento + " " + eventosempleado[i, 0];
-                                                                aux1 = 0;
-                                                                aux3 = 0;
-                                                            }
-                                                        }
+
+                                                        evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                        tipoeven = eventosempleado[0, 1];
+                                                        observaciones = eventosempleado[0, 2];
+                                                        aux1 = 0;
+                                                        inc = 0;
+
+                                                    }
+                                                }
+                                                if (checadas[2] < tout)
+                                                {
+                                                    detalle = "No se registro salida final.";
+                                                    String[,] eventosempleado = new string[10, 3];
+                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Salida Temprano");
+
+                                                    aux2 = 1;
+                                                    inc = 1;
+                                                    if (eventosempleado[0, 0] != null)
+                                                    {
+                                                        evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                        tipoeven = eventosempleado[0, 1];
+                                                        observaciones = eventosempleado[0, 2];
+                                                        aux2 = 0;
+                                                        inc = 0;
+                                                    }
+                                                }
+                                                if (hrsdia_laboradas > hrs_dia)
+                                                {
+                                                    detalle = "No se registro salida de comedor.";
+                                                    hrs_extra = hrsdia_laboradas - hrs_dia;
+                                                    hrs_extra = calculahorasextra(hrs_extra);
+                                                }
+                                                else
+                                                {
+                                                    hrs_extra = TimeSpan.Zero;
+                                                    hrsdia_comedor = checadas[2] - checadas[1];
+
+                                                }
+                                                //hrs_extra = TimeSpan.Zero;
+
+                                                conexion.abrir();
+                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + inc + ",'" + detalle + "','" + evento + ". " + observaciones + "','" + hrs_extra + "','" + tipoeven + "','" + hrs_extra + "')";
+                                                comando = new SqlCommand(query, conexion.con);
+                                                comando.ExecuteNonQuery();
+                                                conexion.cerrar();
+                                                //Debug.WriteLine(query);
+                                                //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, 1, detalle);
+                                                break;
+                                            case 4:
+                                                evento = "";
+                                                detalle = "";
+                                                tipoeven = "";
+                                                observaciones = "";
+                                                int aux3 = 0;
+                                                aux1 = 0;
+                                                aux2 = 0;
+                                                evento = "";
+                                                tipoeven = "";
+                                                banderacambio = "";
+                                                if ((Array.Exists(semanapysab, x => x == idhor)) && ((DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)))
+                                                {
+                                                    tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_INTURNO"].ToString());
+                                                    tin = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_IN"].ToString());
+                                                    tout = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_OUT"].ToString());
+                                                    //hrs_dia = tout - tin1;
+                                                    hrs_dia = tout - tin;
+                                                }
+                                                else
+                                                {
+                                                    tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_INTURNO"].ToString());
+                                                    tin = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_IN"].ToString());
+                                                    tout = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_OUT"].ToString());
+                                                    hrs_dia = tout - tin;
+                                                   
+                                                }
+                                       
+                                                if (idhor == 30)
+                                                {
+                                                    hrs_dia = new TimeSpan(9, 0, 0);
+                                                }
+                                                hrsdia_laboradas = checadas[3] - checadas[0];
+                                                hrsdia_comedor = checadas[2] - checadas[1];
+                                                detalle = "Correcto";
+                                                //hrs_comedor = hrs_comedor + hrsdia_comedor;
+                                                //hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
+
+                                                // Debug.WriteLine(hrs_dia);
+                                                if (checadas[0] > tin1)
+                                                {
+                                                    aux1 = 1;
+                                                    aux3 = 1;
+                                                    String[,] eventosempleado = new string[10, 3];
+                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Retardo");
+
+                                                    if (eventosempleado[0, 0] != null)
+                                                    {
+                                                        evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                        tipoeven = eventosempleado[0, 1];
+                                                        observaciones = eventosempleado[0, 2];
+                                                        aux1 = 0;
+                                                        aux3 = 0;
                                                     }
 
                                                 }
-                                                //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, aux3, detalle);
-                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','"+ evento +"','" + hrs_extra + "','" + evento + "')";
-                                                insertadetalledias(query);
-                                            }
 
-                                            break;
+                                                if (checadas[3] < tout)
+                                                {
+                                                    detalle = "No se registro salida final.";
+                                                    String[,] eventosempleado = new string[10, 3];
+                                                    eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Salida Temprano");
+                                                    aux2 = 1;
+                                                    aux3 = 1;
+                                                    if (eventosempleado[0, 0] != null)
+                                                    {
+                                                        evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                        tipoeven = eventosempleado[0, 1];
+                                                        observaciones = eventosempleado[0, 2];
+                                                        aux2 = 0;
+                                                        aux3 = 0;
+
+                                                    }
+                                                }
+
+                                                if (hrsdia_laboradas > hrs_dia)
+                                                {
+                                                    hrs_extra = hrsdia_laboradas - hrs_dia;
+                                                    hrs_extra = calculahorasextra(hrs_extra);
+                                                }
+                                                else
+                                                {
+                                                    hrs_extra = TimeSpan.Zero;
+                                                    detalle = "Inconsistencia de horas laboradas son menores que las correspondientes a la jornada.";
+                                                }
+
+                                                conexion.abrir();
+                                                query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','" + evento + ". " + observaciones + "','" + hrs_extra + "','" + tipoeven + "','"+ hrs_extra + "')";
+                                                //Debug.WriteLine(query);
+                                                comando = new SqlCommand(query, conexion.con);
+                                                comando.ExecuteNonQuery();
+                                                conexion.cerrar();
+                                                //Debug.WriteLine(query);
+                                                //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, aux3, detalle);
+                                                break;
+                                            default:
+                                                detalle = "";
+                                                evento = "";
+                                                detalle = "";
+                                                tipoeven = "";
+                                                observaciones = "";
+                                                if ((checadas.Length - 1) > 4)
+                                                {
+
+                                                    aux3 = 0;
+                                                    aux1 = 0;
+                                                    aux2 = 0;
+                                                    hrs_extra = TimeSpan.Zero;
+                                                    TimeSpan hrscom_extra = TimeSpan.Zero;
+                                                    if ((Array.Exists(semanapysab, x => x == idhor)) && ((DateTime.Parse(fechas[h], System.Globalization.CultureInfo.CurrentCulture).DayOfWeek == DayOfWeek.Saturday)))
+                                                    {
+                                                        tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_INTURNO"].ToString());
+                                                        tin = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_IN"].ToString());
+                                                        tout = TimeSpan.Parse(dtEmpleadoHor.Rows[1]["HOR_OUT"].ToString());
+                                                        //hrs_dia = tout - tin1;
+                                                        hrs_dia = tout - tin;
+                                                    }
+                                                    else
+                                                    {
+                                                        tin1 = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_INTURNO"].ToString());
+                                                        tin = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_IN"].ToString());
+                                                        tout = TimeSpan.Parse(dtEmpleadoHor.Rows[0]["HOR_OUT"].ToString());
+                                                        //hrs_dia = tout - tin1;
+                                                        hrs_dia = tout - tin;
+                                                    }
+                                                    hrsdia_laboradas = checadas[checadas.Length - 2] - checadas[0];
+
+                                                    if (idhor == 30)
+                                                    {
+                                                        hrs_dia = new TimeSpan(9, 0, 0);
+                                                    }
+                                                    //  hrs_comedor = hrs_comedor + hrsdia_comedor;
+                                                    //hrs_laboradas = hrs_laboradas + hrsdia_laboradas;
+
+                                                    if (hrsdia_laboradas < hrs_dia)
+                                                    {
+                                                        aux3 = 1;
+                                                        detalle = detalle + "Inconsistencia de horas laboradas son menores que las correspondientes a la jornada. 6 checadas";
+                                                    }
+                                                    if (checadas[checadas.Length - 2] < tout)
+                                                    {
+                                                        String[,] eventosempleado = new string[10, 3];
+                                                        eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Salida Temprano");
+                                                        aux2 = 1;
+                                                        aux3 = 1;
+                                                        if (eventosempleado[0, 0] != null)
+                                                        {
+                                                            evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                            tipoeven = eventosempleado[0, 1];
+                                                            observaciones = eventosempleado[0, 2];
+                                                            aux2 = 0;
+                                                            aux3 = 0;
+
+                                                        }
+                                                    }
+                                                    if (checadas[0] > tin1)
+                                                    {
+                                                        aux1 = 1;
+                                                        aux3 = 1;
+                                                        String[,] eventosempleado = new string[10, 3];
+                                                        eventosempleado = GetEventos(dtEmpleado.Rows[j]["Badgenumber"].ToString(), datein, datefin, fechas[h], "Retardo");
+
+                                                        if (eventosempleado[0, 0] != null)
+                                                        {
+                                                            evento = fechas[h] + ". " + eventosempleado[0, 0];
+                                                            tipoeven = eventosempleado[0, 1];
+                                                            observaciones = eventosempleado[0, 2];
+                                                            aux1 = 0;
+                                                            aux3 = 0;
+
+                                                        }
+                                                    }
+
+                                                    if (hrsdia_laboradas > hrs_dia)
+                                                    {
+                                                        hrsdia_laboradas = checadas[checadas.Length - 2] - checadas[0];
+                                                        hrsdia_comedor = TimeSpan.Zero;
+                                                        hrs_extra = hrsdia_laboradas - hrs_dia;
+                                                        hrs_extra = calculahorasextra(hrs_extra);
+                                                        detalle = "Correcto. Horas extra despues de jornada laboral.";
+
+                                                    }
+                                                    else
+                                                    {
+                                                        hrs_extra = TimeSpan.Zero;
+                                                        hrsdia_laboradas = checadas[checadas.Length - 2] - checadas[0];
+                                                        hrsdia_comedor = TimeSpan.Zero;
+                                                        detalle = "Se encontraron más de cuatro checadas. Posible permiso en horario laboral.";
+                                                    }
+
+                                                    ////Debug.WriteLine(hrs_extra);
+                                                    conexion.abrir();
+                                                    //query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','','" + hrs_extra + "','','" + hrs_extra + "')";
+                                                    query = "INSERT INTO detalledias values(" + dtEmpleado.Rows[j]["Badgenumber"].ToString() + ",'" + fechas[h] + "',1,0," + aux1 + "," + aux2 + ",'" + hrsdia_laboradas + "','" + hrsdia_comedor + "'," + aux3 + ",'" + detalle + "','"+evento+". "+observaciones+"','" + hrs_extra + "','"+tipoeven+"','" + hrs_extra + "')";
+                                                    //Debug.WriteLine(query);
+                                                    comando = new SqlCommand(query, conexion.con);
+                                                    comando.ExecuteNonQuery();
+                                                    conexion.cerrar();
+                                                    //detalledias.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), fechas[h], 1, 0, aux1, aux2, hrsdia_laboradas, hrsdia_comedor, aux3, detalle);
+
+                                                }
+                                                break;
+                                                /*  
+
+                                                  break;*/
+                                        }
                                     }
                                 }
                             }
                         }
+                        //detalledatos.Rows.Add(dtEmpleado.Rows[j]["Badgenumber"].ToString(), dtEmpleado.Rows[j]["Name"].ToString(), asistencia, inasistencia, retardo, salidatemprano, incosistencia, float.Parse(hrs_laboradas.TotalHours.ToString("N3")), float.Parse(hrs_comedor.TotalHours.ToString("N3")), hrsextra,turno);
                         detalle = "";
-                        hrs_laboradas = TimeSpan.Zero;
-                        hrs_comedor = TimeSpan.Zero;
 
                     }
-
                 }
-
                 marcastop = marcastop + 1;
                 toolStripProgressBar1.Value = marcastop;
-
             }
-         
             sumaincon();
             actualizain();
-     
+            pintagrilla();
+            reporteExcelToolStripMenuItem.Visible = true;
         }
 
-        public void pintagrid()
+        public void pintagrilla()
         {
-            foreach (DataGridViewRow rowp in dataGridViewDatos.Rows)
+            string color;
+            foreach (DataGridViewRow rowp in dataGridViewDetalleDias.Rows)
             {
-                if (Int32.Parse(rowp.Cells["Inconsistencias"].Value.ToString()) > 0)
+                if (rowp.Cells["tipoeven"].Value.ToString() != null)
                 {
-                    rowp.DefaultCellStyle.BackColor = Color.Red;
+                    color = setcolor(rowp.Cells["tipoeven"].Value.ToString());
+                    if (color == "Black")
+                    {
+                        rowp.DefaultCellStyle.ForeColor = Color.White;
+                    }
+                    rowp.DefaultCellStyle.BackColor = Color.FromName(color);
                 }
+                else
+                {
+                    rowp.DefaultCellStyle.BackColor = Color.White;
+                }
+
             }
         }
+
+
+        public string setcolor(string evento)
+        {
+            string col = "";
+            string query1 = "";
+            conexionbd conexion = new conexionbd();
+            conexion.abrir();
+            DataTable dtEmpEven = new DataTable();
+            query1 = "SELECT COLOR FROM EVENTO WHERE descripcion='" + evento + "'";
+            SqlDataAdapter adaptador = new SqlDataAdapter(query1, conexion.con);
+            adaptador.Fill(dtEmpEven);
+            conexion.cerrar();
+            if (dtEmpEven.Rows.Count > 0)
+            {
+                col = dtEmpEven.Rows[0]["COLOR"].ToString();
+            }
+            else
+            {
+                col = "White";
+            }
+            return col;
+        }
+
         public void sumaincon()
         {
             conexionbd conexion = new conexionbd();
             DataTable dtempleado = new DataTable();
             conexion.abrir();
-            string query = "SELECT USERINFOCUS.BADGENUMBER,USERINFOCUS.NAME,HORARIOS.Descripcion FROM(USERINFOCUS INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER = HOREMPLEADO.BADGENUMBER)INNER JOIN HORARIOS ON HORARIOS.ID_HOR = HOREMPLEADO.ID_HOR WHERE HORARIOS.IDGROUP=2 AND HORARIOS.ID_HOR NOT IN(18,24) ORDER BY HORARIOS.Descripcion";
+            string query = "SELECT USERINFOCUS.BADGENUMBER,USERINFOCUS.NAME,HORARIOS.Descripcion FROM(USERINFOCUS INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER = HOREMPLEADO.BADGENUMBER)INNER JOIN HORARIOS ON HORARIOS.ID_HOR = HOREMPLEADO.ID_HOR WHERE HORARIOS.IDGROUP=2 AND HORARIOS.ID_HOR NOT IN(18,24,32) and USERINFOCUS.DEFAULTDEPTID<>32 ORDER BY HORARIOS.Descripcion ";
             SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
             adaptador.Fill(dtempleado);
             conexion.cerrar();
@@ -672,7 +878,7 @@ namespace EmpManagement
                 //Debug.WriteLine(hrslabbd);
                 DataTable dtcom = new DataTable();
                 string cadenacom = "";
-                
+
                 conexion.abrir();
                 query = "SELECT comentarios from detalledias where badgenumber=" + row["BADGENUMBER"].ToString() + " AND fecha BETWEEN '" + dateTimePickerIni.Value.ToString("yyyy-MM-dd") + "' AND '" + dateTimePickerFin.Value.ToString("yyyy-MM-dd") + "'";
                 adaptadorsum = new SqlDataAdapter(query, conexion.con);
@@ -682,12 +888,12 @@ namespace EmpManagement
                 {
                     if (rowcom["comentarios"].ToString() != "")
                     {
-                        cadenacom = rowcom["comentarios"].ToString()+ ". "+cadenacom;
+                        cadenacom = rowcom["comentarios"].ToString() + ". " + cadenacom;
 
-                    }    
+                    }
                     Debug.WriteLine(cadenacom);
                 }
-                detalledatos.Rows.Add(row["BADGENUMBER"].ToString(), row["NAME"].ToString(), asisbd, inasisbd, retbd, saltempbd, incosisbd, CalcularTiempo(hrslabbd), CalcularTiempo(hrscombd), hrsextbd, turnobd,cadenacom);
+                detalledatos.Rows.Add(row["BADGENUMBER"].ToString(), row["NAME"].ToString(), asisbd, inasisbd, retbd, saltempbd, incosisbd, CalcularTiempo(hrslabbd), CalcularTiempo(hrscombd), hrsextbd, turnobd, cadenacom);
             }
             dataGridViewDatos.DataSource = detalledatos;
         }
@@ -701,6 +907,7 @@ namespace EmpManagement
             adaptador.Fill(detallediasbd);
             conexion.cerrar();
             dataGridViewDetalleDias.DataSource = detallediasbd;
+            pintagrilla();
         }
         private void buttonMarcaciones_Click(object sender, EventArgs e)
         {
@@ -833,7 +1040,7 @@ namespace EmpManagement
         {
             JustificaIncon frmjust = new JustificaIncon();
             frmjust.FormClosed += update_formCloed;
-            frmjust.labelFec.Text = DateTime.Parse(dataGridViewDetalleDias.CurrentRow.Cells["Fecha"].Value.ToString()).ToString("yyyy-MM-dd"); ;
+            frmjust.labelFec.Text = DateTime.Parse(dataGridViewDetalleDias.CurrentRow.Cells["Fecha"].Value.ToString()).ToString("MM-dd-yyyy"); ;
             frmjust.labelIDEmp.Text = dataGridViewDetalleDias.CurrentRow.Cells["Badgenumber"].Value.ToString();
             frmjust.labelNombre.Text = dataGridViewDatos.CurrentRow.Cells["Nombre"].Value.ToString();
             int incon = Int32.Parse(dataGridViewDetalleDias.CurrentCell.ColumnIndex.ToString());
@@ -877,8 +1084,39 @@ namespace EmpManagement
             {
                 sumaincon();
                 actualizain();
+                pintagrilla();
                 // pintagrid();
             }
+        }
+
+        public TimeSpan calculahorasextra(TimeSpan hextra)
+        {
+            TimeSpan calculohor;
+            TimeSpan medhoradd = new TimeSpan(0, 30, 0);
+            TimeSpan horadd = new TimeSpan(1, 0, 0);
+
+            if ((hextra.Minutes >= 24) && (hextra.Minutes < 54))
+            {
+                TimeSpan min = new TimeSpan(0, hextra.Minutes, 0);
+                hextra = hextra.Subtract(min);
+                hextra = hextra + medhoradd;
+            }
+            else
+            {
+                if (hextra.Minutes >= 54)
+                {
+                    TimeSpan min = new TimeSpan(0, hextra.Minutes, 0);
+                    hextra = hextra.Subtract(min);
+                    hextra = hextra + horadd;
+                }
+                else
+                {
+                    TimeSpan min = new TimeSpan(0, hextra.Minutes, 0);
+                    hextra = hextra.Subtract(min);
+                }
+            }
+            calculohor = hextra;
+            return calculohor;
         }
 
         private String CalcularTiempo(Int32 tsegundos)
@@ -899,52 +1137,61 @@ namespace EmpManagement
             adaptador.Fill(detallediasbd);
             conexion.cerrar();
             dataGridViewDetalleDias.DataSource = detallediasbd;
+            pintagrilla();
         }
 
-        public string[,] GetEventos(string badgenumber, string fecin, string fecfin, string fecac)
+        public string[,] GetEventos(string badgenumber, string fecin, string fecfin, string fecac, string tipoev)
         {
             conexionbd conexion = new conexionbd();
             DataTable dtempleadoEventos = new DataTable();
-            DateTime fecini, fecfinal;
+            //DateTime fecini, fecfinal;
             conexion.abrir();
-            string query = "SELECT EVENEMP.BADGENUMBER,EVENEMP.ID_EVEN,EVENEMP.FECIN,EVENEMP.FECFIN,EVENTO.DESCRIPCION,EVENTO.GRUPO FROM EVENTO INNER JOIN EVENEMP ON EVENTO.ID_EVEN=EVENEMP.ID_EVEN  WHERE EVENEMP.BADGENUMBER=" + badgenumber + " AND fecin>='" + fecin + "' and fecfin<='" + fecfin + "'";
-            //Debug.WriteLine(query);
-            string[,] eventos = new string[10, 2];
+            string query = "DECLARE @FEC DATE; SET @FEC = '" + fecac + "';SELECT EVENEMP.BADGENUMBER,EVENEMP.ID_EVEN,EVENEMP.FECIN,EVENEMP.FECFIN,EVENTO.DESCRIPCION,EVENTO.GRUPO, EVENEMP.OBSERVACIONES FROM EVENTO INNER JOIN EVENEMP ON EVENTO.ID_EVEN = EVENEMP.ID_EVEN  WHERE EVENEMP.BADGENUMBER = " + badgenumber + " AND @FEC BETWEEN fecin AND fecfin AND EVENTO.GRUPO = '" + tipoev + "'; ";
+            Debug.WriteLine(query);
+            string[,] eventos = new string[10, 3];
             SqlDataAdapter adaptadorsum = new SqlDataAdapter(query, conexion.con);
             adaptadorsum.Fill(dtempleadoEventos);
             conexion.cerrar();
-            int j = 0;
-
-            foreach (DataRow row in dtempleadoEventos.Rows)
+            if (dtempleadoEventos.Rows.Count > 0)
             {
-                fecini = DateTime.Parse(row["fecin"].ToString());
-                fecfinal = DateTime.Parse(row["fecfin"].ToString());
-                //Debug.WriteLine(fecini);
-                //Debug.WriteLine(fecfinal);
-                TimeSpan dias;
-                dias = fecfinal - fecini;
-
-                //Debug.WriteLine("Días:" + dias.Days);
-                String[] fechas = new String[dias.Days + 1];
-                //Debug.WriteLine("Longitud array:" + fechas.Length);
-                for (int i = 0; i < fechas.Length; i++)
-                {
-                    fechas[i] = fecini.AddDays(i).ToString("yyyy-MM-dd");
-                    //Debug.WriteLine("Fecha:" + fechas[i]);
-                    if (fechas[i] == fecac)
-                    {
-                        eventos[j, 0] = dtempleadoEventos.Rows[j]["Descripcion"].ToString();
-                        eventos[j, 1] = dtempleadoEventos.Rows[j]["Grupo"].ToString();
-
-                        //Debug.WriteLine(eventos[j]);
-                    }
-                }
-                j++;
+                eventos[0, 0] = dtempleadoEventos.Rows[0]["Descripcion"].ToString();
+                eventos[0, 1] = dtempleadoEventos.Rows[0]["Descripcion"].ToString();
+                eventos[0, 2] = dtempleadoEventos.Rows[0]["Observaciones"].ToString();
             }
-
             return eventos;
         }
 
+        public int GetEventosReporte(string badgenumber, string fecac, string tipoev)
+        {
+            conexionbd conexion = new conexionbd();
+            DataTable dtempleadoEventos = new DataTable();
+            //DateTime fecini, fecfinal;
+            conexion.abrir();
+            string query = "";
+            if (tipoev == "Vacaciones")
+            {
+                query = "DECLARE @FEC DATE; SET @FEC = '" + fecac + "';SELECT EVENEMP.BADGENUMBER,EVENEMP.ID_EVEN,EVENEMP.FECIN,EVENEMP.FECFIN,EVENTO.DESCRIPCION,EVENTO.GRUPO, EVENEMP.OBSERVACIONES FROM EVENTO INNER JOIN EVENEMP ON EVENTO.ID_EVEN = EVENEMP.ID_EVEN  WHERE EVENEMP.BADGENUMBER = " + badgenumber + " AND @FEC BETWEEN fecin AND fecfin AND EVENTO.descripcion = '" + tipoev + "'; ";
+            }
+            else
+            {
+                query = "DECLARE @FEC DATE; SET @FEC = '" + fecac + "';SELECT EVENEMP.BADGENUMBER,EVENEMP.ID_EVEN,EVENEMP.FECIN,EVENEMP.FECFIN,EVENTO.DESCRIPCION,EVENTO.GRUPO, EVENEMP.OBSERVACIONES FROM EVENTO INNER JOIN EVENEMP ON EVENTO.ID_EVEN = EVENEMP.ID_EVEN  WHERE EVENEMP.BADGENUMBER = " + badgenumber + " AND @FEC BETWEEN fecin AND fecfin";
+            }
+
+            //string[] eventos = new string[3];
+            int eventos = 0;
+            SqlDataAdapter adaptadorsum = new SqlDataAdapter(query, conexion.con);
+            adaptadorsum.Fill(dtempleadoEventos);
+            conexion.cerrar();
+            if (dtempleadoEventos.Rows.Count > 0)
+            {
+                eventos = 1;
+            }
+            else
+            {
+                eventos = 0;
+            }
+            return eventos;
+        }
         private void dataGridViewDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.dataGridViewDatos.Columns[e.ColumnIndex].Name == "Inconsistencias")
@@ -989,6 +1236,256 @@ namespace EmpManagement
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void limpiarFechasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string datein, datefin;
+            datein = dateTimePickerIni.Value.ToString("MM-dd-yyyy");
+            datefin = dateTimePickerFin.Value.ToString("MM-dd-yyyy");
+
+            DialogResult resultado = MessageBox.Show("¿Seguro que desea eliminar?", "Salir", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (resultado == DialogResult.OK)
+            {
+                conexionbd conexion = new conexionbd();
+                conexion.abrir();
+                string query = "delete detalledias from detalledias inner join HOREMPLEADO on detalledias.badgenumber=HOREMPLEADO.Badgenumber inner join HORARIOS on HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR where HORARIOS.idgroup=2 and detalledias.fecha>='" + datein + "' and detalledias.fecha<='" + datefin + "'";
+                SqlCommand comando = new SqlCommand(query, conexion.con);
+                comando.ExecuteNonQuery();
+                conexion.cerrar();
+                dataGridViewDatos.DataSource = null;
+                dataGridViewDetalleDias.DataSource = null;
+                toolStripProgressBar1.Value = 0;
+                MessageBox.Show("Eliminación de reporte correcto.");
+                reporteExcelToolStripMenuItem.Visible = false;
+            }
+        }
+
+        private void dataGridViewDetalleDias_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            string colorrow = "White";
+            if (this.dataGridViewDetalleDias.Columns[e.ColumnIndex].Name == "tipoeven")
+            {
+                if (e.Value != null)
+                {
+                    if (e.Value.GetType() != typeof(System.DBNull))
+                    {
+                        colorrow = setcolor(e.Value.ToString());
+                        if (colorrow == "Black")
+                        {
+                            e.CellStyle.ForeColor = Color.White;
+                        }
+                        e.CellStyle.BackColor = Color.FromName(colorrow);
+
+                    }
+                }
+            }
+        }
+
+        private void reporteExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //ExportarDatos(dataGridViewDatos);
+            // C:\Users\userf\source\repos\EmpManagement\EmpManagement\documentos\gafete.xlsx
+            conexionbd conexion = new conexionbd();
+
+            Excel.Application oXL;
+            Excel._Workbook oWB;
+            Excel._Worksheet oSheet;
+            Excel.Range oRng;
+            int inicio = 42;
+            int inicioid = 7;
+            int inicioturno = 6;
+            int iniciofechas = 9;
+            int iniciochecadas = 9;
+            int contadorcolumnas = 0;
+            int iniciodetalle = 23;
+            int aumentofilas = 0;
+            int auxfilas = 0;
+            int iniciovacaciones = 0;
+            int iniciopermisos = 0;
+            int k = 0;//variable para aumento de filas
+            int h = 0;//variable para registro de comentarios
+            int iniciocomentarios = 8;
+            int iniciosem2 = 16;
+            int banderacambio = 0;
+
+            int[] semn1 = { 0, 2, 4, 6, 8, 10 };
+            int[] semn2 = { 1, 3, 5, 7, 9, 11 };
+
+
+            //string[,] saNames = new string[dataGridViewDatos.Rows.Count, 12];
+            //Debug.WriteLine(dataGridViewDatos.Rows.Count);
+
+            // try
+            //{
+            //Start Excel and get Application object.
+            oXL = new Excel.Application();
+            //oXL.Visible = true;
+
+            string oldName = @"C:\Excel\ReporteTiemposQuincenal.xlsx";
+            string newName = @"C:\Excel\ReporteTiempos" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".xlsx";
+            System.IO.File.Copy(oldName, newName);
+
+            //Get a new workbook.
+            oWB = (Excel._Workbook)(oXL.Workbooks.Open(newName));
+            // oWB = (Excel._Workbook)(oXL.Workbooks.Add());
+            oSheet = (Excel._Worksheet)oWB.ActiveSheet;
+            char[] array1 = { 'A', 'B', 'C', 'D', 'E', 'F', 'G','H' };
+
+            DataTable dtuserinfo = new DataTable();
+            conexion.abrir();
+            //string query = "select detalledias.*,DEPARTMENTS.DEPTNAME from detalledias inner join USERINFOCus on detalledias.badgenumber=USERINFOCus.Badgenumber inner join DEPARTMENTS on USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID where detalledias.fecha BETWEEN '" + dateTimePickerIni.Value.ToString("yyyy-MM-dd") + "' AND '" + dateTimePickerFin.Value.ToString("yyyy-MM-dd") + "' and userinfocus.defaultdeptid=" + toolStripComboBox1.ComboBox.SelectedValue.ToString() + " ORDER BY detalledias.fecha";
+            string query = "SELECT USERINFOCUS.Badgenumber,USERINFOCUS.Name,HORARIOS.Descripcion from USERINFOCUS INNER JOIN HOREMPLEADO ON USERINFOCUS.BADGENUMBER=HOREMPLEADO.BADGENUMBER INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.IDGROUP=2 AND HORARIOS.TIPOHOR=1 ORDER BY HORARIOS.ID_HOR ";
+            SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+            adaptador.Fill(dtuserinfo);
+            Debug.WriteLine(dtuserinfo.Rows.Count);
+            oSheet.get_Range("B3").Value2 = "ADMINISTRATIVOS";
+            oSheet.get_Range("I3").Value2 = dateTimePickerIni.Value.ToString("dd/MM/yyyy");
+            oSheet.get_Range("I4").Value2 = dateTimePickerFin.Value.ToString("dd/MM/yyyy");
+
+            for (int i = 0; i < dtuserinfo.Rows.Count - 1; i++)
+            {
+                //|Debug.WriteLine(inicio+contadorcolumnas);
+                Excel.Range source = oSheet.Range["A6:J40"];
+                Excel.Range dest = oSheet.Range["A" + (inicio + contadorcolumnas).ToString()];
+                source.Copy(dest);
+                contadorcolumnas = contadorcolumnas + 36;
+            }
+            contadorcolumnas = 0;
+            toolStripProgressBar1.Minimum = 0;
+            toolStripProgressBar1.Maximum = dtuserinfo.Rows.Count;
+            toolStripProgressBar1.Value = 0;
+            int cuentausuarios = 0;
+
+            foreach (DataRow row in dtuserinfo.Rows)
+            {
+                DataTable detalledias = new DataTable();
+                oSheet.get_Range("B" + (inicioid + contadorcolumnas).ToString()).Value2 = row["Badgenumber"].ToString();
+                oSheet.get_Range("D" + (inicioid + contadorcolumnas).ToString()).Value2 = row["Name"].ToString();
+                query = "select detalledias.* from detalledias inner join USERINFOCus on detalledias.badgenumber=USERINFOCus.Badgenumber where detalledias.fecha BETWEEN '" + dateTimePickerIni.Value.ToString("yyyy-MM-dd") + "' AND '" + dateTimePickerFin.Value.ToString("yyyy-MM-dd") + "' and detalledias.badgenumber=" + row["Badgenumber"].ToString() + " ORDER BY detalledias.fecha";
+                adaptador = new SqlDataAdapter(query, conexion.con);
+                adaptador.Fill(detalledias);
+                int cuentacolumnas = 0;
+                foreach (DataRow row1 in detalledias.Rows)
+                {
+                    if (row1["comentarios"].ToString() != "" && row1["comentarios"].ToString() != ". ")
+                    {
+                        oSheet.get_Range("K" + (iniciocomentarios + contadorcolumnas + h).ToString()).Value2 = row1["comentarios"].ToString();
+                        h++;
+                    }
+                    DataTable detallemarcaciones = new DataTable();
+                    //  oSheet.get_Range(array1[cuentacolumnas] + (iniciofechas + contadorcolumnas).ToString()).Value2 = row["Badgenumber"].ToString();
+                    query = "Select * from checkinout where badgenumber=" + row["Badgenumber"].ToString() + " and checktime BETWEEN '" + DateTime.Parse(row1["fecha"].ToString()).ToString("MM-dd-yyyy") + "' AND '" + DateTime.Parse(row1["fecha"].ToString()).AddDays(1).ToString("MM-dd-yyyy") + "' ORDER BY CHECKTIME";
+                    // Debug.WriteLine(query);
+                    adaptador = new SqlDataAdapter(query, conexion.con);
+                    adaptador.Fill(detallemarcaciones);
+
+                    TimeSpan[] checadasval = new TimeSpan[detallemarcaciones.Rows.Count + 1];
+                    TimeSpan basecomparacionmin = new TimeSpan(0, 10, 0);
+                    TimeSpan dif = new TimeSpan();
+                    //SELECT DISTINCT CHECKTIME,BADGENUMBER FROM CHECKINOUT WHERE BADGENUMBER = " + dtEmpleado.Rows[j]["BADGENUMBER"].ToString() + " AND CHECKTIME BETWEEN '" + fechas[h] + "' AND '" + fechas[h + 1] + "' ORDER BY CHECKTIME; "
+
+                    for (int i = 0; i < detallemarcaciones.Rows.Count; i++)
+                    {
+                        checadasval[i] = TimeSpan.Parse(DateTime.Parse(detallemarcaciones.Rows[i]["CHECKTIME"].ToString()).ToString("HH:mm"), System.Globalization.CultureInfo.CurrentCulture);
+
+                    }
+
+                    for (int i = 0; i < detallemarcaciones.Rows.Count - 1; i++)
+                    {
+                        dif = checadasval[i + 1] - checadasval[i];
+
+                        if (dif < basecomparacionmin)
+                        {
+                            checadasval[i + 1] = checadasval[i];
+                        }
+                    }
+
+                    List<TimeSpan> lst = checadasval.ToList();
+                    List<TimeSpan> checadasfin = lst.Distinct().ToList();
+                    TimeSpan[] checadas = checadasfin.ToArray();
+
+                   
+                    //oSheet.get_Range(array1[cuentacolumnas]+(iniciochecadas+contadorcolumnas).ToString(), array1[cuentacolumnas]+ (iniciochecadas + contadorcolumnas + checadas.Length).ToString()).Value2 = checadas;
+                    for (int i = 0; i < checadas.Length - 1; i++)
+                    {
+                        if (banderacambio >7)
+                        {
+                            oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas +iniciosem2+ i).ToString()).Value2 = checadas[i].ToString();
+                        }
+                        else
+                        {
+                            oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciochecadas + i).ToString()).Value2 = checadas[i].ToString();
+                        }
+                         
+                    }
+                    //oSheet.get_Range("A10").Value2 = checadas[0].ToString();
+
+                    //Registra detalledias
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if (banderacambio > 7)
+                        {
+                            oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle+ semn2[i]).ToString()).Value2 = row1[i + 2].ToString();
+                        }
+                        else
+                        {
+                            oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle + semn1[i]).ToString()).Value2 = row1[i + 2].ToString();
+                        }
+                    
+                    }
+                    if (banderacambio > 7)
+                    {
+                        oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle+1 + 12).ToString()).Value2 = row1[11].ToString();
+                        oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle+1 + 14).ToString()).Value2 = GetEventosReporte(row["Badgenumber"].ToString(), DateTime.Parse(row1["fecha"].ToString()).ToString("MM-dd-yyyy"), "Vacaciones"); ;
+                        oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle+1 + 16).ToString()).Value2 = GetEventosReporte(row["Badgenumber"].ToString(), DateTime.Parse(row1["fecha"].ToString()).ToString("MM-dd-yyyy"), "");
+                    }
+                    else
+                    {
+                        oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle + 12).ToString()).Value2 = row1[11].ToString();
+                        oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle + 14).ToString()).Value2 = GetEventosReporte(row["Badgenumber"].ToString(), DateTime.Parse(row1["fecha"].ToString()).ToString("MM-dd-yyyy"), "Vacaciones"); ;
+                        oSheet.get_Range(array1[cuentacolumnas] + (contadorcolumnas + iniciodetalle + 16).ToString()).Value2 = GetEventosReporte(row["Badgenumber"].ToString(), DateTime.Parse(row1["fecha"].ToString()).ToString("MM-dd-yyyy"), "");
+                    }
+                   
+                    if (cuentacolumnas == 7)
+                    {
+                        cuentacolumnas = 0;
+                    }
+                    else
+                    {
+                        cuentacolumnas = cuentacolumnas + 1;
+                    }
+
+                    banderacambio++;
+                }
+                cuentacolumnas = 0;
+                banderacambio = 0;
+                contadorcolumnas = contadorcolumnas + 36;
+                cuentausuarios++;
+                h = 0;
+                toolStripProgressBar1.Value = cuentausuarios;
+               
+            }
+
+           
+            //}
+            /*
+             catch (Exception theException)
+             {
+                 String errorMessage;
+                 errorMessage = "Error: ";
+                 errorMessage = String.Concat(errorMessage, theException.Message);
+                 errorMessage = String.Concat(errorMessage, " Line: ");
+                 errorMessage = String.Concat(errorMessage, theException.Source);
+
+                 MessageBox.Show(errorMessage, "Error");
+             }
+            */
+            conexion.cerrar();
+            MessageBox.Show("Reporte Terminado.");
+            oXL.Visible = true;
+            oXL.UserControl = true;
+            reporteExcelToolStripMenuItem.Enabled = true;
         }
     }
 }

@@ -31,6 +31,10 @@ namespace EmpManagement
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NuevoEmpleado));
             this.groupBoxDatosP = new System.Windows.Forms.GroupBox();
+            this.textBoxAntigu = new System.Windows.Forms.TextBox();
+            this.textBoxEdad = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.comboBoxEstCivil = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.dateTimePickerFecNac = new System.Windows.Forms.DateTimePicker();
@@ -109,10 +113,7 @@ namespace EmpManagement
             this.cancelarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.textBoxEdad = new System.Windows.Forms.TextBox();
-            this.textBoxAntigu = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBoxDatosP.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -155,6 +156,41 @@ namespace EmpManagement
             this.groupBoxDatosP.TabIndex = 0;
             this.groupBoxDatosP.TabStop = false;
             this.groupBoxDatosP.Text = "Datos Principales";
+            // 
+            // textBoxAntigu
+            // 
+            this.textBoxAntigu.Enabled = false;
+            this.textBoxAntigu.Location = new System.Drawing.Point(183, 259);
+            this.textBoxAntigu.Name = "textBoxAntigu";
+            this.textBoxAntigu.Size = new System.Drawing.Size(47, 23);
+            this.textBoxAntigu.TabIndex = 19;
+            // 
+            // textBoxEdad
+            // 
+            this.textBoxEdad.Enabled = false;
+            this.textBoxEdad.Location = new System.Drawing.Point(60, 258);
+            this.textBoxEdad.Name = "textBoxEdad";
+            this.textBoxEdad.Size = new System.Drawing.Size(42, 23);
+            this.textBoxEdad.TabIndex = 18;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(108, 262);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(72, 15);
+            this.label30.TabIndex = 17;
+            this.label30.Text = "Antiguedad:";
+            this.label30.Click += new System.EventHandler(this.label30_Click_1);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(18, 263);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(36, 15);
+            this.label29.TabIndex = 16;
+            this.label29.Text = "Edad:";
             // 
             // comboBoxEstCivil
             // 
@@ -311,7 +347,7 @@ namespace EmpManagement
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.textBoxCiudad);
             this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Location = new System.Drawing.Point(251, 3);
+            this.groupBox1.Location = new System.Drawing.Point(251, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(255, 260);
             this.groupBox1.TabIndex = 1;
@@ -463,6 +499,7 @@ namespace EmpManagement
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.textBox1);
             this.groupBox3.Controls.Add(this.textBoxCedula);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label9);
@@ -476,7 +513,7 @@ namespace EmpManagement
             // 
             // textBoxCedula
             // 
-            this.textBoxCedula.Location = new System.Drawing.Point(73, 49);
+            this.textBoxCedula.Location = new System.Drawing.Point(74, 51);
             this.textBoxCedula.Name = "textBoxCedula";
             this.textBoxCedula.Size = new System.Drawing.Size(137, 23);
             this.textBoxCedula.TabIndex = 10;
@@ -484,7 +521,7 @@ namespace EmpManagement
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 52);
+            this.label15.Location = new System.Drawing.Point(7, 54);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(44, 15);
             this.label15.TabIndex = 2;
@@ -493,7 +530,7 @@ namespace EmpManagement
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 19);
+            this.label9.Location = new System.Drawing.Point(10, 21);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 15);
             this.label9.TabIndex = 1;
@@ -510,7 +547,7 @@ namespace EmpManagement
             "LICENCIATURA",
             "MAESTRIA",
             "DOCTORADO"});
-            this.comboBoxNivelE.Location = new System.Drawing.Point(73, 16);
+            this.comboBoxNivelE.Location = new System.Drawing.Point(74, 18);
             this.comboBoxNivelE.Name = "comboBoxNivelE";
             this.comboBoxNivelE.Size = new System.Drawing.Size(137, 23);
             this.comboBoxNivelE.TabIndex = 9;
@@ -900,40 +937,13 @@ namespace EmpManagement
             this.panel4.Size = new System.Drawing.Size(511, 23);
             this.panel4.TabIndex = 0;
             // 
-            // label29
+            // textBox1
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(18, 263);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(36, 15);
-            this.label29.TabIndex = 16;
-            this.label29.Text = "Edad:";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(108, 262);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(72, 15);
-            this.label30.TabIndex = 17;
-            this.label30.Text = "Antiguedad:";
-            this.label30.Click += new System.EventHandler(this.label30_Click_1);
-            // 
-            // textBoxEdad
-            // 
-            this.textBoxEdad.Enabled = false;
-            this.textBoxEdad.Location = new System.Drawing.Point(60, 258);
-            this.textBoxEdad.Name = "textBoxEdad";
-            this.textBoxEdad.Size = new System.Drawing.Size(42, 23);
-            this.textBoxEdad.TabIndex = 18;
-            // 
-            // textBoxAntigu
-            // 
-            this.textBoxAntigu.Enabled = false;
-            this.textBoxAntigu.Location = new System.Drawing.Point(183, 259);
-            this.textBoxAntigu.Name = "textBoxAntigu";
-            this.textBoxAntigu.Size = new System.Drawing.Size(47, 23);
-            this.textBoxAntigu.TabIndex = 19;
+            this.textBox1.Location = new System.Drawing.Point(111, 75);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 23);
+            this.textBox1.TabIndex = 20;
+            this.textBox1.Visible = false;
             // 
             // NuevoEmpleado
             // 
@@ -1054,5 +1064,6 @@ namespace EmpManagement
         private System.Windows.Forms.Label label29;
         public System.Windows.Forms.TextBox textBoxAntigu;
         public System.Windows.Forms.TextBox textBoxEdad;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

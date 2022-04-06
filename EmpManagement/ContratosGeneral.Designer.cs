@@ -1,7 +1,7 @@
 ﻿
 namespace EmpManagement
 {
-    partial class RegistrarEmpleado
+    partial class ContratosGeneral
     {
         /// <summary>
         /// Required designer variable.
@@ -29,15 +29,20 @@ namespace EmpManagement
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistrarEmpleado));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContratosGeneral));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.labelCant = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.accionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -71,12 +76,32 @@ namespace EmpManagement
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.labelCant);
+            this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.toolStrip1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 23);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(944, 32);
             this.panel4.TabIndex = 3;
+            // 
+            // labelCant
+            // 
+            this.labelCant.AutoSize = true;
+            this.labelCant.Location = new System.Drawing.Point(772, 7);
+            this.labelCant.Name = "labelCant";
+            this.labelCant.Size = new System.Drawing.Size(13, 15);
+            this.labelCant.TabIndex = 13;
+            this.labelCant.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(706, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(58, 15);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Cantidad:";
             // 
             // toolStrip1
             // 
@@ -85,6 +110,7 @@ namespace EmpManagement
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
             this.toolStripSeparator1,
+            this.toolStripButton1,
             this.toolStripLabel1,
             this.toolStripComboBox1,
             this.toolStripSeparator2,
@@ -101,6 +127,7 @@ namespace EmpManagement
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verToolStripMenuItem,
             this.accionesToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -108,33 +135,54 @@ namespace EmpManagement
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(86, 29);
             this.toolStripDropDownButton1.Text = "Opciones";
             // 
+            // verToolStripMenuItem
+            // 
+            this.verToolStripMenuItem.Name = "verToolStripMenuItem";
+            this.verToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verToolStripMenuItem.Text = "Ver";
+            // 
             // accionesToolStripMenuItem
             // 
             this.accionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevoToolStripMenuItem,
             this.actualizarToolStripMenuItem,
             this.bajaToolStripMenuItem});
             this.accionesToolStripMenuItem.Name = "accionesToolStripMenuItem";
-            this.accionesToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.accionesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.accionesToolStripMenuItem.Text = "Acciones";
+            // 
+            // nuevoToolStripMenuItem
+            // 
+            this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nuevoToolStripMenuItem.Text = "Nuevo";
             // 
             // actualizarToolStripMenuItem
             // 
             this.actualizarToolStripMenuItem.Name = "actualizarToolStripMenuItem";
-            this.actualizarToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.actualizarToolStripMenuItem.Text = "Actualizar";
-            this.actualizarToolStripMenuItem.Click += new System.EventHandler(this.actualizarToolStripMenuItem_Click);
+            this.actualizarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.actualizarToolStripMenuItem.Text = "Renovar";
             // 
             // bajaToolStripMenuItem
             // 
             this.bajaToolStripMenuItem.Name = "bajaToolStripMenuItem";
-            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.bajaToolStripMenuItem.Text = "Baja";
-            this.bajaToolStripMenuItem.Click += new System.EventHandler(this.bajaToolStripMenuItem_Click);
+            this.bajaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bajaToolStripMenuItem.Text = "Recesión";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 29);
+            this.toolStripButton1.Text = "Actualizar";
             // 
             // toolStripLabel1
             // 
@@ -147,7 +195,6 @@ namespace EmpManagement
             this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(180, 32);
-            this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
             // toolStripSeparator2
             // 
@@ -164,7 +211,6 @@ namespace EmpManagement
             // 
             this.toolStripTextBoxID.Name = "toolStripTextBoxID";
             this.toolStripTextBoxID.Size = new System.Drawing.Size(100, 32);
-            this.toolStripTextBoxID.TextChanged += new System.EventHandler(this.toolStripTextBoxID_TextChanged);
             // 
             // toolStripLabel3
             // 
@@ -176,7 +222,6 @@ namespace EmpManagement
             // 
             this.toolStripTextBoxNombre.Name = "toolStripTextBoxNombre";
             this.toolStripTextBoxNombre.Size = new System.Drawing.Size(100, 32);
-            this.toolStripTextBoxNombre.TextChanged += new System.EventHandler(this.toolStripTextBoxNombre_TextChanged);
             // 
             // panel3
             // 
@@ -197,7 +242,7 @@ namespace EmpManagement
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(944, 23);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Control de Empleados";
+            this.label1.Text = "Contratos de Empleados";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel2
@@ -234,19 +279,19 @@ namespace EmpManagement
             this.dataGridViewDatos.Name = "dataGridViewDatos";
             this.dataGridViewDatos.ReadOnly = true;
             this.dataGridViewDatos.RowTemplate.Height = 25;
+            this.dataGridViewDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewDatos.Size = new System.Drawing.Size(936, 493);
             this.dataGridViewDatos.TabIndex = 3;
             // 
-            // RegistrarEmpleado
+            // ContratosGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 570);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Name = "RegistrarEmpleado";
-            this.Text = "Empleados";
-            this.Load += new System.EventHandler(this.RegistrarEmpleado_Load);
+            this.Name = "ContratosGeneral";
+            this.Text = "ContratosGeneral";
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
@@ -264,12 +309,17 @@ namespace EmpManagement
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label labelCant;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem verToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem accionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nuevoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem actualizarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bajaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

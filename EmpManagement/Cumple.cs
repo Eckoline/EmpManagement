@@ -24,7 +24,7 @@ namespace EmpManagement
             conexionbd conexion = new conexionbd();
             conexion.abrir();
             string query;
-            query = "SELECT USERINFOCUS.BADGENUMBER AS ID, USERINFOCUS.NAME AS NOMBRE,DATEPART(day,birthday) AS 'DÍA',USERINFOCUS.PUESTO AS 'PUESTO',DEPARTMENTS.DEPTNAME AS DEPARTAMENTO  FROM USERINFOCUS INNER JOIN DEPARTMENTS ON USERINFOCUS.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DATEPART(MONTH,BIRTHDAY)=" + DateTime.Now.Month.ToString() + " ORDER BY [DÍA] ASC;"; 
+            query = "SELECT USERINFOCUS.BADGENUMBER AS ID, USERINFOCUS.NAME AS NOMBRE,DATEPART(day,birthday) AS 'DÍA',USERINFOCUS.PUESTO AS 'PUESTO',DEPARTMENTS.DEPTNAME AS DEPARTAMENTO  FROM USERINFOCUS INNER JOIN DEPARTMENTS ON USERINFOCUS.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DATEPART(MONTH,BIRTHDAY)=" + DateTime.Now.Month.ToString() + " AND DEPARTMENTS.DEPTID NOT IN (1,32) ORDER BY [DÍA] ASC;"; 
             SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
             adaptador.Fill(dtcumple);
             conexion.cerrar();

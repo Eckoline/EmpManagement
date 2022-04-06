@@ -29,7 +29,7 @@ namespace EmpManagement
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteSemanal));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -42,18 +42,17 @@ namespace EmpManagement
             this.dataGridViewDetalleDias = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.buttonEditarH = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBoxEdi = new System.Windows.Forms.GroupBox();
+            this.buttonEdHE = new System.Windows.Forms.Button();
             this.buttonJustificar = new System.Windows.Forms.Button();
             this.groupBoxOpciones = new System.Windows.Forms.GroupBox();
             this.buttonMarcaciones = new System.Windows.Forms.Button();
             this.buttonAcept = new System.Windows.Forms.Button();
             this.groupBoxFechas = new System.Windows.Forms.GroupBox();
+            this.dateTimePickerIni = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerFin = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerIni = new System.Windows.Forms.DateTimePicker();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -61,6 +60,9 @@ namespace EmpManagement
             this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.limpiarFechasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteTiemposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteTiemposToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteFormatoNominasToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -84,8 +86,7 @@ namespace EmpManagement
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupBoxEdi.SuspendLayout();
             this.groupBoxOpciones.SuspendLayout();
             this.groupBoxFechas.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -191,12 +192,11 @@ namespace EmpManagement
             this.dataGridViewDetalleDias.Location = new System.Drawing.Point(3, 19);
             this.dataGridViewDetalleDias.Name = "dataGridViewDetalleDias";
             this.dataGridViewDetalleDias.ReadOnly = true;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridViewDetalleDias.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridViewDetalleDias.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewDetalleDias.RowTemplate.Height = 25;
             this.dataGridViewDetalleDias.Size = new System.Drawing.Size(933, 203);
             this.dataGridViewDetalleDias.TabIndex = 1;
-            this.dataGridViewDetalleDias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDetalleDias_CellContentClick);
             this.dataGridViewDetalleDias.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewDetalleDias_CellFormatting);
             // 
             // panel2
@@ -211,8 +211,7 @@ namespace EmpManagement
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.groupBox4);
-            this.panel7.Controls.Add(this.groupBox3);
+            this.panel7.Controls.Add(this.groupBoxEdi);
             this.panel7.Controls.Add(this.groupBoxOpciones);
             this.panel7.Controls.Add(this.groupBoxFechas);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -221,43 +220,34 @@ namespace EmpManagement
             this.panel7.Size = new System.Drawing.Size(939, 70);
             this.panel7.TabIndex = 4;
             // 
-            // groupBox4
+            // groupBoxEdi
             // 
-            this.groupBox4.Controls.Add(this.buttonEditarH);
-            this.groupBox4.Location = new System.Drawing.Point(676, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(195, 62);
-            this.groupBox4.TabIndex = 12;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Edición Horas Extra";
+            this.groupBoxEdi.Controls.Add(this.buttonEdHE);
+            this.groupBoxEdi.Controls.Add(this.buttonJustificar);
+            this.groupBoxEdi.Location = new System.Drawing.Point(475, 1);
+            this.groupBoxEdi.Name = "groupBoxEdi";
+            this.groupBoxEdi.Size = new System.Drawing.Size(213, 62);
+            this.groupBoxEdi.TabIndex = 11;
+            this.groupBoxEdi.TabStop = false;
+            this.groupBoxEdi.Text = "Edición";
             // 
-            // buttonEditarH
+            // buttonEdHE
             // 
-            this.buttonEditarH.Location = new System.Drawing.Point(54, 22);
-            this.buttonEditarH.Name = "buttonEditarH";
-            this.buttonEditarH.Size = new System.Drawing.Size(75, 23);
-            this.buttonEditarH.TabIndex = 3;
-            this.buttonEditarH.Text = "Editar";
-            this.buttonEditarH.UseVisualStyleBackColor = true;
-            this.buttonEditarH.Click += new System.EventHandler(this.buttonEditarH_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.buttonJustificar);
-            this.groupBox3.Location = new System.Drawing.Point(475, 1);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(195, 62);
-            this.groupBox3.TabIndex = 11;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Edición Inconsistencias";
+            this.buttonEdHE.Location = new System.Drawing.Point(122, 22);
+            this.buttonEdHE.Name = "buttonEdHE";
+            this.buttonEdHE.Size = new System.Drawing.Size(75, 23);
+            this.buttonEdHE.TabIndex = 4;
+            this.buttonEdHE.Text = "H. E.";
+            this.buttonEdHE.UseVisualStyleBackColor = true;
+            this.buttonEdHE.Click += new System.EventHandler(this.buttonEdHE_Click);
             // 
             // buttonJustificar
             // 
-            this.buttonJustificar.Location = new System.Drawing.Point(54, 22);
+            this.buttonJustificar.Location = new System.Drawing.Point(7, 22);
             this.buttonJustificar.Name = "buttonJustificar";
-            this.buttonJustificar.Size = new System.Drawing.Size(75, 23);
+            this.buttonJustificar.Size = new System.Drawing.Size(98, 23);
             this.buttonJustificar.TabIndex = 3;
-            this.buttonJustificar.Text = "Editar";
+            this.buttonJustificar.Text = "Inconsistencias";
             this.buttonJustificar.UseVisualStyleBackColor = true;
             this.buttonJustificar.Click += new System.EventHandler(this.buttonJustificar_Click);
             // 
@@ -294,16 +284,24 @@ namespace EmpManagement
             // 
             // groupBoxFechas
             // 
+            this.groupBoxFechas.Controls.Add(this.dateTimePickerIni);
             this.groupBoxFechas.Controls.Add(this.label2);
             this.groupBoxFechas.Controls.Add(this.label1);
             this.groupBoxFechas.Controls.Add(this.dateTimePickerFin);
-            this.groupBoxFechas.Controls.Add(this.dateTimePickerIni);
             this.groupBoxFechas.Location = new System.Drawing.Point(3, 1);
             this.groupBoxFechas.Name = "groupBoxFechas";
             this.groupBoxFechas.Size = new System.Drawing.Size(282, 62);
             this.groupBoxFechas.TabIndex = 9;
             this.groupBoxFechas.TabStop = false;
             this.groupBoxFechas.Text = "Rango Fechas";
+            // 
+            // dateTimePickerIni
+            // 
+            this.dateTimePickerIni.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerIni.Location = new System.Drawing.Point(39, 22);
+            this.dateTimePickerIni.Name = "dateTimePickerIni";
+            this.dateTimePickerIni.Size = new System.Drawing.Size(98, 23);
+            this.dateTimePickerIni.TabIndex = 6;
             // 
             // label2
             // 
@@ -331,15 +329,6 @@ namespace EmpManagement
             this.dateTimePickerFin.Name = "dateTimePickerFin";
             this.dateTimePickerFin.Size = new System.Drawing.Size(95, 23);
             this.dateTimePickerFin.TabIndex = 3;
-            // 
-            // dateTimePickerIni
-            // 
-            this.dateTimePickerIni.CustomFormat = "yyyy-MM-dd HH:mm:ss";
-            this.dateTimePickerIni.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePickerIni.Location = new System.Drawing.Point(39, 22);
-            this.dateTimePickerIni.Name = "dateTimePickerIni";
-            this.dateTimePickerIni.Size = new System.Drawing.Size(95, 23);
-            this.dateTimePickerIni.TabIndex = 2;
             // 
             // panel3
             // 
@@ -386,7 +375,8 @@ namespace EmpManagement
             // 
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportarToolStripMenuItem,
-            this.limpiarFechasToolStripMenuItem});
+            this.limpiarFechasToolStripMenuItem,
+            this.reporteTiemposToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -415,6 +405,29 @@ namespace EmpManagement
             this.limpiarFechasToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.limpiarFechasToolStripMenuItem.Text = "Limpiar Fechas";
             this.limpiarFechasToolStripMenuItem.Click += new System.EventHandler(this.limpiarFechasToolStripMenuItem_Click);
+            // 
+            // reporteTiemposToolStripMenuItem
+            // 
+            this.reporteTiemposToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteTiemposToolStripMenuItem1,
+            this.reporteFormatoNominasToolStripMenuItem1});
+            this.reporteTiemposToolStripMenuItem.Name = "reporteTiemposToolStripMenuItem";
+            this.reporteTiemposToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.reporteTiemposToolStripMenuItem.Text = "Reportes";
+            // 
+            // reporteTiemposToolStripMenuItem1
+            // 
+            this.reporteTiemposToolStripMenuItem1.Name = "reporteTiemposToolStripMenuItem1";
+            this.reporteTiemposToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
+            this.reporteTiemposToolStripMenuItem1.Text = "Reporte Tiempos";
+            this.reporteTiemposToolStripMenuItem1.Click += new System.EventHandler(this.reporteTiemposToolStripMenuItem1_Click);
+            // 
+            // reporteFormatoNominasToolStripMenuItem1
+            // 
+            this.reporteFormatoNominasToolStripMenuItem1.Name = "reporteFormatoNominasToolStripMenuItem1";
+            this.reporteFormatoNominasToolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
+            this.reporteFormatoNominasToolStripMenuItem1.Text = "Reporte Formato Nómina";
+            this.reporteFormatoNominasToolStripMenuItem1.Click += new System.EventHandler(this.reporteFormatoNominasToolStripMenuItem1_Click);
             // 
             // toolStripProgressBar1
             // 
@@ -465,11 +478,12 @@ namespace EmpManagement
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(37, 29);
-            this.toolStripLabel3.Text = "Filtro:";
+            this.toolStripLabel3.Size = new System.Drawing.Size(111, 29);
+            this.toolStripLabel3.Text = "Filtro Reporte Excel:";
             // 
             // toolStripComboBox1
             // 
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 32);
             // 
@@ -516,8 +530,7 @@ namespace EmpManagement
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDetalleDias)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
+            this.groupBoxEdi.ResumeLayout(false);
             this.groupBoxOpciones.ResumeLayout(false);
             this.groupBoxFechas.ResumeLayout(false);
             this.groupBoxFechas.PerformLayout();
@@ -550,7 +563,6 @@ namespace EmpManagement
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePickerFin;
-        private System.Windows.Forms.DateTimePicker dateTimePickerIni;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.ToolStrip toolStrip1;
@@ -563,7 +575,7 @@ namespace EmpManagement
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Button buttonJustificar;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBoxEdi;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBoxID;
         private System.Windows.Forms.ToolStripMenuItem limpiarFechasToolStripMenuItem;
@@ -573,7 +585,10 @@ namespace EmpManagement
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button buttonEditarH;
+        private System.Windows.Forms.ToolStripMenuItem reporteTiemposToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteTiemposToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem reporteFormatoNominasToolStripMenuItem1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerIni;
+        private System.Windows.Forms.Button buttonEdHE;
     }
 }

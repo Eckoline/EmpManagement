@@ -79,6 +79,7 @@ namespace EmpManagement
             // 
             // comboBoxTipo
             // 
+            this.comboBoxTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTipo.FormattingEnabled = true;
             this.comboBoxTipo.Location = new System.Drawing.Point(98, 79);
             this.comboBoxTipo.Name = "comboBoxTipo";

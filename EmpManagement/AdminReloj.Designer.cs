@@ -56,6 +56,8 @@ namespace EmpManagement
             this.dateTimePickerIni = new System.Windows.Forms.DateTimePicker();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.labeltime = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -126,6 +128,8 @@ namespace EmpManagement
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.labeltime);
+            this.panel6.Controls.Add(this.button1);
             this.panel6.Controls.Add(this.groupBox3);
             this.panel6.Controls.Add(this.groupBoxReloj);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
@@ -133,6 +137,7 @@ namespace EmpManagement
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(200, 531);
             this.panel6.TabIndex = 8;
+            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
             // 
             // groupBox3
             // 
@@ -343,6 +348,25 @@ namespace EmpManagement
             this.label19.Text = "Administración del Reloj";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(49, 394);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(104, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Actualizar Hora";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // labeltime
+            // 
+            this.labeltime.AutoSize = true;
+            this.labeltime.Location = new System.Drawing.Point(82, 448);
+            this.labeltime.Name = "labeltime";
+            this.labeltime.Size = new System.Drawing.Size(38, 15);
+            this.labeltime.TabIndex = 3;
+            this.labeltime.Text = "label6";
+            // 
             // AdminReloj
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -358,6 +382,7 @@ namespace EmpManagement
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDatos)).EndInit();
             this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBoxReloj.ResumeLayout(false);
             this.groupBoxReloj.PerformLayout();
@@ -400,5 +425,7 @@ namespace EmpManagement
         private System.Windows.Forms.GroupBox groupBoxOp;
         public System.Windows.Forms.DateTimePicker dateTimePickerFin;
         public System.Windows.Forms.DateTimePicker dateTimePickerIni;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label labeltime;
     }
 }

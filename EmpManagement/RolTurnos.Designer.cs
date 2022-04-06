@@ -1031,14 +1031,14 @@ namespace EmpManagement
             // terminarToolStripMenuItem
             // 
             this.terminarToolStripMenuItem.Name = "terminarToolStripMenuItem";
-            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.terminarToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.terminarToolStripMenuItem.Text = "Terminar";
             this.terminarToolStripMenuItem.Click += new System.EventHandler(this.terminarToolStripMenuItem_Click);
             // 
             // reestablecerToolStripMenuItem1
             // 
             this.reestablecerToolStripMenuItem1.Name = "reestablecerToolStripMenuItem1";
-            this.reestablecerToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.reestablecerToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
             this.reestablecerToolStripMenuItem1.Text = "Reestablecer";
             this.reestablecerToolStripMenuItem1.Click += new System.EventHandler(this.reestablecerToolStripMenuItem1_Click);
             // 
@@ -1055,6 +1055,7 @@ namespace EmpManagement
             // 
             // toolStripComboBox1
             // 
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox1.Enabled = false;
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 32);

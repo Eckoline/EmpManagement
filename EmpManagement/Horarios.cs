@@ -29,7 +29,7 @@ namespace EmpManagement
             conexionbd conexion = new conexionbd();
             DataTable dtComboDepts = new DataTable();
             conexion.abrir();
-            string query = "SELECT ID_HOR,DESCRIPCION,HOR_IN AS 'HORA ENTRADA', HOR_INTURNO AS 'HORA ENTRADA TURNO',HOR_OUT AS 'HORA SALIDA', HRS_DIA 'HORAS DÍA', HRS_SEMANA AS 'HORAS SEMANA',idgroup as 'TIPO' FROM HORARIOS ";
+            string query = "SELECT ID_HOR,DESCRIPCION,HOR_IN AS 'HORA ENTRADA', HOR_INTURNO AS 'HORA ENTRADA TURNO',HOR_OUT AS 'HORA SALIDA', HRS_DIA 'HORAS DÍA', HRS_SEMANA AS 'HORAS SEMANA',idgroup as 'TIPO S-Q',tipohor as 'TIPO LV O S' FROM HORARIOS ";
             SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
             adaptador.Fill(dtComboDepts);
             conexion.cerrar();
@@ -99,7 +99,7 @@ namespace EmpManagement
                 switch (bandera)
                 {
                     case 1:
-                        string ID_HOR,HOR_IN,HOR_INTURNO,HOR_OUT,HRS_DIA,HRS_SEMANA,DESCRIPCION,TIPO;
+                        string ID_HOR,HOR_IN,HOR_INTURNO,HOR_OUT,HRS_DIA,HRS_SEMANA,DESCRIPCION,TIPO,TIPOSAB;
                         int newrow;
                         newrow = 0;
                         DataTable dtComboDepts = new DataTable();
@@ -116,11 +116,12 @@ namespace EmpManagement
                         HRS_SEMANA = dataGridViewDatos.Rows[newrow].Cells[6].Value.ToString();
                         DESCRIPCION = dataGridViewDatos.Rows[newrow].Cells[1].Value.ToString();
                         TIPO= dataGridViewDatos.Rows[newrow].Cells[7].Value.ToString();
-                        if ((HOR_IN != "") || (HOR_INTURNO != "") || (HOR_OUT != "")|| (HRS_DIA != "") || (HRS_SEMANA != "")||(DESCRIPCION != "")||(TIPO!=""))
+                        TIPOSAB = dataGridViewDatos.Rows[newrow].Cells[8].Value.ToString();
+                        if ((HOR_IN != "") && (HOR_INTURNO != "")&&(HOR_OUT != "")&&(HRS_DIA != "")&&(HRS_SEMANA != "")&&(DESCRIPCION != "")&&(TIPO!=""))
                         {
 
                             conexion.abrir();
-                            query = "INSERT INTO HORARIOS(ID_HOR,HOR_IN,HOR_INTURNO,HOR_OUT,HRS_DIA,HRS_SEMANA,DESCRIPCION,IDGROUP) VALUES(" + ID_HOR + ",'" + HOR_IN + "','" + HOR_INTURNO + "','" + HOR_OUT + "','" + HRS_DIA + "'," + HRS_SEMANA + ",'" + DESCRIPCION + "','"+TIPO+"')";
+                            query = "INSERT INTO HORARIOS(ID_HOR,HOR_IN,HOR_INTURNO,HOR_OUT,HRS_DIA,HRS_SEMANA,DESCRIPCION,IDGROUP,TIPOHOR) VALUES(" + ID_HOR + ",'" + HOR_IN + "','" + HOR_INTURNO + "','" + HOR_OUT + "','" + HRS_DIA + "'," + HRS_SEMANA + ",'" + DESCRIPCION + "','"+TIPO+"','"+TIPOSAB+"')";
                             Debug.WriteLine(query);
                             SqlCommand comando = new SqlCommand(query, conexion.con);
                             comando.ExecuteNonQuery();
@@ -147,7 +148,7 @@ namespace EmpManagement
                             foreach (DataGridViewRow row in dataGridViewDatos.Rows)
                             {
                                 conexion.abrir();
-                                query = "UPDATE HORARIOS SET HOR_IN='"+ row.Cells["HORA ENTRADA"].Value.ToString() + "',HOR_INTURNO='"+ row.Cells["HORA ENTRADA TURNO"].Value.ToString() + "', HOR_OUT='"+ row.Cells["HORA SALIDA"].Value.ToString() + "',HRS_DIA='"+ row.Cells["HORAS DÍA"].Value.ToString() + "',HRS_SEMANA="+ row.Cells["HORAS SEMANA"].Value.ToString() + ", DESCRIPCION='"+ row.Cells["DESCRIPCION"].Value.ToString() + "',idgroup='"+ row.Cells["TIPO"].Value.ToString() + "'  WHERE ID_HOR=" + row.Cells["ID_HOR"].Value.ToString();
+                                query = "UPDATE HORARIOS SET HOR_IN='"+ row.Cells["HORA ENTRADA"].Value.ToString() + "',HOR_INTURNO='"+ row.Cells["HORA ENTRADA TURNO"].Value.ToString() + "', HOR_OUT='"+ row.Cells["HORA SALIDA"].Value.ToString() + "',HRS_DIA='"+ row.Cells["HORAS DÍA"].Value.ToString() + "',HRS_SEMANA="+ row.Cells["HORAS SEMANA"].Value.ToString() + ", DESCRIPCION='"+ row.Cells["DESCRIPCION"].Value.ToString() + "',idgroup="+ row.Cells["TIPO S-Q"].Value.ToString() + ",tipohor="+row.Cells["TIPO LV O S"].Value.ToString()+"  WHERE ID_HOR=" + row.Cells["ID_HOR"].Value.ToString();
                                 Debug.WriteLine(query);
                                 SqlCommand comando = new SqlCommand(query, conexion.con);
                                 comando.ExecuteNonQuery();

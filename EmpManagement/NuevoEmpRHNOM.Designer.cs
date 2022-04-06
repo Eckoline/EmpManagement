@@ -52,6 +52,7 @@ namespace EmpManagement
             this.comboBoxNivelE = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.labelHOR = new System.Windows.Forms.Label();
             this.labelpuesto = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
@@ -60,7 +61,7 @@ namespace EmpManagement
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label19 = new System.Windows.Forms.Label();
-            this.labelHOR = new System.Windows.Forms.Label();
+            this.checkBoxMuestra = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -78,7 +79,7 @@ namespace EmpManagement
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(339, 300);
+            this.panel1.Size = new System.Drawing.Size(466, 300);
             this.panel1.TabIndex = 8;
             // 
             // panel6
@@ -88,11 +89,12 @@ namespace EmpManagement
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 48);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(339, 252);
+            this.panel6.Size = new System.Drawing.Size(466, 252);
             this.panel6.TabIndex = 9;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxMuestra);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.comboBoxHorSab);
             this.groupBox1.Controls.Add(this.comboBoxPuesto);
@@ -108,7 +110,7 @@ namespace EmpManagement
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(339, 252);
+            this.groupBox1.Size = new System.Drawing.Size(466, 252);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos";
@@ -127,10 +129,11 @@ namespace EmpManagement
             // 
             // comboBoxHorSab
             // 
+            this.comboBoxHorSab.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxHorSab.FormattingEnabled = true;
             this.comboBoxHorSab.Location = new System.Drawing.Point(104, 216);
             this.comboBoxHorSab.Name = "comboBoxHorSab";
-            this.comboBoxHorSab.Size = new System.Drawing.Size(194, 23);
+            this.comboBoxHorSab.Size = new System.Drawing.Size(258, 23);
             this.comboBoxHorSab.TabIndex = 11;
             this.comboBoxHorSab.Visible = false;
             // 
@@ -139,7 +142,7 @@ namespace EmpManagement
             this.comboBoxPuesto.FormattingEnabled = true;
             this.comboBoxPuesto.Location = new System.Drawing.Point(104, 96);
             this.comboBoxPuesto.Name = "comboBoxPuesto";
-            this.comboBoxPuesto.Size = new System.Drawing.Size(194, 23);
+            this.comboBoxPuesto.Size = new System.Drawing.Size(258, 23);
             this.comboBoxPuesto.TabIndex = 9;
             // 
             // label5
@@ -153,19 +156,22 @@ namespace EmpManagement
             // 
             // comboBoxHor
             // 
+            this.comboBoxHor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxHor.FormattingEnabled = true;
             this.comboBoxHor.Location = new System.Drawing.Point(104, 153);
             this.comboBoxHor.Name = "comboBoxHor";
-            this.comboBoxHor.Size = new System.Drawing.Size(194, 23);
+            this.comboBoxHor.Size = new System.Drawing.Size(258, 23);
             this.comboBoxHor.TabIndex = 7;
             // 
             // comboBoxDep
             // 
+            this.comboBoxDep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDep.FormattingEnabled = true;
             this.comboBoxDep.Location = new System.Drawing.Point(104, 124);
             this.comboBoxDep.Name = "comboBoxDep";
-            this.comboBoxDep.Size = new System.Drawing.Size(194, 23);
+            this.comboBoxDep.Size = new System.Drawing.Size(258, 23);
             this.comboBoxDep.TabIndex = 6;
+            this.comboBoxDep.SelectedIndexChanged += new System.EventHandler(this.comboBoxDep_SelectedIndexChanged);
             // 
             // textBoxNombre
             // 
@@ -278,7 +284,7 @@ namespace EmpManagement
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(339, 48);
+            this.panel2.Size = new System.Drawing.Size(466, 48);
             this.panel2.TabIndex = 7;
             // 
             // panel5
@@ -289,13 +295,22 @@ namespace EmpManagement
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 23);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(339, 25);
+            this.panel5.Size = new System.Drawing.Size(466, 25);
             this.panel5.TabIndex = 1;
+            // 
+            // labelHOR
+            // 
+            this.labelHOR.AutoSize = true;
+            this.labelHOR.Location = new System.Drawing.Point(230, 4);
+            this.labelHOR.Name = "labelHOR";
+            this.labelHOR.Size = new System.Drawing.Size(0, 15);
+            this.labelHOR.TabIndex = 13;
+            this.labelHOR.Visible = false;
             // 
             // labelpuesto
             // 
             this.labelpuesto.AutoSize = true;
-            this.labelpuesto.Location = new System.Drawing.Point(138, 4);
+            this.labelpuesto.Location = new System.Drawing.Point(188, 4);
             this.labelpuesto.Name = "labelpuesto";
             this.labelpuesto.Size = new System.Drawing.Size(36, 15);
             this.labelpuesto.TabIndex = 12;
@@ -311,7 +326,7 @@ namespace EmpManagement
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(339, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(466, 25);
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -329,14 +344,14 @@ namespace EmpManagement
             // GuardarToolStripMenuItem
             // 
             this.GuardarToolStripMenuItem.Name = "GuardarToolStripMenuItem";
-            this.GuardarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.GuardarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.GuardarToolStripMenuItem.Text = "Guardar";
             this.GuardarToolStripMenuItem.Click += new System.EventHandler(this.GuardarToolStripMenuItem_Click);
             // 
             // cancelarToolStripMenuItem
             // 
             this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
-            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.cancelarToolStripMenuItem.Text = "Cancelar";
             this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
             // 
@@ -351,7 +366,7 @@ namespace EmpManagement
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(339, 23);
+            this.panel4.Size = new System.Drawing.Size(466, 23);
             this.panel4.TabIndex = 0;
             // 
             // label19
@@ -361,24 +376,27 @@ namespace EmpManagement
             this.label19.ForeColor = System.Drawing.Color.White;
             this.label19.Location = new System.Drawing.Point(0, 0);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(339, 23);
+            this.label19.Size = new System.Drawing.Size(466, 23);
             this.label19.TabIndex = 6;
             this.label19.Text = "Registro/Actualización";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelHOR
+            // checkBoxMuestra
             // 
-            this.labelHOR.AutoSize = true;
-            this.labelHOR.Location = new System.Drawing.Point(230, 4);
-            this.labelHOR.Name = "labelHOR";
-            this.labelHOR.Size = new System.Drawing.Size(0, 15);
-            this.labelHOR.TabIndex = 13;
+            this.checkBoxMuestra.AutoSize = true;
+            this.checkBoxMuestra.Location = new System.Drawing.Point(366, 155);
+            this.checkBoxMuestra.Name = "checkBoxMuestra";
+            this.checkBoxMuestra.Size = new System.Drawing.Size(98, 19);
+            this.checkBoxMuestra.TabIndex = 13;
+            this.checkBoxMuestra.Text = "Muestrar más";
+            this.checkBoxMuestra.UseVisualStyleBackColor = true;
+            this.checkBoxMuestra.CheckedChanged += new System.EventHandler(this.checkBoxMuestra_CheckedChanged);
             // 
             // NuevoEmpRHNOM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 300);
+            this.ClientSize = new System.Drawing.Size(466, 300);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "NuevoEmpRHNOM";
@@ -433,5 +451,6 @@ namespace EmpManagement
         public System.Windows.Forms.ComboBox comboBoxHorSab;
         private System.Windows.Forms.CheckBox checkBox1;
         public System.Windows.Forms.Label labelHOR;
+        private System.Windows.Forms.CheckBox checkBoxMuestra;
     }
 }

@@ -91,6 +91,8 @@ namespace EmpManagement
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             conexionbd conexion = new conexionbd();
+            string query;
+            SqlCommand comando = new SqlCommand();
             try
             {
                 switch (bandera)
@@ -104,12 +106,12 @@ namespace EmpManagement
                         mes = dataGridViewDatos.Rows[newrow].Cells[2].Value.ToString();
                         dia = dataGridViewDatos.Rows[newrow].Cells[3].Value.ToString();
 
-                        if ((descripcion != "") || (mes != "") || (dia != ""))
+                        if ((descripcion != "") && (mes != "") && (dia != ""))
                         {
                             conexion.abrir();
-                            string query = "INSERT INTO DIASFESTIVOS(descripcion,mesfestivo,diafestivo) VALUES('" + descripcion + "'," + mes + "," + dia + ")";
+                            query = "INSERT INTO DIASFESTIVOS(descripcion,mesfestivo,diafestivo) VALUES('" + descripcion + "'," + mes + "," + dia + ")";
                             Debug.WriteLine(query);
-                            SqlCommand comando = new SqlCommand(query, conexion.con);
+                            comando = new SqlCommand(query, conexion.con);
                             comando.ExecuteNonQuery();
                             conexion.cerrar();
                             toolStripButtonNew.Enabled = true;
@@ -118,6 +120,12 @@ namespace EmpManagement
                             dataGridViewDatos.AllowUserToAddRows = false;
                             dataGridViewDatos.ReadOnly = true;
                             actualizadias();
+
+                            conexion.abrir();
+                            query = "INSERT INTO movimientos values(" + Program.id + ",'INGRESO DE DÍA FESTIVO "+descripcion+"','" + DateTime.Now + "','" + this.Text + "');";
+                            comando = new SqlCommand(query, conexion.con);
+                            comando.ExecuteNonQuery();
+                            conexion.cerrar();
                         }
                         else
                         {
@@ -127,15 +135,16 @@ namespace EmpManagement
                         // MessageBox.Show(dataGridViewDatos.Rows.Count.ToString());
                         break;
                     case 2:
+                
                         DialogResult resultado = MessageBox.Show("¿Seguro que desea actualizar los registros?", "Actualización de registros", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                         if (resultado == DialogResult.OK)
                         {
                             foreach (DataGridViewRow row in dataGridViewDatos.Rows)
                             {
                                 conexion.abrir();
-                                string query = "UPDATE DIASFESTIVOS SET descripcion='"+ row.Cells["DESCRIPCIÓN DEL DÍA"].Value.ToString() +"', mesfestivo="+ row.Cells["MES"].Value.ToString() +", diafestivo="+ row.Cells["DÍA"].Value.ToString()+" WHERE ID_DIA="+ row.Cells["ID"].Value.ToString();
+                                query = "UPDATE DIASFESTIVOS SET descripcion='"+ row.Cells["DESCRIPCIÓN DEL DÍA"].Value.ToString() +"', mesfestivo="+ row.Cells["MES"].Value.ToString() +", diafestivo="+ row.Cells["DÍA"].Value.ToString()+" WHERE ID_DIA="+ row.Cells["ID"].Value.ToString();
                                 Debug.WriteLine(query);
-                                SqlCommand comando = new SqlCommand(query, conexion.con);
+                                comando = new SqlCommand(query, conexion.con);
                                 comando.ExecuteNonQuery();
                                 conexion.cerrar();
                                 toolStripButtonNew.Enabled = true;
@@ -144,6 +153,11 @@ namespace EmpManagement
                                 dataGridViewDatos.AllowUserToAddRows = false;
                                 dataGridViewDatos.ReadOnly = true;
                             }
+                            conexion.abrir();
+                            query = "INSERT INTO movimientos values(" + Program.id + ",'ACTUALIZACIÓN DE DATOS EN DÍA FESTIVOS','" + DateTime.Now + "','" + this.Text + "');";
+                            comando = new SqlCommand(query, conexion.con);
+                            comando.ExecuteNonQuery();
+                            conexion.cerrar();
                             actualizadias();
                         }
                         else

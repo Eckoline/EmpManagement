@@ -34,6 +34,7 @@ namespace EmpManagement
                 frmprin.labelUser.Text = dtEmp.Rows[0]["Nombre"].ToString();
                 frmprin.labelClase.Text= dtEmp.Rows[0]["clasificacion"].ToString();
                 Program.usuario= dtEmp.Rows[0]["Nombre"].ToString();
+                Program.id= dtEmp.Rows[0]["id"].ToString();
                 this.Hide();
                 frmprin.ShowDialog();
                 textBoxPass.Text = "";

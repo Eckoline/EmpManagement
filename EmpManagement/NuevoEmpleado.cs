@@ -72,7 +72,7 @@ namespace EmpManagement
                 DataTable dtComboDepts = new DataTable();
                 DataTable dtComboHora = new DataTable();
                 DataTable dtPuesto = new DataTable();
-                DataTable dtestadociv =new DataTable();
+                DataTable dtestadociv = new DataTable();
 
                 conexion.abrir();
                 string query = "SELECT DEPTID,DEPTNAME FROM DEPARTMENTS WHERE DEPTID NOT IN (1,32)";
@@ -168,6 +168,7 @@ namespace EmpManagement
                         MessageBox.Show("No se pudo realizar la conexión, compruebe su conexión a internet");
                         this.Close();
                     }
+                    SDK.sta_DisConnect();
                 }
             }
             catch (Exception ex)
@@ -207,342 +208,354 @@ namespace EmpManagement
         }
         private void imprimirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            SqlCommand comando = new SqlCommand();
+
+
+            conexionbd conexion = new conexionbd();
+            string query;
+            if (opcion == 1)
             {
-                conexionbd conexion = new conexionbd();
-                string query;
-                if (opcion == 1)
+                if (textBoxNombre.Text != "")
                 {
-                    if (textBoxNombre.Text != "")
+                    if (dateTimePickerFecNac.Value < DateTime.Now.AddYears(-15))
                     {
-                        if (dateTimePickerFecNac.Value < DateTime.Now.AddYears(-15))
+
+                        string id, tel, teleme, cp;
+                        string badgenumber, nombre, curp, rfc, nss, genero, ciudad, estado, direccion, vehiculo;
+                        string estudios, cedula;
+                        int validacionrfc, validacionnss, validacioncurp;
+
+                        id = textBoxID.Text;
+                        tel = textBoxTel.Text;
+                        teleme = textBoxTelEme.Text;
+                        nombre = textBoxNombre.Text;
+                        curp = textBoxCurp.Text;
+                        rfc = textBoxRFC.Text;
+                        nss = textBoxNss.Text;
+                        genero = comboBoxGenero.Text;
+                        ciudad = textBoxCiudad.Text;
+                        estado = textBoxEstado.Text;
+                        direccion = textBoxDireccion.Text;
+                        vehiculo = textBoxVehiculo.Text;
+                        badgenumber = textBoxID.Text;
+                        estudios = comboBoxNivelE.Text;
+                        cedula = textBoxCedula.Text;
+                        cp = textBoxCP.Text;
+                        validacionrfc = rfc.Length - 13;
+                        validacionnss = nss.Length - 11;
+                        validacioncurp = curp.Length - 18;
+                        byte[] byteArrayImagen = null;
+
+
+                        conexion.abrir();
+                        if (validacionrfc == 0)
                         {
-                            try
+                            if (validacionnss == 0)
                             {
-                                string id, tel, teleme, cp;
-                                string badgenumber, nombre, curp, rfc, nss, genero, ciudad, estado, direccion, vehiculo;
-                                string estudios, cedula;
-                                int validacionrfc, validacionnss, validacioncurp;
-
-                                id = textBoxID.Text;
-                                tel = textBoxTel.Text;
-                                teleme = textBoxTelEme.Text;
-                                nombre = textBoxNombre.Text;
-                                curp = textBoxCurp.Text;
-                                rfc = textBoxRFC.Text;
-                                nss = textBoxNss.Text;
-                                genero = comboBoxGenero.Text;
-                                ciudad = textBoxCiudad.Text;
-                                estado = textBoxEstado.Text;
-                                direccion = textBoxDireccion.Text;
-                                vehiculo = textBoxVehiculo.Text;
-                                badgenumber = textBoxID.Text;
-                                estudios = comboBoxNivelE.Text;
-                                cedula = textBoxCedula.Text;
-                                cp = textBoxCP.Text;
-                                validacionrfc = rfc.Length - 13;
-                                validacionnss = nss.Length - 11;
-                                validacioncurp = curp.Length - 18;
-                                byte[] byteArrayImagen = null;
-                                conexion.abrir();
-                                if (validacionrfc == 0)
+                                if (validacioncurp == 0)
                                 {
-                                    if (validacionnss == 0)
+
+                                    if (pictureBoxFoto.Image == null)
                                     {
-                                        if (validacioncurp == 0)
-                                        {
+                                        query = "UPDATE USERINFOCUS SET SSN='" + nss + "',Name='" + nombre + "',Gender='" + genero + "',Title='" + estudios + "',BIRTHDAY='" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "',HIREDDAY='" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "',street='" + direccion + "',CITY='" + ciudad + "',STATE='" + estado + "',ZIP='" + cp + "',OPHONE='" + tel + "',DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + ",CURP='" + curp + "',ESTADOCIVIL='" + comboBoxEstCivil.Text + "',RFC='" + rfc + "',PUESTO='" + comboBoxPuesto.Text + "',TELEMERGENCIA='" + teleme + "',VEHICULO='" + vehiculo + "', contactoeme='" + textBoxDescCon.Text + "' WHERE Badgenumber=" + textBoxID.Text + "";
+                                        comando = new SqlCommand(query, conexion.con);
+                                        comando.ExecuteNonQuery();
+                                        MessageBox.Show("Actualización realizada con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        this.Close();
 
-                                            if (pictureBoxFoto.Image == null)
-                                            {
-                                                query = "UPDATE USERINFOCUS SET SSN='" + nss + "',Name='" + nombre + "',Gender='" + genero + "',Title='" + estudios + "',BIRTHDAY='" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "',HIREDDAY='" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "',street='" + direccion + "',CITY='" + ciudad + "',STATE='" + estado + "',ZIP='" + cp + "',OPHONE='" + tel + "',DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + ",CURP='" + curp + "',ESTADOCIVIL='" + comboBoxEstCivil.Text + "',RFC='" + rfc + "',PUESTO='" + comboBoxPuesto.Text + "',TELEMERGENCIA='" + teleme + "',VEHICULO='" + vehiculo + "', contactoeme='"+textBoxDescCon.Text+"' WHERE Badgenumber=" + textBoxID.Text + "";
-                                                SqlCommand comando = new SqlCommand(query, conexion.con);
-                                                comando.ExecuteNonQuery();
-                                                MessageBox.Show("Actualización realizada con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                this.Close();
-
-                                            }
-                                            else
-                                            {
-                                                byteArrayImagen = ImageToByteArray(pictureBoxFoto.Image);
-                                                query = "UPDATE USERINFOCUS SET SSN='" + nss + "',Name='" + nombre + "',Gender='" + genero + "',Title='" + estudios + "',BIRTHDAY='" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "',HIREDDAY='" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "',street='" + direccion + "',CITY='" + ciudad + "',STATE='" + estado + "',ZIP='" + cp + "',OPHONE='" + tel + "',DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + ",CURP='" + curp + "',ESTADOCIVIL='" + comboBoxEstCivil.Text + "',RFC='" + rfc + "',PUESTO='" + comboBoxPuesto.Text + "',TELEMERGENCIA='" + teleme + "',VEHICULO='" + vehiculo + "', foto=@imagen,CORREO='" + textBoxCorreo.Text + "',contactoeme='" + textBoxDescCon.Text + "' WHERE Badgenumber=" + textBoxID.Text + "";
-                                                SqlCommand comando = new SqlCommand(query, conexion.con);
-                                                comando.Parameters.AddWithValue("@imagen", byteArrayImagen);
-                                                comando.ExecuteNonQuery();
-                                                MessageBox.Show("Actualización realizada con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                this.Close();
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (validacioncurp > 0)
-                                            {
-                                                MessageBox.Show("Se excedio en CURP por " + validacioncurp + " caracteres");
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Faltan " + validacioncurp + " caracteres en CURP");
-                                            }
-                                        }
                                     }
                                     else
                                     {
-                                        if (validacionnss > 0)
-                                        {
-                                            MessageBox.Show("Se excedio en NSS por " + validacionnss + " caracteres");
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Faltan " + validacionnss + " caracteres en NSS");
-                                        }
-
+                                        byteArrayImagen = ImageToByteArray(pictureBoxFoto.Image);
+                                        query = "UPDATE USERINFOCUS SET SSN='" + nss + "',Name='" + nombre + "',Gender='" + genero + "',Title='" + estudios + "',BIRTHDAY='" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "',HIREDDAY='" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "',street='" + direccion + "',CITY='" + ciudad + "',STATE='" + estado + "',ZIP='" + cp + "',OPHONE='" + tel + "',DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + ",CURP='" + curp + "',ESTADOCIVIL='" + comboBoxEstCivil.Text + "',RFC='" + rfc + "',PUESTO='" + comboBoxPuesto.Text + "',TELEMERGENCIA='" + teleme + "',VEHICULO='" + vehiculo + "', foto=@imagen,CORREO='" + textBoxCorreo.Text + "',contactoeme='" + textBoxDescCon.Text + "' WHERE Badgenumber=" + textBoxID.Text + "";
+                                        comando = new SqlCommand(query, conexion.con);
+                                        comando.Parameters.AddWithValue("@imagen", byteArrayImagen);
+                                        comando.ExecuteNonQuery();
+                                        MessageBox.Show("Actualización realizada con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        this.Close();
                                     }
+
+                                    query = "INSERT INTO movimientos values(" + Program.id + ",'ACTUALIZACIÓN DE DATOS EMPLEADO: " + textBoxID.Text + "','" + DateTime.Now + "','" + this.Text + "');";
+                                    comando = new SqlCommand(query, conexion.con);
+                                    comando.ExecuteNonQuery();
+
+
                                 }
                                 else
                                 {
-                                    if (validacionrfc > 0)
+                                    if (validacioncurp > 0)
                                     {
-                                        MessageBox.Show("Se excedio en RFC por " + validacionrfc + " caracteres");
+                                        MessageBox.Show("Se excedio en CURP por " + validacioncurp + " caracteres");
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Faltan " + validacionrfc + " caracteres en RFC");
+                                        MessageBox.Show("Faltan " + validacioncurp + " caracteres en CURP");
                                     }
                                 }
-
-
-
-                                /*
-                                DataTable dthor = new DataTable();
-                                query = "SELECT * FROM HOREMPLEADO WHERE Badgenumber=" + textBoxID.Text;
-                                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                                adaptador.Fill(dthor);
-
-                                if (dthor.Rows.Count > 0)
-                                {
-                                    query = "UPDATE HOREMPLEADO SET ID_HOR=" + comboBoxHor.SelectedValue.ToString() + " WHERE BADGENUMBER=" + textBoxID.Text;
-                                }
-                                else
-                                {
-                                    query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(" + comboBoxHor.SelectedValue.ToString() + "," + textBoxID.Text + ")";
-                                }
-                                */
-                                conexion.cerrar();
-
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Ingrese una Fecha de Nacimiento Valida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("El campo Nombre es necesarios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                }
-                else
-                {
-                    if ((textBoxID.Text != "") && (textBoxNombre.Text != ""))
-                    {
-                        if (dateTimePickerFecNac.Value < DateTime.Now.AddYears(-15))
-                        {
-
-                            DataTable dtIDBad = new DataTable();
-                            conexion.abrir();
-                            query = "SELECT  Badgenumber FROM USERINFOCus where Badgenumber=" + textBoxID.Text + ";";
-                            SqlDataAdapter adaptador1 = new SqlDataAdapter(query, conexion.con);
-                            adaptador1.Fill(dtIDBad);
-                            conexion.cerrar();
-                            if (dtIDBad.Rows.Count > 0)
-                            {
-                                MessageBox.Show("ID ya registrado, intente con otro.");
                             }
                             else
                             {
-                                try
+                                if (validacionnss > 0)
                                 {
-                                    string id, tel, teleme, cp;
-                                    string badgenumber, nombre, curp, rfc, nss, genero, ciudad, estado, direccion, vehiculo;
-                                    string estudios, cedula;
-                                    int validacionrfc, validacionnss, validacioncurp;
-
-                                    /*DataTable dtID = new DataTable();
-                                    conexion.abrir();
-                                    query = "SELECT TOP 1 BADGENUMBER FROM USERINFOCUS order by BADGENUMBER DESC";
-                                    SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                                    adaptador.Fill(dtID);
-                                    conexion.cerrar();
-                                    */
-                                    id = textBoxID.Text;
-                                    tel = textBoxTel.Text;
-                                    teleme = textBoxTelEme.Text;
-                                    nombre = textBoxNombre.Text;
-                                    curp = textBoxCurp.Text;
-                                    rfc = textBoxRFC.Text;
-                                    nss = textBoxNss.Text;
-                                    genero = comboBoxGenero.Text;
-                                    ciudad = textBoxCiudad.Text;
-                                    estado = textBoxEstado.Text;
-                                    direccion = textBoxDireccion.Text;
-                                    vehiculo = textBoxVehiculo.Text;
-                                    badgenumber = textBoxID.Text;
-                                    estudios = comboBoxNivelE.Text;
-                                    cedula = textBoxCedula.Text;
-                                    byte[] byteArrayImagen = null;
-                                    //fecnac = dateTimePickerFecNac.Value.ToString("");
-                                    //fecin = dateTimePickerFechaIngreso.Value;
-                                    validacionrfc = rfc.Length - 13;
-                                    validacionnss = nss.Length - 11;
-                                    validacioncurp = curp.Length - 18;
-                                    cp = textBoxCP.Text;
-                                    conexion.abrir();
-
-                                    if (validacionrfc == 0)
-                                    {
-                                        if (validacionnss == 0)
-                                        {
-                                            if (validacioncurp == 0)
-                                            {
-                                                int validacionreloj;
-
-                                                validacionreloj = SDK.sta_SetUserInfo(listBox1, textBoxID, textBoxNombre, comboBox7, textBox4, textBox5);
-                                                if (validacionreloj == 1)
-                                                {
-                                                    SqlCommand comando = new SqlCommand();
-                                                    if (pictureBoxFoto.Image == null)
-                                                    {
-                                                        query = "INSERT INTO USERINFOCUS(Badgenumber,SSN,Name,Gender,TITLE,BIRTHDAY,HIREDDAY,street,CITY,STATE,ZIP,OPHONE,DEFAULTDEPTID,mverifypass,CURP,ESTADOCIVIL,RFC,PUESTO,TELEMERGENCIA,VEHICULO,ACTIVO,correo,contactoeme) values (" + badgenumber + ",'" + nss + "','" + nombre + "','" + genero + "','" + estudios + "','" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "','" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "','" + direccion + "','" + ciudad + "','" + estado + "','" + cp + "','" + tel + "'," + comboBoxDep.SelectedValue.ToString() + ",'','" + curp + "','" + comboBoxEstCivil.Text + "','" + rfc + "','" + comboBoxPuesto.Text + "','" + teleme + "','" + vehiculo + "',1,@correo,'"+textBoxDescCon.Text+"')";
-                                                        comando = new SqlCommand(query, conexion.con);
-                                                        comando.Parameters.AddWithValue("@correo", textBoxCorreo.Text);
-                                                        comando.ExecuteNonQuery();
-                                                        MessageBox.Show("Registro realizado con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        this.Close();
-                                                    }
-                                                    else
-                                                    {
-                                                        byteArrayImagen = ImageToByteArray(pictureBoxFoto.Image);
-                                                        query = "INSERT INTO USERINFOCUS(Badgenumber,SSN,Name,Gender,TITLE,BIRTHDAY,HIREDDAY,street,CITY,STATE,ZIP,OPHONE,DEFAULTDEPTID,mverifypass,CURP,ESTADOCIVIL,RFC,PUESTO,TELEMERGENCIA,VEHICULO,ACTIVO,foto,correo) values (" + badgenumber + ",'" + nss + "','" + nombre + "','" + genero + "','" + estudios + "','" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "','" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "','" + direccion + "','" + ciudad + "','" + estado + "','" + cp + "','" + tel + "'," + comboBoxDep.SelectedValue.ToString() + ",'','" + curp + "','" + comboBoxEstCivil.Text + "','" + rfc + "','" + comboBoxPuesto.Text + "','" + teleme + "','" + vehiculo + "',1,@imagen,@correo,'" + textBoxDescCon.Text + "')";
-                                                        comando = new SqlCommand(query, conexion.con);
-                                                        comando.Parameters.AddWithValue("@imagen", byteArrayImagen);
-                                                        comando.Parameters.AddWithValue("@correo", textBoxCorreo.Text);
-                                                        comando.ExecuteNonQuery();
-                                                        MessageBox.Show("Registro realizado con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        this.Close();
-                                                    }
-                                                    DataTable dthor = new DataTable();
-                                                    DataTable dthorsab = new DataTable();
-                                                    int idhor, idhorsab;
-                                                    conexion.abrir();
-                                                    query = "SELECT HORARIOS.ID_HOR FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCus.DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + " ORDER BY HORARIOS.ID_HOR; ";
-                                                    SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                                                    adaptador.Fill(dthor);
-                                                    idhor = Int32.Parse(dthor.Rows[0]["ID_HOR"].ToString());
-
-                                                    query = "SELECT HORARIOS.ID_HOR FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.ID_HOR=" + idhor.ToString() + " AND HORARIOS.Descripcion LIKE '%SABADO%'";
-                                                    adaptador = new SqlDataAdapter(query, conexion.con);
-                                                    adaptador.Fill(dthorsab);
-
-                                                    if (dthorsab.Rows.Count > 0)
-                                                    {
-                                                        idhorsab = Int32.Parse(dthor.Rows[0]["ID_HOR"].ToString()) + 1;
-
-                                                        query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(@hor,@id)";
-                                                        comando = new SqlCommand(query, conexion.con);
-                                                        comando.Parameters.AddWithValue("@id", badgenumber);
-                                                        comando.Parameters.AddWithValue("@hor", idhor);
-                                                        comando.ExecuteNonQuery();
-
-                                                        query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(@hor,@id)";
-                                                        comando = new SqlCommand(query, conexion.con);
-                                                        comando.Parameters.AddWithValue("@id", badgenumber);
-                                                        comando.Parameters.AddWithValue("@hor", idhorsab);
-                                                        comando.ExecuteNonQuery();
-                                                    }
-                                                    else
-                                                    {
-                                                        query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(@hor,@id)";
-                                                        comando = new SqlCommand(query, conexion.con);
-                                                        comando.Parameters.AddWithValue("@id", badgenumber);
-                                                        comando.Parameters.AddWithValue("@hor", idhor);
-                                                        comando.ExecuteNonQuery();
-                                                    }
-                                                    conexion.cerrar();
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Error al comunicarse con el reloj. Consulte al administrador del sistema.");
-                                                }
-                                                SDK.sta_DisConnect();
-                                            }
-                                            else
-                                            {
-                                                if (validacioncurp > 0)
-                                                {
-                                                    MessageBox.Show("Se excedio en CURP por " + validacioncurp + " caracteres");
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("Faltan " + validacioncurp + " caracteres en CURP");
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (validacionnss > 0)
-                                            {
-                                                MessageBox.Show("Se excedio en NSS por " + validacionnss + " caracteres");
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Faltan " + validacionnss + " caracteres en NSS");
-                                            }
-
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (validacionrfc > 0)
-                                        {
-                                            MessageBox.Show("Se excedio en RFC por " + validacionrfc + " caracteres");
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Faltan " + validacionrfc + " caracteres en RFC");
-                                        }
-                                    }
-                                    /*
-                                         query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(" + comboBoxHor.SelectedValue.ToString() + "," + textBoxID.Text + ")";
-                                         comando = new SqlCommand(query, conexion.con);
-                                         comando.ExecuteNonQuery();
-                                    */
-                                    conexion.cerrar();
+                                    MessageBox.Show("Se excedio en NSS por " + validacionnss + " caracteres");
                                 }
-                                catch (Exception ex)
+                                else
                                 {
-                                    MessageBox.Show(ex.Message);
+                                    MessageBox.Show("Faltan " + validacionnss + " caracteres en NSS");
                                 }
+
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Ingrese una Fecha de Nacimiento Valida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (validacionrfc > 0)
+                            {
+                                MessageBox.Show("Se excedio en RFC por " + validacionrfc + " caracteres");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Faltan " + validacionrfc + " caracteres en RFC");
+                            }
+                        }
+
+
+
+                        /*
+                        DataTable dthor = new DataTable();
+                        query = "SELECT * FROM HOREMPLEADO WHERE Badgenumber=" + textBoxID.Text;
+                        SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                        adaptador.Fill(dthor);
+
+                        if (dthor.Rows.Count > 0)
+                        {
+                            query = "UPDATE HOREMPLEADO SET ID_HOR=" + comboBoxHor.SelectedValue.ToString() + " WHERE BADGENUMBER=" + textBoxID.Text;
+                        }
+                        else
+                        {
+                            query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(" + comboBoxHor.SelectedValue.ToString() + "," + textBoxID.Text + ")";
+                        }
+                        */
+                        conexion.cerrar();
+
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ingrese una Fecha de Nacimiento Valida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El campo Nombre es necesarios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else
+            {
+                if ((textBoxID.Text != "") && (textBoxNombre.Text != ""))
+                {
+                    if (dateTimePickerFecNac.Value < DateTime.Now.AddYears(-15))
+                    {
+
+                        DataTable dtIDBad = new DataTable();
+                        conexion.abrir();
+                        query = "SELECT  Badgenumber FROM USERINFOCus where Badgenumber=" + textBoxID.Text + ";";
+                        SqlDataAdapter adaptador1 = new SqlDataAdapter(query, conexion.con);
+                        adaptador1.Fill(dtIDBad);
+                        conexion.cerrar();
+                        if (dtIDBad.Rows.Count > 0)
+                        {
+                            MessageBox.Show("ID ya registrado, intente con otro.");
+                        }
+                        else
+                        {
+
+                            string id, tel, teleme, cp;
+                            string badgenumber, nombre, curp, rfc, nss, genero, ciudad, estado, direccion, vehiculo;
+                            string estudios, cedula;
+                            int validacionrfc, validacionnss, validacioncurp;
+                            string nombrereloj;
+
+                            /*DataTable dtID = new DataTable();
+                            conexion.abrir();
+                            query = "SELECT TOP 1 BADGENUMBER FROM USERINFOCUS order by BADGENUMBER DESC";
+                            SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                            adaptador.Fill(dtID);
+                            conexion.cerrar();
+                            */
+                            id = textBoxID.Text;
+                            tel = textBoxTel.Text;
+                            teleme = textBoxTelEme.Text;
+                            nombre = textBoxNombre.Text;
+                            curp = textBoxCurp.Text;
+                            rfc = textBoxRFC.Text;
+                            nss = textBoxNss.Text;
+                            genero = comboBoxGenero.Text;
+                            ciudad = textBoxCiudad.Text;
+                            estado = textBoxEstado.Text;
+                            direccion = textBoxDireccion.Text;
+                            vehiculo = textBoxVehiculo.Text;
+                            badgenumber = textBoxID.Text;
+                            estudios = comboBoxNivelE.Text;
+                            cedula = textBoxCedula.Text;
+                            byte[] byteArrayImagen = null;
+                            //fecnac = dateTimePickerFecNac.Value.ToString("");
+                            //fecin = dateTimePickerFechaIngreso.Value;
+                            validacionrfc = rfc.Length - 13;
+                            validacionnss = nss.Length - 11;
+                            validacioncurp = curp.Length - 18;
+                            cp = textBoxCP.Text;
+
+
+
+
+                            conexion.abrir();
+
+                            if (validacionrfc == 0)
+                            {
+                                if (validacionnss == 0)
+                                {
+                                    if (validacioncurp == 0)
+                                    {
+                                        int validacionreloj;
+                                        string phrase = nombre;
+                                        string[] words = phrase.Split(' ');
+                                        nombrereloj = words[0] + words[1];
+                                        textBox1.Text = nombrereloj;
+                                        int rel = SDK.sta_ConnectTCP(listBox1, "192.168.1.201", "4370", "0");
+                                        if (rel == 1)
+                                        {
+                                            validacionreloj = SDK.sta_SetUserInfo(listBox1, textBoxID, textBox1, comboBox7, textBox4, textBox5);
+                                            if (validacionreloj == 1)
+                                            {
+                                                comando = new SqlCommand();
+                                                if (pictureBoxFoto.Image == null)
+                                                {
+                                                    query = "INSERT INTO USERINFOCUS(Badgenumber,SSN,Name,Gender,TITLE,BIRTHDAY,HIREDDAY,street,CITY,STATE,ZIP,OPHONE,DEFAULTDEPTID,mverifypass,CURP,ESTADOCIVIL,RFC,PUESTO,TELEMERGENCIA,VEHICULO,ACTIVO,correo,contactoeme) values (" + badgenumber + ",'" + nss + "','" + nombre + "','" + genero + "','" + estudios + "','" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "','" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "','" + direccion + "','" + ciudad + "','" + estado + "','" + cp + "','" + tel + "'," + comboBoxDep.SelectedValue.ToString() + ",'','" + curp + "','" + comboBoxEstCivil.Text + "','" + rfc + "','" + comboBoxPuesto.Text + "','" + teleme + "','" + vehiculo + "',1,@correo,'" + textBoxDescCon.Text + "')";
+                                                    comando = new SqlCommand(query, conexion.con);
+                                                    comando.Parameters.AddWithValue("@correo", textBoxCorreo.Text);
+                                                    comando.ExecuteNonQuery();
+                                                    MessageBox.Show("Registro realizado con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                    this.Close();
+                                                }
+                                                else
+                                                {
+                                                    byteArrayImagen = ImageToByteArray(pictureBoxFoto.Image);
+                                                    query = "INSERT INTO USERINFOCUS(Badgenumber,SSN,Name,Gender,TITLE,BIRTHDAY,HIREDDAY,street,CITY,STATE,ZIP,OPHONE,DEFAULTDEPTID,mverifypass,CURP,ESTADOCIVIL,RFC,PUESTO,TELEMERGENCIA,VEHICULO,ACTIVO,foto,correo,contactoeme) values (" + badgenumber + ",'" + nss + "','" + nombre + "','" + genero + "','" + estudios + "','" + dateTimePickerFecNac.Value.ToString("MM-dd-yyyy") + "','" + dateTimePickerFechaIngreso.Value.ToString("MM-dd-yyyy") + "','" + direccion + "','" + ciudad + "','" + estado + "','" + cp + "','" + tel + "'," + comboBoxDep.SelectedValue.ToString() + ",'','" + curp + "','" + comboBoxEstCivil.Text + "','" + rfc + "','" + comboBoxPuesto.Text + "','" + teleme + "','" + vehiculo + "',1,@imagen,@correo,'" + textBoxDescCon.Text + "')";
+                                                    comando = new SqlCommand(query, conexion.con);
+                                                    comando.Parameters.AddWithValue("@imagen", byteArrayImagen);
+                                                    comando.Parameters.AddWithValue("@correo", textBoxCorreo.Text);
+                                                    comando.ExecuteNonQuery();
+                                                    MessageBox.Show("Registro realizado con éxito.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                    this.Close();
+                                                }
+                                                DataTable dthor = new DataTable();
+                                                DataTable dthorsab = new DataTable();
+                                                int idhor, idhorsab;
+                                                conexion.abrir();
+                                                query = "SELECT distinct HORARIOS.ID_HOR FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCus.DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + " ORDER BY HORARIOS.ID_HOR; ";
+                                                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                                                adaptador.Fill(dthor);
+                                                idhor = Int32.Parse(dthor.Rows[0]["ID_HOR"].ToString());
+
+                                                query = "SELECT HORARIOS.ID_HOR FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.ID_HOR=" + (idhor + 1).ToString() + " AND HORARIOS.Descripcion LIKE '%SABADO%'";
+                                                adaptador = new SqlDataAdapter(query, conexion.con);
+                                                adaptador.Fill(dthorsab);
+
+                                                if (dthorsab.Rows.Count > 0)
+                                                {
+                                                    idhorsab = Int32.Parse(dthor.Rows[0]["ID_HOR"].ToString()) + 1;
+
+                                                    query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(@hor,@id)";
+                                                    comando = new SqlCommand(query, conexion.con);
+                                                    comando.Parameters.AddWithValue("@id", badgenumber);
+                                                    comando.Parameters.AddWithValue("@hor", idhor);
+                                                    comando.ExecuteNonQuery();
+
+                                                    query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(@hor,@id)";
+                                                    comando = new SqlCommand(query, conexion.con);
+                                                    comando.Parameters.AddWithValue("@id", badgenumber);
+                                                    comando.Parameters.AddWithValue("@hor", idhorsab);
+                                                    comando.ExecuteNonQuery();
+                                                }
+                                                else
+                                                {
+                                                    query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(@hor,@id)";
+                                                    comando = new SqlCommand(query, conexion.con);
+                                                    comando.Parameters.AddWithValue("@id", badgenumber);
+                                                    comando.Parameters.AddWithValue("@hor", idhor);
+                                                    comando.ExecuteNonQuery();
+                                                }
+                                                query = "INSERT INTO movimientos values(" + Program.id + ",'REGISTRO DE EMPLEADO: " + textBoxID.Text + "','" + DateTime.Now + "','" + this.Text + "');";
+                                                comando = new SqlCommand(query, conexion.con);
+                                                comando.ExecuteNonQuery();
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Error al registrar los datos. Consulte al administrador del sistema.");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Error de Comunicación");
+                                        }
+                                       
+                                    }
+                                    else
+                                    {
+                                        if (validacioncurp > 0)
+                                        {
+                                            MessageBox.Show("Se excedio en CURP por " + validacioncurp + " caracteres");
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Faltan " + validacioncurp + " caracteres en CURP");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (validacionnss > 0)
+                                    {
+                                        MessageBox.Show("Se excedio en NSS por " + validacionnss + " caracteres");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Faltan " + validacionnss + " caracteres en NSS");
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                if (validacionrfc > 0)
+                                {
+                                    MessageBox.Show("Se excedio en RFC por " + validacionrfc + " caracteres");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Faltan " + validacionrfc + " caracteres en RFC");
+                                }
+                            }
+                            /*
+                                 query = "INSERT INTO HOREMPLEADO(ID_HOR,BADGENUMBER) VALUES(" + comboBoxHor.SelectedValue.ToString() + "," + textBoxID.Text + ")";
+                                 comando = new SqlCommand(query, conexion.con);
+                                 comando.ExecuteNonQuery();
+                            */
+                            conexion.cerrar();
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Los campos de ID y Nombre son necesarios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ingrese una Fecha de Nacimiento Valida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Los campos de ID y Nombre son necesarios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error:" + ex.Message);
-            }
+            SDK.sta_DisConnect();
         }
 
         private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)

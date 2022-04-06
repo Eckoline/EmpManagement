@@ -46,7 +46,7 @@ namespace EmpManagement
             conexionbd conexion = new conexionbd();
             DataTable dtdiaseven = new DataTable();
             conexion.abrir();
-            string query = "SELECT  ID_EVEN AS ID, DESCRIPCION AS 'Descripción del Evento', GRUPO AS 'Tipo Evento', Color FROM EVENTO ";
+            string query = "SELECT  ID_EVEN AS ID, DESCRIPCION AS 'Descripción del Evento', GRUPO AS 'Tipo Evento', Color, Valor FROM EVENTO ";
             SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
             adaptador.Fill(dtdiaseven);
             conexion.cerrar();
@@ -97,18 +97,19 @@ namespace EmpManagement
                 switch (bandera)
                 {
                     case 1:
-                        string descripcion, grupo, color;
+                        string descripcion, grupo, color,valor;
                         int newrow;
                         newrow = 0;
 
                         descripcion = dataGridViewDatos.Rows[newrow].Cells[1].Value.ToString();
                         grupo = dataGridViewDatos.Rows[newrow].Cells[2].Value.ToString();
                         color = dataGridViewDatos.Rows[newrow].Cells[3].Value.ToString();
+                        valor = dataGridViewDatos.Rows[newrow].Cells[4].Value.ToString();
 
-                        if ((descripcion != "") || (grupo != "") || (color != ""))
+                    if ((descripcion != "") && (grupo != "") && (color != "")&&(valor!=""))
                         {
                             conexion.abrir();
-                            string query = "INSERT INTO EVENTO VALUES('" + descripcion + "','" + grupo + "','" + color + "')";
+                            string query = "INSERT INTO EVENTO VALUES('" + descripcion + "','" + grupo + "','" + color + "',"+valor+")";
                             Debug.WriteLine(query);
                             SqlCommand comando = new SqlCommand(query, conexion.con);
                             comando.ExecuteNonQuery();
@@ -134,7 +135,7 @@ namespace EmpManagement
                             foreach (DataGridViewRow row in dataGridViewDatos.Rows)
                             {
                                 conexion.abrir();
-                                string query = "UPDATE EVENTO SET DESCRIPCION='"+ row.Cells["Descripción del Evento"].Value.ToString() + "', GRUPO='"+ row.Cells["Tipo Evento"].Value.ToString() + "', COLOR='"+ row.Cells["Color"].Value.ToString() + "' WHERE ID_EVEN=" + row.Cells["ID"].Value.ToString();
+                                string query = "UPDATE EVENTO SET DESCRIPCION='"+ row.Cells["Descripción del Evento"].Value.ToString() + "', GRUPO='"+ row.Cells["Tipo Evento"].Value.ToString() + "', COLOR='"+ row.Cells["Color"].Value.ToString() + "', valor="+ row.Cells["Valor"].Value.ToString() + " WHERE ID_EVEN=" + row.Cells["ID"].Value.ToString();
                                 Debug.WriteLine(query);
                                 SqlCommand comando = new SqlCommand(query, conexion.con);
                                 comando.ExecuteNonQuery();

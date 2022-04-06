@@ -21,8 +21,12 @@ namespace EmpManagement
         string query = "";
         private void EstatusEventos_Load(object sender, EventArgs e)
         {
-            guardarToolStripMenuItem.Enabled = false;
-            query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where  evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+            if (Program.usuario == "rhreclu")
+            {
+                eliminarToolStripMenuItem.Enabled = false;
+            }
+           // guardarToolStripMenuItem.Enabled = false;
+            query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where  evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
             Debug.WriteLine(query);
             llenadatos(query);
             cargafiltro();
@@ -44,11 +48,11 @@ namespace EmpManagement
             {
                 if (toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString()=="1")
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
                 }
                 else
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
                 }     
             }
             else
@@ -56,11 +60,11 @@ namespace EmpManagement
                 toolStripTextBoxNom.Text = "";
                 if(toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() == "1")
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where EVENEMP.badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where EVENEMP.badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
                 }
                 else
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where EVENEMP.badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' and userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where EVENEMP.badgenumber LIKE '%" + toolStripTextBoxID.Text + "%' and userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
                 }
                 
             }
@@ -74,11 +78,11 @@ namespace EmpManagement
             {
                 if (toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() == "1")
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
                 }
                 else
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
                 }
             }
             else
@@ -86,11 +90,11 @@ namespace EmpManagement
                 toolStripTextBoxID.Text = "";
                 if (toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() == "1")
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where USERINFOCUS.NAME LIKE '%" + toolStripTextBoxNom.Text + "%' and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where USERINFOCUS.NAME LIKE '%" + toolStripTextBoxNom.Text + "%' COLLATE Modern_Spanish_CI_AI  and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "' ;";
                 }
                 else
                 {
-                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where USERINFOCUS.NAME '%" + toolStripTextBoxNom.Text + "%' and userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                    query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where USERINFOCUS.NAME '%" + toolStripTextBoxNom.Text + "%'  COLLATE Modern_Spanish_CI_AI and userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
                 }
 
             }
@@ -105,11 +109,11 @@ namespace EmpManagement
             toolStripTextBoxID.Text = "";
             if (toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() == "1")
             {
-                query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
             }
             else
             {
-                query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
+                query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento', evenemp.Observaciones from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "';";
             }
             //query = "select EVENEMP.id_even as 'ID Evento', EVENEMP.badgenumber as 'ID', USERINFOCUS.NAME AS 'Nombre', EVENEMP.fecin as 'F. Inicio', EVENEMP.fecfin as 'F. Final', EVENEMP.fecreg 'F. Registro', EVENTO.DESCRIPCION as 'Descripción', EVENTO.GRUPO AS 'Tipo Evento' from (EVENEMP inner join USERINFOCus on EVENEMP.badgenumber=USERINFOCus.Badgenumber)inner join evento on EVENEMP.id_even=evento.id_even where userinfocus.defaultdeptid=" + toolStripComboBoxFiltro.ComboBox.SelectedValue.ToString() + " and evenemp.fecin>='" + dateTimePickerIni.Value.ToString("MM-dd-yyyy") + "' and fecfin<='" + dateTimePickerFin.Value.ToString("MM-dd-yyyy") + "' ;";
             Debug.WriteLine(query);
@@ -149,7 +153,7 @@ namespace EmpManagement
 
         private void actualizarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            guardarToolStripMenuItem.Enabled = true;
+            //guardarToolStripMenuItem.Enabled = true;
         }
 
         private void dataGridViewDatos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -182,7 +186,7 @@ namespace EmpManagement
             if (resultado == DialogResult.OK)
             {
                 conexion.abrir();
-                query = "DELETE FROM EVENEMP where id_even='"+dataGridViewDatos.CurrentRow.Cells[0].Value.ToString()+"',badgenumber='"+ dataGridViewDatos.CurrentRow.Cells[1].Value.ToString() + "',fecin='"+ dataGridViewDatos.CurrentRow.Cells[2].Value.ToString() + "',fecfin='"+ dataGridViewDatos.CurrentRow.Cells[3].Value.ToString() + "',fecreg='"+ dataGridViewDatos.CurrentRow.Cells[4].Value.ToString() + "'";
+                query = "DELETE FROM EVENEMP where id_even='"+dataGridViewDatos.CurrentRow.Cells[0].Value.ToString()+"' and badgenumber='"+ dataGridViewDatos.CurrentRow.Cells[1].Value.ToString() + "' and fecin='"+ DateTime.Parse(dataGridViewDatos.CurrentRow.Cells[3].Value.ToString()).ToString("MM-dd-yyyy") + "' and fecfin='"+ DateTime.Parse(dataGridViewDatos.CurrentRow.Cells[4].Value.ToString()).ToString("MM-dd-yyyy") + "' and fecreg='"+ DateTime.Parse(dataGridViewDatos.CurrentRow.Cells[5].Value.ToString()).ToString("MM-dd-yyyy") + "'";
                 Debug.WriteLine(query);
                 SqlCommand comando = new SqlCommand(query, conexion.con);
                 comando.ExecuteNonQuery();
@@ -204,6 +208,11 @@ namespace EmpManagement
             i=toolStripComboBoxFiltro.SelectedIndex;
             toolStripComboBoxFiltro.SelectedIndex = 1;
             toolStripComboBoxFiltro.SelectedIndex = i;
+
+        }
+
+        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
         }
     }

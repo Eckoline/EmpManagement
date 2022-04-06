@@ -30,64 +30,73 @@ namespace EmpManagement
 
         private void buttonAsig_Click(object sender, EventArgs e)
         {
-
-            string id, nombre, tipoeve, observaciones;
-            string fecin, fecfin;
-            int cuenta;
-            id = dataGridViewDatos.CurrentRow.Cells[0].Value.ToString();
-            nombre = dataGridViewDatos.CurrentRow.Cells[1].Value.ToString();
-            fecin = dateTimePickerFecIn.Value.ToString("MM-dd-yyyy");
-            fecfin = dateTimePickerFecFin.Value.ToString("MM-dd-yyyy");
-            tipoeve = comboBoxTipo.SelectedValue.ToString();
-
-            if (dateTimePickerFecIn.Value < dateTimePickerFecFin.Value)
+            try
             {
-                if (comboBoxTipo.SelectedIndex > 0)
+
+                DialogResult resultado = MessageBox.Show("¿Seguro que desea asignar este evento?", "Asignación Evento", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (resultado == DialogResult.OK)
                 {
-                    if (textBoxObs.Text != "")
+                    string id, nombre, tipoeve, observaciones;
+                    string fecin, fecfin;
+                    int cuenta;
+
+                    nombre = dataGridViewDatos.CurrentRow.Cells[1].Value.ToString();
+                    fecin = dateTimePickerFecIn.Value.ToString("MM-dd-yyyy");
+                    fecfin = dateTimePickerFecFin.Value.ToString("MM-dd-yyyy");
+                    tipoeve = comboBoxTipo.SelectedValue.ToString();
+                    if (DateTime.Parse(dateTimePickerFecFin.Value.ToString("dd-MM-yyyy")) >= DateTime.Parse(dateTimePickerFecIn.Value.ToString("dd-MM-yyyy")))
                     {
-                        DataTable dtEmpValid = new DataTable();
-                        string query = "SELECT * FROM EVENEMP where id_even=" + tipoeve + " and badgenumber='" + id + "' and fecin='" + fecin + "' and fecfin='" + fecfin + "' and fecreg='" + DateTime.Now.ToString("MM-dd-yyyy") + "'";
-                        SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                        adaptador.Fill(dtEmpValid);
-                        cuenta = dtEmpValid.Rows.Count;
-                        if (cuenta > 0)
+                        if (comboBoxTipo.SelectedIndex >= 0)
                         {
-                            MessageBox.Show("Registro repetido.");
+                            Int32 selectedRowCount = dataGridViewDatos.Rows.GetRowCount(DataGridViewElementStates.Selected);
+                            if (selectedRowCount > 0)
+                            {
+                                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                                for (int i = 0; i < selectedRowCount; i++)
+                                {
+                                    //Debug.WriteLine(dataGridViewDatos.Rows[Int32.Parse(dataGridViewDatos.SelectedRows[i].Index.ToString())].Cells[0].Value.ToString());
+                                    id = dataGridViewDatos.Rows[Int32.Parse(dataGridViewDatos.SelectedRows[i].Index.ToString())].Cells[0].Value.ToString();
+                                    DataTable dtEmpValid = new DataTable();
+                                    string query = "SELECT * FROM EVENEMP where id_even=" + tipoeve + " and badgenumber='" + id + "' and fecin='" + fecin + "' and fecfin='" + fecfin + "' and fecreg='" + DateTime.Now.ToString("MM-dd-yyyy") + "'";
+                                    SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                                    adaptador.Fill(dtEmpValid);
+                                    cuenta = dtEmpValid.Rows.Count;
+                                    if (cuenta > 0)
+                                    {
+                                        MessageBox.Show("Registro repetido. Para id: " + id);
+                                    }
+                                    else
+                                    {
+                                        conexion.abrir();
+                                        query = "INSERT INTO EVENEMP(ID_EVEN,BADGENUMBER,FECIN,FECFIN,FECREG,OBSERVACIONES) VALUES(" + tipoeve + "," + id + ",'" + fecin + "','" + fecfin + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "','" + textBoxObs.Text + "')";
+                                        SqlCommand comando = new SqlCommand(query, conexion.con);
+                                        comando.ExecuteNonQuery();
+                                        conexion.cerrar();
+                                        actualizalista();
+                                        dateTimePickerFecFin.Value = DateTime.Now;
+                                        dateTimePickerFecIn.Value = DateTime.Now;
+                                        textBoxObs.Text = "";
+                                        MessageBox.Show("Registro completado con éxito");
+                                    }
+                                }
+                            }
+
                         }
                         else
                         {
-                            conexion.abrir();
-                            query = "INSERT INTO EVENEMP(ID_EVEN,BADGENUMBER,FECIN,FECFIN,FECREG) VALUES(" + tipoeve + "," + id + ",'" + fecin + "','" + fecfin + "','" + DateTime.Now.ToString("MM-dd-yyyy") + "')";
-                            SqlCommand comando = new SqlCommand(query, conexion.con);
-                            comando.ExecuteNonQuery();
-                            conexion.cerrar();
-                            actualizalista();
+                            MessageBox.Show("Seleccione un tipo de evento");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Falta escribir observaciones del evento.");
+                        MessageBox.Show("La fecha de termino no puede ser menor que la de inicio.");
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Seleccione un tipo de evento");
-                }
             }
-            else
-            {
-                MessageBox.Show("La fecha de termino no puede ser menor que la de inicio.");
-            }
-
-          
-            /*
             catch (Exception ex)
             {
                 Console.WriteLine("Error:" + ex.Message);
             }
-            */
-
         }
         public void actualizalista()
         {
@@ -95,7 +104,7 @@ namespace EmpManagement
             {
                 conexion.abrir();
                 DataTable dtEmpEven = new DataTable();
-                string query = "SELECT evenemp.id_even AS 'ID EVENTO',evenemp.badgenumber AS 'ID EMPLEADO',userinfocus.name AS 'NOMBRE',evento.descripcion 'DESCRIPCIÓN EVENTO',evenemp.fecin AS 'FECHA INICIO',evenemp.fecfin AS 'FECHA TERMINO' FROM (userinfocus inner join evenemp on userinfocus.badgenumber=evenemp.badgenumber) INNER JOIN evento on evenemp.id_even=evento.id_even where EVENEMP.FECREG>=CONVERT(DATE,GETDATE());";
+                string query = "SELECT evenemp.id_even AS 'ID EVENTO',evenemp.badgenumber AS 'ID EMPLEADO',userinfocus.name AS 'NOMBRE',evento.descripcion 'DESCRIPCIÓN EVENTO',evenemp.fecin AS 'FECHA INICIO',evenemp.fecfin AS 'FECHA TERMINO',evenemp.OBSERVACIONES FROM (userinfocus inner join evenemp on userinfocus.badgenumber=evenemp.badgenumber) INNER JOIN evento on evenemp.id_even=evento.id_even where EVENEMP.FECREG>=CONVERT(DATE,GETDATE());";
                 SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                 adaptador.Fill(dtEmpEven);
                 dataGridViewLista.DataSource = dtEmpEven;
@@ -110,22 +119,54 @@ namespace EmpManagement
 
         private void VacOIncapacidad_Load(object sender, EventArgs e)
         {
+            cargacomboDep();
             actualizadatos();
             actualizalista();
             cargacombo();
+            toolStripComboBox2.SelectedIndex = 0;
+            this.Cursor = Cursors.Default;
+            //toolStripComboBox1.ComboBox.Cursor = Cursors.Default;
+
         }
 
         public void actualizadatos()
         {
             try
             {
-                DataTable dtEmp = new DataTable();
-                conexion.abrir();
-                string query = "SELECT USERINFOCUS.BADGENUMBER AS ID,USERINFOCUS.NAME AS NOMBRE, USERINFOCUS.PUESTO, DEPARTMENTS.DEPTNAME AS DEPARTAMENTO FROM USERINFOCUS INNER JOIN DEPARTMENTS ON USERINFOCUS.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTID NOT IN (1,32) ORDER BY BADGENUMBER;";
-                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
-                adaptador.Fill(dtEmp);
-                conexion.cerrar();
-                dataGridViewDatos.DataSource = dtEmp;
+                if (toolStripComboBox1.ComboBox.SelectedValue.ToString() == "1")
+                {
+                    DataTable dtEmp = new DataTable();
+                    conexion.abrir();
+                    string query = "SELECT USERINFOCUS.BADGENUMBER AS ID,USERINFOCUS.NAME AS NOMBRE, USERINFOCUS.PUESTO, DEPARTMENTS.DEPTNAME AS DEPARTAMENTO FROM USERINFOCUS INNER JOIN DEPARTMENTS ON USERINFOCUS.DEFAULTDEPTID=DEPARTMENTS.DEPTID WHERE DEPARTMENTS.DEPTID NOT IN (1,32) ORDER BY BADGENUMBER;";
+                    SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                    adaptador.Fill(dtEmp);
+                    conexion.cerrar();
+                    dataGridViewDatos.DataSource = dtEmp;
+                }
+                else
+                {
+                    if (toolStripComboBox2.ComboBox.SelectedIndex == 0)
+                    {
+                        DataTable dtEmp = new DataTable();
+                        conexion.abrir();
+                        string query = "SELECT USERINFOCUS.BADGENUMBER AS ID,USERINFOCUS.NAME AS NOMBRE, USERINFOCUS.PUESTO, DEPARTMENTS.DEPTNAME AS DEPARTAMENTO FROM USERINFOCUS INNER JOIN DEPARTMENTS ON USERINFOCUS.DEFAULTDEPTID=DEPARTMENTS.DEPTID INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE DEPARTMENTS.DEPTID NOT IN (1,32) and DEPARTMENTS.DEPTID=" + toolStripComboBox1.ComboBox.SelectedValue.ToString() + " AND HORARIOS.TIPOHOR=1 ORDER BY USERINFOCUS.Badgenumber;";
+                        SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                        adaptador.Fill(dtEmp);
+                        conexion.cerrar();
+                        dataGridViewDatos.DataSource = dtEmp;
+                    }
+                    else
+                    {
+                        DataTable dtEmp = new DataTable();
+                        conexion.abrir();
+                        string query = "SELECT USERINFOCUS.BADGENUMBER AS ID,USERINFOCUS.NAME AS NOMBRE, USERINFOCUS.PUESTO, DEPARTMENTS.DEPTNAME AS DEPARTAMENTO FROM USERINFOCUS INNER JOIN DEPARTMENTS ON USERINFOCUS.DEFAULTDEPTID=DEPARTMENTS.DEPTID INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE DEPARTMENTS.DEPTID NOT IN (1,32) and DEPARTMENTS.DEPTID=" + toolStripComboBox1.ComboBox.SelectedValue.ToString() + " AND HORARIOS.Descripcion LIKE '%" + toolStripComboBox2.ComboBox.SelectedIndex.ToString() + "%' AND HORARIOS.TIPOHOR=1 ORDER BY USERINFOCUS.Badgenumber;";
+                        SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                        adaptador.Fill(dtEmp);
+                        conexion.cerrar();
+                        dataGridViewDatos.DataSource = dtEmp;
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -147,6 +188,39 @@ namespace EmpManagement
                 comboBoxTipo.DisplayMember = "Descripcion";
                 comboBoxTipo.ValueMember = "id_even";
                 comboBoxTipo.DataSource = dtDesc;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error:" + ex.Message);
+            }
+        }
+
+
+        public void cargacomboDep()
+        {
+            try
+            {
+                DataTable dtDEP = new DataTable();
+                conexion.abrir();
+                string query = "SELECT DEPTID,DEPTNAME FROM DEPARTMENTS WHERE DEPTID NOT IN(32)";
+                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                adaptador.Fill(dtDEP);
+                conexion.cerrar();
+                toolStripComboBox1.ComboBox.DisplayMember = "DEPTNAME";
+                toolStripComboBox1.ComboBox.ValueMember = "DEPTID";
+                toolStripComboBox1.ComboBox.DataSource = dtDEP;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error:" + ex.Message);
+            }
+        }
+
+        public void cargacomboTurno()
+        {
+            try
+            {
+
             }
             catch (Exception ex)
             {
@@ -228,6 +302,30 @@ namespace EmpManagement
                 MessageBox.Show("Registro eliminado con éxito.");
                 actualizalista();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Int32 selectedRowCount =
+            dataGridViewDatos.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            if (selectedRowCount > 0)
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                for (int i = 0; i < selectedRowCount; i++)
+                {
+                    Debug.WriteLine(dataGridViewDatos.Rows[Int32.Parse(dataGridViewDatos.SelectedRows[i].Index.ToString())].Cells[0].Value.ToString());
+                }
+            }
+        }
+
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualizadatos();
+        }
+
+        private void toolStripComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualizadatos();
         }
     }
 }

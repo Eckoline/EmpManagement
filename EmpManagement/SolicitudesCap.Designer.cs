@@ -43,6 +43,8 @@ namespace EmpManagement
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.exportarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rechazarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.terminadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hojaDeAsistenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hojaDeEvaluaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,8 +54,6 @@ namespace EmpManagement
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.rechazarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.terminadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -194,15 +194,29 @@ namespace EmpManagement
             this.rechazarToolStripMenuItem,
             this.terminadaToolStripMenuItem});
             this.exportarToolStripMenuItem.Name = "exportarToolStripMenuItem";
-            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportarToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exportarToolStripMenuItem.Text = "Acciones";
             // 
             // excelToolStripMenuItem
             // 
             this.excelToolStripMenuItem.Name = "excelToolStripMenuItem";
-            this.excelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excelToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.excelToolStripMenuItem.Text = "Aprobar";
             this.excelToolStripMenuItem.Click += new System.EventHandler(this.excelToolStripMenuItem_Click);
+            // 
+            // rechazarToolStripMenuItem
+            // 
+            this.rechazarToolStripMenuItem.Name = "rechazarToolStripMenuItem";
+            this.rechazarToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.rechazarToolStripMenuItem.Text = "Rechazar";
+            this.rechazarToolStripMenuItem.Click += new System.EventHandler(this.rechazarToolStripMenuItem_Click);
+            // 
+            // terminadaToolStripMenuItem
+            // 
+            this.terminadaToolStripMenuItem.Name = "terminadaToolStripMenuItem";
+            this.terminadaToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.terminadaToolStripMenuItem.Text = "Terminada";
+            this.terminadaToolStripMenuItem.Click += new System.EventHandler(this.terminadaToolStripMenuItem_Click);
             // 
             // reportesToolStripMenuItem
             // 
@@ -210,7 +224,7 @@ namespace EmpManagement
             this.hojaDeAsistenciaToolStripMenuItem,
             this.hojaDeEvaluaciónToolStripMenuItem});
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.reportesToolStripMenuItem.Text = "Reportes";
             // 
             // hojaDeAsistenciaToolStripMenuItem
@@ -230,7 +244,7 @@ namespace EmpManagement
             // verAsistentesToolStripMenuItem
             // 
             this.verAsistentesToolStripMenuItem.Name = "verAsistentesToolStripMenuItem";
-            this.verAsistentesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.verAsistentesToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.verAsistentesToolStripMenuItem.Text = "Ver Asistentes";
             this.verAsistentesToolStripMenuItem.Click += new System.EventHandler(this.verAsistentesToolStripMenuItem_Click);
             // 
@@ -247,6 +261,7 @@ namespace EmpManagement
             // 
             // toolStripComboBox1
             // 
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(121, 32);
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
@@ -272,20 +287,6 @@ namespace EmpManagement
             this.label3.TabIndex = 2;
             this.label3.Text = "Capacitaciones";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rechazarToolStripMenuItem
-            // 
-            this.rechazarToolStripMenuItem.Name = "rechazarToolStripMenuItem";
-            this.rechazarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.rechazarToolStripMenuItem.Text = "Rechazar";
-            this.rechazarToolStripMenuItem.Click += new System.EventHandler(this.rechazarToolStripMenuItem_Click);
-            // 
-            // terminadaToolStripMenuItem
-            // 
-            this.terminadaToolStripMenuItem.Name = "terminadaToolStripMenuItem";
-            this.terminadaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.terminadaToolStripMenuItem.Text = "Terminada";
-            this.terminadaToolStripMenuItem.Click += new System.EventHandler(this.terminadaToolStripMenuItem_Click);
             // 
             // SolicitudesCap
             // 

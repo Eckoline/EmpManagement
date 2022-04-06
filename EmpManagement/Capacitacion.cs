@@ -217,7 +217,7 @@ namespace EmpManagement
                 if (resultado == DialogResult.OK)
                 {
 
-                    if ((textBoxInstructor.Text.Equals("")) || (textBoxNomCap.Text.Equals("")) || textBoxDesc.Text.Equals("") || (textBoxHor.Text.Equals("")) || (DateTime.Parse(dateTimePicker2.Value.ToString("dd-MM-yyyy")) < DateTime.Parse(dateTimePicker2.Value.ToString("dd-MM-yyyy"))))
+                    if ((textBoxInstructor.Text.Equals("")) || (textBoxNomCap.Text.Equals("")) || textBoxDesc.Text.Equals("") || (textBoxHor.Text.Equals("")) || (DateTime.Parse(dateTimePicker1.Value.ToString("dd-MM-yyyy")) < DateTime.Parse(dateTimePicker2.Value.ToString("dd-MM-yyyy"))))
                     {
                         Debug.WriteLine(dateTimePicker1.Value.ToString());
                         Debug.WriteLine(dateTimePicker2.Value.ToString());
@@ -258,6 +258,13 @@ namespace EmpManagement
                             comando.ExecuteNonQuery();
                             conexion.cerrar();
                         }
+
+                        conexion.abrir();
+                        query = "INSERT INTO movimientos values(" + Program.id + ",'RESGISTRO CAPACITACIÓN CON EL ID: " + idcap + "','" + DateTime.Now + "','" + this.Text + "');";
+                        comando = new SqlCommand(query, conexion.con);
+                        comando.ExecuteNonQuery();
+                        conexion.cerrar();
+
                         MessageBox.Show("Se ha realizado la solicitud.");
                         // C:\Users\userf\source\repos\EmpManagement\EmpManagement\documentos\gafete.xlsx
                         Excel.Application oXL;

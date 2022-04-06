@@ -136,11 +136,14 @@ namespace EmpManagement
                         query = "DELETE FROM HOREMPLEADO WHERE Badgenumber=" + dataGridViewDatos.CurrentRow.Cells[0].Value.ToString() + "";
                         comando = new SqlCommand(query, conexion.con);
                         comando.ExecuteNonQuery();
+
+
                         query = "SELECT userinfocus.Badgenumber AS ID,Name AS NOMBRE,SSN,CURP,RFC,BIRTHDAY AS 'F. NACIMIENTO',STREET AS CALLE,CITY AS CIUDAD,STATE AS ESTADO,ZIP AS 'CP',OPHONE AS 'TEL',TELEMERGENCIA AS 'TEL. EM.',contactoeme AS 'DESCRIP. TEL. EM.',Gender AS GENERO,ESTADOCIVIL AS 'EST. CIVIL',Title AS ESTUDIOS,PUESTO,DEPARTMENTS.DEPTNAME AS DEPARTAMENTO,HIREDDAY AS 'F. INGRESO.',VEHICULO,CORREO,ROUND((cast(datediff(DD,USERINFOCus.BIRTHDAY,GETDATE()) / 365.25 as float)),1) as EDAD,ROUND((cast(datediff(DD,USERINFOCus.HIREDDAY,GETDATE()) / 365.25 as float)),1) as ANTIGUEDAD  FROM ((USERINFOCus INNER JOIN DEPARTMENTS ON USERINFOCus.DEFAULTDEPTID=DEPARTMENTS.DEPTID)) WHERE USERINFOCUS.DEFAULTDEPTID<>32 ORDER BY USERINFOCUS.Badgenumber;";
                         Debug.WriteLine(query);
                         SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
                         adaptador.Fill(dtEmployees);
                         dataGridViewDatos.DataSource = dtEmployees;
+
                         conexion.cerrar();
                         MessageBox.Show("Empleado dado de baja correctamente.", "Operación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
  
@@ -329,7 +332,7 @@ namespace EmpManagement
             frmactualizar.textBoxTelEme.Text = dataGridViewDatos.CurrentRow.Cells[11].Value.ToString();
             frmactualizar.textBoxDescCon.Text = dataGridViewDatos.CurrentRow.Cells[12].Value.ToString();
             frmactualizar.comboBoxGenero.Text = dataGridViewDatos.CurrentRow.Cells[13].Value.ToString();
-            frmactualizar.comboBoxEstCivil.Text = dataGridViewDatos.CurrentRow.Cells[14].Value.ToString();
+            
             frmactualizar.comboBoxNivelE.Text = dataGridViewDatos.CurrentRow.Cells[15].Value.ToString();
             frmactualizar.labelpuesto.Text = dataGridViewDatos.CurrentRow.Cells[16].Value.ToString();
             frmactualizar.dateTimePickerFechaIngreso.Text = dataGridViewDatos.CurrentRow.Cells[18].Value.ToString();
@@ -341,6 +344,7 @@ namespace EmpManagement
             frmactualizar.Show();
             frmactualizar.comboBoxDep.Text = dataGridViewDatos.CurrentRow.Cells[17].Value.ToString();
             frmactualizar.textBoxCorreo.Text = dataGridViewDatos.CurrentRow.Cells[20].Value.ToString();
+            frmactualizar.comboBoxEstCivil.Text = dataGridViewDatos.CurrentRow.Cells[14].Value.ToString();
             //frmactualizar.comboBoxHor.Text = dataGridViewDatos.CurrentRow.Cells[20].Value.ToString();
         }
 

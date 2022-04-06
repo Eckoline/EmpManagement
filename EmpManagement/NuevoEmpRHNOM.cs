@@ -33,7 +33,7 @@ namespace EmpManagement
                 if (textBoxNombre.Text != "")
                 {
                     DataTable dtIDBad = new DataTable();
-                    query = "SELECT  userinfocus.badgenumber,HOREMPLEADO.ID_HOR from userinfocus inner join HOREMPLEADO on userinfocus.badgenumber=horempleado.badgenumber where userinfocus.badgenumber=" + textBoxID.Text + " and HOREMPLEADO.id_hor IN(10,12,14,16,18,20,22,24)";
+                    query = "SELECT  userinfocus.badgenumber,HOREMPLEADO.ID_HOR from userinfocus inner join HOREMPLEADO on userinfocus.badgenumber=horempleado.badgenumber inner join HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR where userinfocus.badgenumber=" + textBoxID.Text + " AND HORARIOS.TIPOHOR=2";
                     SqlDataAdapter adaptador1 = new SqlDataAdapter(query, conexion.con);
                     adaptador1.Fill(dtIDBad);
                     if ((dtIDBad.Rows.Count > 0)&&(checkBox1.Checked==false))
@@ -47,7 +47,15 @@ namespace EmpManagement
                         puesto = comboBoxPuesto.Text;
                         dep = comboBoxDep.SelectedValue.ToString();
                         horario = comboBoxHor.SelectedValue.ToString();
-                        hor2 = comboBoxHorSab.SelectedValue.ToString();
+                        if (checkBox1.Checked)
+                        {
+                            hor2 = comboBoxHorSab.SelectedValue.ToString();
+                        }
+                        else
+                        {
+                            hor2 = "";
+                        }
+                        
 
                         conexion.abrir();
                         query = "UPDATE USERINFOCUS SET NAME=@nombre,DEFAULTDEPTID=@dep,PUESTO=@puesto WHERE BADGENUMBER=@id";
@@ -58,7 +66,7 @@ namespace EmpManagement
                         comando.Parameters.AddWithValue("@puesto", puesto);
                         comando.ExecuteNonQuery();
                         Debug.WriteLine(horario);
-                        Debug.WriteLine(hor2);
+                       // Debug.WriteLine(hor2);
 
                         if (checkBox1.Checked)
                         {
@@ -178,8 +186,6 @@ namespace EmpManagement
         {
             conexionbd conexion = new conexionbd();
             DataTable dtComboDepts = new DataTable();
-            DataTable dtComboHora = new DataTable();
-            DataTable dtComboHorasab = new DataTable();
             DataTable dtPuesto = new DataTable();
 
             conexion.abrir();
@@ -200,23 +206,6 @@ namespace EmpManagement
             comboBoxPuesto.DataSource = dtPuesto;
             conexion.cerrar();
             comboBoxPuesto.Text = labelpuesto.Text;
-
-
-            conexion.abrir();
-            query = "SELECT ID_HOR,Descripcion FROM HORARIOS WHERE ID_HOR NOT IN(10,12,14,16,18,20,22,24)";
-            SqlDataAdapter adaptador3 = new SqlDataAdapter(query, conexion.con);
-            adaptador3.Fill(dtComboHora);
-            comboBoxHor.DisplayMember = "Descripcion";
-            comboBoxHor.ValueMember = "ID_HOR";
-            comboBoxHor.DataSource = dtComboHora;
-
-            query = "SELECT ID_HOR,Descripcion FROM HORARIOS WHERE ID_HOR IN(10,12,14,16,18,20,22,24)";
-            adaptador = new SqlDataAdapter(query, conexion.con);
-            adaptador.Fill(dtComboHorasab);
-            comboBoxHorSab.DisplayMember = "Descripcion";
-            comboBoxHorSab.ValueMember = "ID_HOR";
-            comboBoxHorSab.DataSource = dtComboHorasab;
-
 
             conexion.cerrar();
             if (opcion == 2)
@@ -240,6 +229,97 @@ namespace EmpManagement
             {
                 comboBoxHorSab.Visible = false;
             }
+        }
+
+        private void comboBoxDep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkBoxMuestra.Checked == false)
+            {
+            DataTable dtComboHora = new DataTable();
+            DataTable dtComboHorasab = new DataTable();
+            conexionbd conexion = new conexionbd();
+            conexion.abrir();
+            string query;
+            if (comboBoxDep.SelectedValue.ToString()=="38")
+            {
+                query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.Descripcion LIKE '%OP.%' AND HORARIOS.tipohor=1  ORDER BY HORARIOS.ID_HOR; ";
+            }
+            else
+            {
+                query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCus.DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + " AND HORARIOS.tipohor=1  ORDER BY HORARIOS.ID_HOR; ";
+            }
+            Debug.WriteLine(query);
+            SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+            adaptador.Fill(dtComboHora);
+            comboBoxHor.DisplayMember = "Descripcion";
+            comboBoxHor.ValueMember = "ID_HOR";
+            comboBoxHor.DataSource = dtComboHora;
+
+            query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCus.DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + "  AND HORARIOS.tipohor=2 ORDER BY HORARIOS.ID_HOR;";
+            adaptador = new SqlDataAdapter(query, conexion.con);
+            adaptador.Fill(dtComboHorasab);
+            comboBoxHorSab.DisplayMember = "Descripcion";
+            comboBoxHorSab.ValueMember = "ID_HOR";
+            comboBoxHorSab.DataSource = dtComboHorasab;
+            }
+        }
+
+        private void checkBoxMuestra_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxMuestra.Checked)
+            {
+                DataTable dtComboHora = new DataTable();
+                DataTable dtComboHorasab = new DataTable();
+                conexionbd conexion = new conexionbd();
+                conexion.abrir();
+                string query;
+                query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion from HORARIOS where HORARIOS.tipohor=1 ORDER BY HORARIOS.ID_HOR;";
+                Debug.WriteLine(query);
+                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                adaptador.Fill(dtComboHora);
+                comboBoxHor.DisplayMember = "Descripcion";
+                comboBoxHor.ValueMember = "ID_HOR";
+                comboBoxHor.DataSource = dtComboHora;
+
+                query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion from HORARIOS where HORARIOS.tipohor=2 ORDER BY HORARIOS.ID_HOR;";
+                adaptador = new SqlDataAdapter(query, conexion.con);
+                adaptador.Fill(dtComboHorasab);
+                comboBoxHorSab.DisplayMember = "Descripcion";
+                comboBoxHorSab.ValueMember = "ID_HOR";
+                comboBoxHorSab.DataSource = dtComboHorasab;
+
+            }
+            else
+            {
+                DataTable dtComboHora = new DataTable();
+                DataTable dtComboHorasab = new DataTable();
+                conexionbd conexion = new conexionbd();
+                conexion.abrir();
+                string query;
+                if (comboBoxDep.SelectedValue.ToString() == "38")
+                {
+                    query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE HORARIOS.Descripcion LIKE '%OP.%' AND HORARIOS.tipohor=1 ORDER BY HORARIOS.ID_HOR; ";
+                }
+                else
+                {
+                    query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCus.DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + " AND HORARIOS.tipohor=1  ORDER BY HORARIOS.ID_HOR; ";
+                }
+                Debug.WriteLine(query);
+                SqlDataAdapter adaptador = new SqlDataAdapter(query, conexion.con);
+                adaptador.Fill(dtComboHora);
+                comboBoxHor.DisplayMember = "Descripcion";
+                comboBoxHor.ValueMember = "ID_HOR";
+                comboBoxHor.DataSource = dtComboHora;
+
+                query = "SELECT distinct HORARIOS.ID_HOR,HORARIOS.Descripcion FROM USERINFOCus INNER JOIN HOREMPLEADO ON USERINFOCus.Badgenumber=HOREMPLEADO.Badgenumber INNER JOIN HORARIOS ON HOREMPLEADO.ID_HOR=HORARIOS.ID_HOR WHERE USERINFOCus.DEFAULTDEPTID=" + comboBoxDep.SelectedValue.ToString() + " AND HORARIOS.tipohor=2  ORDER BY HORARIOS.ID_HOR;";
+                adaptador = new SqlDataAdapter(query, conexion.con);
+                adaptador.Fill(dtComboHorasab);
+                comboBoxHorSab.DisplayMember = "Descripcion";
+                comboBoxHorSab.ValueMember = "ID_HOR";
+                comboBoxHorSab.DataSource = dtComboHorasab;
+
+            }
+
         }
     }
 }

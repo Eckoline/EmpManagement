@@ -54,10 +54,20 @@ namespace EmpManagement
         public DataTable dtT2Mold = new DataTable();
         public DataTable dtT3Mold = new DataTable();
 
-       /* public DataTable dt11 = new DataTable();
-        public DataTable dt22 = new DataTable();
-        public DataTable dt33= new DataTable();
-       */
+
+        public DataTable dtT1Port = new DataTable();
+        public DataTable dtT2Port = new DataTable();
+        public DataTable dtT3Port = new DataTable();
+
+        public DataTable dtT1AuxProd = new DataTable();
+        public DataTable dtT2AuxProd = new DataTable();
+        public DataTable dtT3AuxProd = new DataTable();
+
+
+        /* public DataTable dt11 = new DataTable();
+         public DataTable dt22 = new DataTable();
+         public DataTable dt33= new DataTable();
+        */
 
         public int banderaop = 0;
         public int banderaauxsup = 0;
@@ -66,13 +76,14 @@ namespace EmpManagement
         public int banderaal = 0;
         public int banderaaux = 0;
         public int banderamold = 0;
-
+        public int banderaport = 0;
+        public int banderaauxpro = 0;
         private void RolTurnos_Load(object sender, EventArgs e)
         {
             cargacombo();
             creacolumna();
 
-         
+
             //creacolumnasdatatables();
             banderaop = 0;
             banderaauxsup = 0;
@@ -84,7 +95,7 @@ namespace EmpManagement
             toolStripComboBox1.SelectedIndex = 0;
             this.WindowState = FormWindowState.Maximized;
         }
-       
+
         public void creacolumna()
         {
             DataGridViewCheckBoxColumn check1 = new DataGridViewCheckBoxColumn
@@ -182,6 +193,8 @@ namespace EmpManagement
             toolStripComboBox1.Items.Add("Almacén");
             toolStripComboBox1.Items.Add("Aux. Mantto");
             toolStripComboBox1.Items.Add("Moldes");
+            toolStripComboBox1.Items.Add("Porteros");
+            toolStripComboBox1.Items.Add("Aux. Producción");
         }
 
         public void load(string pagina)
@@ -197,21 +210,19 @@ namespace EmpManagement
                     dataGridViewt2.DataSource = dtT2Op;
                     dataGridViewt3.DataSource = dtT3Op;
 
-                    DataTable dtclonet1=new DataTable();
+                    DataTable dtclonet1 = new DataTable();
                     DataTable dtclonet2 = new DataTable();
                     DataTable dtclonet3 = new DataTable();
 
                     Loadquery(dtclonet1, 1, 38);
                     Loadquery(dtclonet2, 2, 38);
                     Loadquery(dtclonet3, 3, 38);
+
                     dataGridViewt1viejo.DataSource = dtclonet1;
                     dataGridViewt2viejo.DataSource = dtclonet2;
                     dataGridViewt3viejo.DataSource = dtclonet3;
 
-
-       
-
-                    dataGridViewt1.Columns[1].ReadOnly =true;
+                    dataGridViewt1.Columns[1].ReadOnly = true;
                     dataGridViewt2.Columns[1].ReadOnly = true;
                     dataGridViewt3.Columns[1].ReadOnly = true;
 
@@ -230,9 +241,6 @@ namespace EmpManagement
                     dataGridViewt1.Columns[3].ReadOnly = true;
                     dataGridViewt2.Columns[3].ReadOnly = true;
                     dataGridViewt3.Columns[3].ReadOnly = true;
-
-                    
-
                     banderaop = 1;
                     break;
 
@@ -318,6 +326,7 @@ namespace EmpManagement
                     dataGridViewt1viejo.DataSource = dtclonet1;
                     dataGridViewt2viejo.DataSource = dtclonet2;
                     // dataGridViewt3.DataSource = dtT3Alm;
+                    dataGridViewt3viejo.DataSource = null;
 
 
                     banderaal = 1;
@@ -338,7 +347,8 @@ namespace EmpManagement
 
                     dataGridViewt1viejo.DataSource = dtclonet1;
                     dataGridViewt2viejo.DataSource = dtclonet2;
-       
+                    dataGridViewt3viejo.DataSource = null;
+
                     //dataGridViewt3.DataSource = dtT3Aux;
                     banderaaux = 1;
                     break;
@@ -357,8 +367,54 @@ namespace EmpManagement
                     Loadquery(dtclonet2, 8, 10);
                     dataGridViewt1viejo.DataSource = dtclonet1;
                     dataGridViewt2viejo.DataSource = dtclonet2;
+                    dataGridViewt3viejo.DataSource = null;
 
                     banderamold = 1;
+                    break;
+
+                case "Porteros":
+                    //carga mold
+                    Loadquery(dtT1Port, 25, 37);
+                    Loadquery(dtT2Port, 26, 37);
+                    Loadquery(dtT3Port, 27, 37);
+                    dataGridViewt1.DataSource = dtT1Port;
+                    dataGridViewt2.DataSource = dtT2Port;
+                    dataGridViewt3.DataSource = dtT3Port;
+
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    dtclonet3 = new DataTable();
+
+                    Loadquery(dtclonet1, 25, 37);
+                    Loadquery(dtclonet2, 26, 37);
+                    Loadquery(dtclonet3, 27, 37);
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+                    dataGridViewt3viejo.DataSource = dtclonet3;
+
+                    banderaport = 1;
+                    break;
+
+                case "Aux. Producción":
+                    //carga mold
+                    Loadquery(dtT1AuxProd, 28, 26);
+                    Loadquery(dtT2AuxProd, 29, 26);
+                    Loadquery(dtT3AuxProd, 30, 26);
+                    dataGridViewt1.DataSource = dtT1AuxProd;
+                    dataGridViewt2.DataSource = dtT2AuxProd;
+                    dataGridViewt3.DataSource = dtT3AuxProd;
+
+                    dtclonet1 = new DataTable();
+                    dtclonet2 = new DataTable();
+                    dtclonet3 = new DataTable();
+
+                    Loadquery(dtclonet1, 28, 26);
+                    Loadquery(dtclonet2, 29, 26);
+                    Loadquery(dtclonet3, 30, 26);
+                    dataGridViewt1viejo.DataSource = dtclonet1;
+                    dataGridViewt2viejo.DataSource = dtclonet2;
+                    dataGridViewt3viejo.DataSource = dtclonet3;
+                    banderaauxpro = 1;
                     break;
             }
         }
@@ -379,7 +435,7 @@ namespace EmpManagement
             envio(dataGridViewt1, dataGridViewt11);
             labelCantidad1.Text = dataGridViewt11.Rows.Count.ToString();
             selecdeselec();
-          
+
         }
 
         private void buttont2t1_Click(object sender, EventArgs e)
@@ -478,7 +534,7 @@ namespace EmpManagement
                 dg2.Rows.Add(false, row.Cells["ID"].Value, row.Cells["Nombre"].Value);
                 dg1.Rows.Remove(row);
             }
-          
+
         }
 
         //envios t11
@@ -537,7 +593,7 @@ namespace EmpManagement
 
 
         //restablecer todo
-  
+
 
         //Seleccionar todos
         private void checkBoxSel1_CheckedChanged(object sender, EventArgs e)
@@ -619,95 +675,125 @@ namespace EmpManagement
         private void terminarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pagina = toolStripComboBox1.Text;
-       
-                switch (pagina)
-                {
-                    case "Operadoras":
-                        toolStripComboBox1.SelectedIndex = 1;
-                        pagina = toolStripComboBox1.Text;
-                        actualizahor(dataGridViewt11, 1);
-                        actualizahor(dataGridViewt22, 2);
-                        actualizahor(dataGridViewt33, 3);
-                        dataGridViewt11.Rows.Clear();
-                        dataGridViewt22.Rows.Clear();
-                        dataGridViewt33.Rows.Clear();
-                        break;
 
-                    case "Sups y Aux. Sup":
-                        toolStripComboBox1.SelectedIndex = 2;
-                        pagina = toolStripComboBox1.Text;
-                        actualizahor(dataGridViewt11, 4);
-                        actualizahor(dataGridViewt22, 5);
-                        actualizahor(dataGridViewt33, 6);
-                        dataGridViewt11.Rows.Clear();
-                        dataGridViewt22.Rows.Clear();
-                        dataGridViewt33.Rows.Clear();
-                        break;
+            switch (pagina)
+            {
+                case "Operadoras":
+                    toolStripComboBox1.SelectedIndex = 1;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 1);
+                    actualizahor(dataGridViewt22, 2);
+                    actualizahor(dataGridViewt33, 3);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+                    dataGridViewt33.Rows.Clear();
+           
+                    break;
 
-                    case "Molineros":
-                        toolStripComboBox1.SelectedIndex = 3;
-                        pagina = toolStripComboBox1.Text;
-                        actualizahor(dataGridViewt11, 1);
-                        actualizahor(dataGridViewt22, 2);
-                        actualizahor(dataGridViewt33, 3);
-                        dataGridViewt11.Rows.Clear();
-                        dataGridViewt22.Rows.Clear();
-                        dataGridViewt33.Rows.Clear();
-                        break;
+                case "Sups y Aux. Sup":
+                    toolStripComboBox1.SelectedIndex = 2;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 4);
+                    actualizahor(dataGridViewt22, 5);
+                    actualizahor(dataGridViewt33, 6);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+                    dataGridViewt33.Rows.Clear();
+                  
+                    break;
 
-                    case "Auditores Calidad":
-                        toolStripComboBox1.SelectedIndex = 4;
-                        pagina = toolStripComboBox1.Text;
-                        actualizahor(dataGridViewt11, 4);
-                        actualizahor(dataGridViewt22, 5);
-                        actualizahor(dataGridViewt33, 6);
-                        dataGridViewt11.Rows.Clear();
-                        dataGridViewt22.Rows.Clear();
-                        dataGridViewt33.Rows.Clear();
-                        break;
+                case "Molineros":
+                    toolStripComboBox1.SelectedIndex = 3;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 1);
+                    actualizahor(dataGridViewt22, 2);
+                    actualizahor(dataGridViewt33, 3);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+                    dataGridViewt33.Rows.Clear();
+         
+                    break;
 
-                    case "Almacén":
-                        toolStripComboBox1.SelectedIndex = 5;
-                        pagina = toolStripComboBox1.Text;
-                        actualizahor(dataGridViewt11, 7);
-                        actualizahor(dataGridViewt22, 8);
-                        dataGridViewt11.Rows.Clear();
-                        dataGridViewt22.Rows.Clear();
-                        //dataGridViewt33.Rows.Clear();
+                case "Auditores Calidad":
+                    toolStripComboBox1.SelectedIndex = 4;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 4);
+                    actualizahor(dataGridViewt22, 5);
+                    actualizahor(dataGridViewt33, 6);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+                    dataGridViewt33.Rows.Clear();
+               
+                    break;
 
-                        break;
+                case "Almacén":
+                    toolStripComboBox1.SelectedIndex = 5;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 7);
+                    actualizahor(dataGridViewt22, 8);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+             
+                    //dataGridViewt33.Rows.Clear();
 
-                    case "Aux. Mantto":
-                        toolStripComboBox1.SelectedIndex = 6;
-                        pagina = toolStripComboBox1.Text;
-                        actualizahor(dataGridViewt11, 7);
-                        actualizahor(dataGridViewt22, 8);
-                        dataGridViewt11.Rows.Clear();
-                        dataGridViewt22.Rows.Clear();
-                       // dataGridViewt33.Rows.Clear();
-                        break;
+                    break;
 
-                    case "Moldes":
-                        actualizahor(dataGridViewt11, 7);
-                        actualizahor(dataGridViewt22, 8);
-                        dataGridViewt11.Rows.Clear();
-                        dataGridViewt22.Rows.Clear();
-                       // dataGridViewt33.Rows.Clear();
-                        MessageBox.Show("Termino");
-                        break;
-                }
-            
+                case "Aux. Mantto":
+                    toolStripComboBox1.SelectedIndex = 6;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 7);
+                    actualizahor(dataGridViewt22, 8);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+             
+                    // dataGridViewt33.Rows.Clear();
+                    break;
+
+                case "Moldes":
+                    toolStripComboBox1.SelectedIndex = 7;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 7);
+                    actualizahor(dataGridViewt22, 8);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+                  
+                    // dataGridViewt33.Rows.Clear();
+
+                    break;
+                case "Porteros":
+                    toolStripComboBox1.SelectedIndex = 8;
+                    pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 25);
+                    actualizahor(dataGridViewt22, 26);
+                    actualizahor(dataGridViewt33, 27);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+                    dataGridViewt33.Rows.Clear();
+                
+                    break;
+
+                case "Aux. Producción":
+                    //pagina = toolStripComboBox1.Text;
+                    actualizahor(dataGridViewt11, 28);
+                    actualizahor(dataGridViewt22, 29);
+                    actualizahor(dataGridViewt33, 30);
+                    dataGridViewt11.Rows.Clear();
+                    dataGridViewt22.Rows.Clear();
+                    dataGridViewt33.Rows.Clear();
+                    break;
+            }
+
             contador++;
-            if (contador > 6)
+            if (contador > 8)
             {
                 MessageBox.Show("El diseño de Rol ha terminado. El reporte en excel se abrirá en unos momentos.");
-                this.Close();   
+                this.Close();
             }
             else
             {
                 toolStripComboBox1.SelectedIndex = contador;
             }
-            
+
         }
 
         public void actualizahor(DataGridView dg, int idhor)
@@ -742,7 +828,7 @@ namespace EmpManagement
             cantidadcero();
             pagina = toolStripComboBox1.Text;
             load(pagina);
-            MessageBox.Show("Se reestableció correctamente el rol de: " + pagina +". No se realizaron cambios en la Base de Datos.");
+            MessageBox.Show("Se reestableció correctamente el rol de: " + pagina + ". No se realizaron cambios en la Base de Datos.");
         }
         public void cantidadcero()
         {
@@ -766,7 +852,7 @@ namespace EmpManagement
                 //Get a new workbook.
                 oWB = (Excel._Workbook)(oXL.Workbooks.Open(@"C:\Users\userf\source\repos\EmpManagement\EmpManagement\Excel\ROL.xlsx"));
                 oSheet = (Excel._Worksheet)oWB.ActiveSheet;
-    
+
                 //Add table headers going cell by cell.
                 oSheet.Cells[1, 1] = "First Name";
                 oSheet.Cells[1, 2] = "Last Name";
@@ -934,7 +1020,8 @@ namespace EmpManagement
         private void toolStripTextBoxNombre_TextChanged(object sender, EventArgs e)
         {
             toolStripTextBoxID.Text = "";
-            if (toolStripTextBoxID.Text == ""){
+            if (toolStripTextBoxID.Text == "")
+            {
                 BuscarEnDatagrid(dataGridViewt1, "Nombre", toolStripTextBoxNombre.TextBox);
                 BuscarEnDatagrid(dataGridViewt2, "Nombre", toolStripTextBoxNombre.TextBox);
                 BuscarEnDatagrid(dataGridViewt3, "Nombre", toolStripTextBoxNombre.TextBox);
@@ -942,7 +1029,7 @@ namespace EmpManagement
                 BuscarEnDatagrid(dataGridViewt22, "Nombre", toolStripTextBoxNombre.TextBox);
                 BuscarEnDatagrid(dataGridViewt33, "Nombre", toolStripTextBoxNombre.TextBox);
             }
-       
+
         }
 
         public void BuscarEnDatagrid(DataGridView datagrid, string nombre_columna, TextBox textbox)
@@ -954,11 +1041,11 @@ namespace EmpManagement
 
                 if (valor.IndexOf(textbox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    
+
                     datagrid.Rows[fila].DefaultCellStyle.BackColor = Color.SeaGreen;
                     //datagrid.Rows[fila].DefaultCellStyle.BackColor = Color.SeaGreen;
                 }
-                    
+
                 else
                     datagrid.Rows[fila].DefaultCellStyle.BackColor = Color.White;
 

@@ -42,6 +42,12 @@ namespace EmpManagement
                     SqlCommand comando = new SqlCommand(query, conexion.con);
                     comando.Parameters.AddWithValue("@imagen", byteArrayImagen);
                     comando.ExecuteNonQuery();
+
+                    conexion.abrir();
+                    query = "INSERT INTO movimientos values(" + Program.id + ",'ACTUALIZACIÓN MASIVA DE IMAGENES','" + DateTime.Now + "','" + this.Text + "');";
+                    comando = new SqlCommand(query, conexion.con);
+                    comando.ExecuteNonQuery();
+                    conexion.cerrar();
                 }
                 conexion.cerrar();
             }
